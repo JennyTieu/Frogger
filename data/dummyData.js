@@ -2,7 +2,7 @@ import Profile from '../models/profile';
 import Post from '../models/post';
 import Comment from '../models/comment';
 
-export const IDCOUNTERPROFILES = 100;
+export const IDCOUNTERPROFILES = 50;
 export const IDCOUNTERPOSTS = 100;
 export const IDCOUNTERCOMMENTS = 100;
 
@@ -61,8 +61,85 @@ export const PROFILES = [
 ];
 
 export const POSTS = [
-  //new Post(postId, userId, image, text, audio, video, likes, dislikes, commentsAmount, comments),
-  new Post('p1', 'm1', null, 'Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', null, null, 10, 1, 2, ['c1', 'c2'])
+  /*
+  //new Post(postId, userId, image, text, audio, video, upvotes, downvotes, comments),
+  new Post('p1', 'm1', '01.01.2021', null, 'Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', null, null, ['m2', 'm3', 'm4'], ['m5'], ['c1', 'c2']),
+  new Post('p2', 'm2', '02.01.2021',require('../data/images/pexels-abby-chung-1106468.jpg'), null, null, null, ['m1', 'm11', 'm12'], null, ['c3']),
+  new Post('p3', 'm3', '03.01.2021',require('../data/images/pexels-aleksandar-pasaric-2339009.jpg'), null, null, null, ['m14', 'm24', 'm34', 'm44'], ['m50'], ['c4']),
+  new Post('p4', 'm3', '04.01.2021',require('../data/images/pexels-aleksandar-pasaric-2434619.jpg'), null, null, null, ['m14'], [], []),
+  new Post('p6', 'm4', '05.01.2021',require('../data/images/pexels-asad-photo-maldives-3320518.jpg')),
+  new Post('p7', 'm4', '06.01.2021',require('../data/images/pexels-asad-photo-maldives-3320529.jpg')),
+  new Post('p8', 'm5', '07.01.2021',require('../data/images/pexels-l’amourart-9469623.jpg')),
+  new Post('p9', 'm5', '08.01.2021',require('../data/images/pexels-l’amourart-9750556.jpg')),
+  new Post('p10', 'm6', '09.01.2021',require('../data/images/pexels-yaroslav-shuraev-4503502.jpg')),
+  new Post('p11', 'm6', '10.01.2021',require('../data/images/pexels-yaroslav-shuraev-4503505.jpg')),
+  new Post('p12', 'm6', '11.01.2021',require('../data/images/pexels-yaroslav-shuraev-4504016.jpg')),
+  new Post('p13', 'm6', '12.01.2021',require('../data/images/pexels-yaroslav-shuraev-4504091.jpg')),
+  new Post('p14', 'm6', '13.01.2021',require('../data/images/pexels-yaroslav-shuraev-4510402.jpg')),
+  new Post('p15', 'm6', '14.01.2021',require('../data/images/pexels-yaroslav-shuraev-4510992.jpg')),
+  new Post('p16', 'm6', '15.01.2021',require('../data/images/pexels-yaroslav-shuraev-4510993.jpg')),
+  new Post('p17', 'm6', '16.01.2021',require('../data/images/pexels-yaroslav-shuraev-4511158')),
+  new Post('p18', 'm6', '16.01.2021',require('../data/images/pexels-yaroslav-shuraev-4511158')),
+  new Post('p19', 'm7', '17.01.2021',require('../data/images/pexels-alex-azabache-3214995')),
+  new Post('p20', 'm8', '18.01.2021',require('../data/images/pexels-alex-knight-2816903')),
+  new Post('p21', 'm9', '19.01.2021',require('../data/images/pexels-any-lane-5727887')),
+  new Post('p22', 'm10', '20.01.2021',require('../data/images/pexels-artem-beliaikin-929245')),
+  new Post('p23', 'm11', '21.01.2021',require('../data/images/pexels-arthur-brognoli-2260824')),
+  new Post('p24', 'm12', '21.01.2021',require('../data/images/pexels-arthur-brognoli-2260825')),
+  new Post('p25', 'm13', '22.01.2021',require('../data/images/pexels-benjamin-suter-3617452')),
+  new Post('p26', 'm14', '23.01.2021',require('../data/images/pexels-bia-sousa-2036195')),
+  new Post('p27', 'm15', '24.01.2021',require('../data/images/pexels-byrle-gp-7347443')),
+  new Post('p28', 'm16', '25.01.2021',require('../data/images/pexels-chan-walrus-941864')),
+  new Post('p29', 'm17', '26.01.2021',require('../data/images/pexels-chris-f-1283219')),
+  new Post('p30', 'm18', '27.01.2021',require('../data/images/pexels-collis-3056059')),
+  new Post('p31', 'm19', '28.01.2021',require('../data/images/pexels-daria-shevtsova-709838')),
+  new Post('p32', 'm20', '29.01.2021',require('../data/images/pexels-dark-siren-2307303')),
+  new Post('p33', 'm21', '30.01.2021',require('../data/images/pexels-dimitriss-1441932')),
+  new Post('p34', 'm22', '31.01.2021',require('../data/images/pexels-dmitry-zvolskiy-2386148')),
+  new Post('p35', 'm23', '01.02.2021',require('../data/images/pexels-elina-fairytale-3810968')),
+  new Post('p36', 'm24', '02.02.2021',require('../data/images/pexels-enrique-hoyos-2887579')),
+  new Post('p37', 'm25', '03.02.2021',require('../data/images/pexels-henry-&-co-1151243')),
+  new Post('p38', 'm25', '04.02.2021',require('../data/images/pexels-henry-&-co-1233648')),
+  new Post('p39', 'm26', '05.02.2021',require('../data/images/pexels-ion-ceban-ionelceban-2581022')),
+  new Post('p40', 'm27', '06.02.2021',require('../data/images/pexels-isabella-mendes-340996')),
+  new Post('p41', 'm28', '07.02.2021',require('../data/images/pexels-ivo-rainha-1261180')),
+  new Post('p42', 'm29', '08.02.2021',require('../data/images/pexels-jess-loiterton-4319752')),
+  new Post('p43', 'm29', '09.02.2021',require('../data/images/pexels-jess-loiterton-4321924')),
+  new Post('p44', 'm30', '10.02.2021',require('../data/images/pexels-joellen-moths-3450124')),
+  new Post('p45', 'm31', '11.02.2021',require('../data/images/pexels-kaique-rocha-331990')),
+  new Post('p46', 'm32', '12.02.2021',require('../data/images/pexels-kamaji-ogino-5067474')),
+  new Post('p47', 'm33', '13.02.2021',require('../data/images/pexels-leo-arslan-9823002')),
+  new Post('p48', 'm34', '14.02.2021',require('../data/images/pexels-lopsan-2191013')),
+  new Post('p49', 'm35', '15.02.2021',require('../data/images/pexels-marián-šicko-4243188')),
+  new Post('p50', 'm36', '16.02.2021',require('../data/images/pexels-mark-stebnicki-2255920')),
+  new Post('p51', 'm37', '17.02.2021',require('../data/images/pexels-marta-siedlecka-440182')),
+  new Post('p52', 'm38', '18.02.2021',require('../data/images/pexels-max-avans-5101752')),
+  new Post('p53', 'm39', '19.02.2021',require('../data/images/pexels-mateusz-turbiński-2611495')),
+  new Post('p54', 'm40', '20.02.2021',require('../data/images/pexels-michael-block-3225521')),
+  new Post('p55', 'm41', '21.02.2021',require('../data/images/pexels-mikhail-nilov-7681681')),
+  new Post('p56', 'm42', '22.02.2021',require('../data/images/pexels-mohan-reddy-3780132')),
+  new Post('p57', 'm43', '23.02.2021',require('../data/images/pexels-monstera-5634616')),
+  new Post('p58', 'm44', '24.02.2021',require('../data/images/pexels-murat-esibatir-4355863')),
+  new Post('p59', 'm45', '25.02.2021',require('../data/images/pexels-musa-ortaç-3329106')),
+  new Post('p60', 'm46', '26.02.2021',require('../data/images/pexels-neosiam-618491')),
+  new Post('p61', 'm47', '27.02.2021',require('../data/images/pexels-oleksandr-sapaiev-3664342')),
+  new Post('p62', 'm48', '28.02.2021',require('../data/images/pexels-olya-kobruseva-7887816')),
+  new Post('p63', 'm49', '01.03.2021',require('../data/images/pexels-paula-179959')),
+  new Post('p64', 'm50', '02.03.2021',require('../data/images/pexels-percival-ian-muico-2835547')),
+  new Post('p65', 'm1', '03.03.2021',require('../data/images/pexels-pierre-blaché-3105066')),
+  new Post('p66', 'm2', '04.03.2021',require('../data/images/pexels-pixabay-531446')),
+  new Post('p67', 'm7', '05.03.2021',require('../data/images/pexels-polina-zimmerman-3747542')),
+  new Post('p68', 'm8', '06.03.2021',require('../data/images/pexels-rachel-claire-6752438')),
+  new Post('p69', 'm9', '07.03.2021',require('../data/images/pexels-robi-pastores-3714786')),
+  new Post('p70', 'm10', '08.03.2021',require('../data/images/pexels-rok-romih-3312679')),
+  new Post('p71', 'm11', '09.03.2021',require('../data/images/pexels-ron-lach-8387834')),
+  new Post('p72', 'm12', '10.03.2021',require('../data/images/pexels-ryan-millier-3228675')),
+  new Post('p73', 'm13', '11.03.2021',require('../data/images/pexels-satoshi-hirayama-793432')),
+  new Post('p74', 'm14', '12.03.2021',require('../data/images/pexels-sergio-souza-2249602')),
+  new Post('p75', 'm15', '13.03.2021',require('../data/images/pexels-sergio-souza-2260848')),
+  new Post('p76', 'm16', '14.03.2021',require('../data/images/pexels-symeon-ekizoglou-2880755')),
+  new Post('p77', 'm17', '15.03.2021',require('../data/images/pexels-taryn-elliott-3889865')),
+  */
 ]
 
 export const COMMENTS = [

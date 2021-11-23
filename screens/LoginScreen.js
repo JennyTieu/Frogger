@@ -1,8 +1,6 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
 import {View, StyleSheet, Button, Text, TextInput} from "react-native";
 import {ProfileContext} from '../data/Context';
-import MainNavigator from '../navigation/MainNavigator';
 
 export default LoginScreen = ({navigation}) => {
 

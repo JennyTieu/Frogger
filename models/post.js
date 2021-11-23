@@ -1,14 +1,14 @@
 class Post {
-  constructor(postId, userId, image, text, audio, video, upvoteAmount, downvoteAmount, commentsAmount, commentIds){
+  constructor(postId, userId, date, image, text, audio, video, upvotes, downvotes, commentIds){
       this.postId = postId;
       this.userId = userId;
+      this.date = date;
       this.image = image;
       this.text = text;
       this.audio = audio;
       this.video = video;
-      this.upvoteAmount = upvoteAmount;
-      this.downvoteAmount = downvoteAmount;
-      this.commentsAmount = commentsAmount;
+      this.upvotes = upvotes;
+      this.downvotes = downvotes;
       this.commentIds = commentIds
   }
 }
