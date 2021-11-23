@@ -1,9 +1,9 @@
 import React, {useContext, useState} from 'react';
 import {View, Text, FlatList, StyleSheet} from "react-native";
-import {ProfileContext} from '../data/Context';
+import {Context} from '../data/Context';
 
 export default HomeScreen = () => {
-  const [profileData] = useContext(ProfileContext);
+  const [profileData] = useContext(Context);
   const ids =profileData.profiles.filter(item => item.id);
 
   const renderItem = ({ item }) => (

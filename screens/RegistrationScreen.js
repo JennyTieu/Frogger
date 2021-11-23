@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from "react-native";
-import {ProfileContext} from '../data/Context';
+import {Context} from '../data/Context';
 
 export default HomeScreen = () => {
   return(

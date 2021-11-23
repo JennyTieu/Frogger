@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import {View, StyleSheet, Button, Text, TextInput} from "react-native";
-import {ProfileContext} from '../data/Context';
+import {Context} from '../data/Context';
 
 export default LoginScreen = ({navigation}) => {
 
-  const [profileData] = useContext(ProfileContext);
+  const [profileData] = useContext(Context);
   const [currentInput, setCurrentInput] = useState("");
 
   const changeTextHandler = (enteredText) => {
