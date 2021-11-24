@@ -5,10 +5,37 @@ import {Context} from '../data/Context';
 export default LoginScreen = ({navigation}) => {
 
   const [profileData] = useContext(Context);
-  const [currentInput, setCurrentInput] = useState("");
+  const [currentInputLogin, setCurrentInputLogin] = useState("");
+  const [currentInputPassword, setCurrentInputPassword] = useState("");
+  const emails = profileData.profiles.filter(item => item.email);
+  const passwords = profileData.profiles.filter(item => item.password);
+  const [failMessage, setFailMessage] = useState("");
 
-  const changeTextHandler = (enteredText) => {
-    setCurrentInput(enteredText);
+  const changeTextHandlerEmail = (enteredText) => {
+    setFailMessage("")
+    setCurrentInputLogin(enteredText);
+  };
+
+  const changeTextHandlerPassword = (enteredText) => {
+    setFailMessage("")
+    setCurrentInputPassword(enteredText);
+  };
+
+  const loginHandler = () => {
+    for (let i = 0; i < emails.length; i++) {
+      for (let j = 0; j < passwords.length; j++) {
+        if (currentInputLogin == emails[i].email) {
+          if (passwords[j].password == currentInputPassword) {
+            navigation.navigate('MainNavigator')
+          } else {
+            setCurrentInputPassword('')
+            setFailMessage("Wrong Password")
+          }
+        } else {
+          setFailMessage("please insert email/password")
+        }
+      }
+    }
   };
 
   return (
@@ -20,26 +47,31 @@ export default LoginScreen = ({navigation}) => {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          onChangeText={changeTextHandler}
-          value={currentInput}
+          onChangeText={changeTextHandlerEmail}
+          value={currentInputLogin}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
-          onChangeText={changeTextHandler}
-          value={currentInput}
+          onChangeText={changeTextHandlerPassword}
+          value={currentInputPassword}
+          secureTextEntry={true}
         />
       </View>
       <View style={styles.bottomContainer}>
         <Button
           title="Login"
-          onPress={() => navigation.replace('MainNavigator')}
-
+          onPress = {loginHandler}
         />
         <Button
           title="Registration"
           onPress={() => navigation.navigate('Registration')}
         />
+        <Button
+          title="HomeScreen"
+          onPress={() => navigation.navigate('MainNavigator')}
+        />
+        <Text>{failMessage}</Text>
       </View>
     </View>
   );
