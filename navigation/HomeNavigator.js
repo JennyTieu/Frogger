@@ -14,7 +14,7 @@ export default HomeNavigator = () => {
         color: "black"
       }
     }}>
-    <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+    <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
       
     </HomeStack.Navigator>
   );

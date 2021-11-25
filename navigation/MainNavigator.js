@@ -25,12 +25,7 @@ export default MainNavigator = () => {
           
       return <Ionicons name={iconName} size={size} color={color} />;
       },
-      headerShown: false
     })}
-      tabBarOptions={{
-        activeTintColor: "black",
-        inactiveTintColor: 'grey',
-      }}
     >
       <Tab.Screen name ="Home" component={HomeNavigator}/>
       <Tab.Screen name ="Trending" component={HomeScreen}/>
