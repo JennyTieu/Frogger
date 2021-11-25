@@ -124,7 +124,7 @@ export default function App({ navigation }) {
               />
             ) : (
               // User is signed in
-              <Stack.Screen name="Home" component={MainNavigator} />
+              <Stack.Screen name="MainNavigator" component={MainNavigator} options={{headerShown: false}}/>
             )}
           </Stack.Navigator>
         </NavigationContainer>

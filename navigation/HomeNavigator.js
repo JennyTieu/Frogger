@@ -12,10 +12,9 @@ export default HomeNavigator = () => {
         fontSize: 32,
         fontWeight: 'bold',
         color: "black"
-        
       }
     }}>
-      <HomeStack.Screen name="Home" component={HomeScreen} />
+    <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       
     </HomeStack.Navigator>
   );

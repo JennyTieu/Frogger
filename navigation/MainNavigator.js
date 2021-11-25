@@ -2,6 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Ionicons} from '@expo/vector-icons';
 import HomeNavigator from "../navigation/HomeNavigator";
+import HomeScreen from '../screens/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,7 @@ export default MainNavigator = () => {
           
       return <Ionicons name={iconName} size={size} color={color} />;
       },
+      headerShown: false
     })}
       tabBarOptions={{
         activeTintColor: "black",
@@ -31,9 +33,9 @@ export default MainNavigator = () => {
       }}
     >
       <Tab.Screen name ="Home" component={HomeNavigator}/>
-      <Tab.Screen name ="Trending" component={HomeNavigator}/>
-      <Tab.Screen name ="Profile" component={HomeNavigator}/>
-      <Tab.Screen name ="Settings" component={HomeNavigator}/>
+      <Tab.Screen name ="Trending" component={HomeScreen}/>
+      <Tab.Screen name ="Profile" component={HomeScreen}/>
+      <Tab.Screen name ="Settings" component={HomeScreen}/>
     </Tab.Navigator>
   );
 };
