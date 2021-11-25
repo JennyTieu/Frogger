@@ -7,7 +7,6 @@ import MainNavigator from './navigation/MainNavigator';
 import LoginScreen from './screens/LoginScreen';
 import {Context} from './data/Context';
 import{ PROFILES, IDCOUNTERPROFILES, COMMENTS, IDCOUNTERCOMMENTS, POSTS, IDCOUNTERPOSTS} from './data/dummyData';
-import RegistrationScreen from './screens/RegistrationScreen';
 
 function SplashScreen() {
   return (
