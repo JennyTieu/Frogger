@@ -1,8 +1,10 @@
 import React, {useContext, useState} from 'react';
-import {View, Text, FlatList, StyleSheet} from "react-native";
+import {View, Text, FlatList, StyleSheet, Button} from "react-native";
 import {Context} from '../data/Context';
+import {AuthContext} from '../data/AuthContext';
 
 export default HomeScreen = () => {
+  const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
   const ids =profileData.profiles.filter(item => item.id);
 
@@ -18,11 +20,17 @@ export default HomeScreen = () => {
 
   return(
     <View>
-      <Text>HomeScreen</Text>
-      <FlatList
+      <View>
+        <Text>HomeScreen</Text>
+        <Text>Signed in!</Text>
+        <Button title="Sign out" onPress={signOut} />
+      </View>
+      <View>
+        <FlatList
         data={ids}
         renderItem={renderItem}
-      />
+        />
+      </View>
     </View>
   );
 }
