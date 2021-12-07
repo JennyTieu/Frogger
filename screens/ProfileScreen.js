@@ -4,21 +4,17 @@ import { AuthContext } from '../data/AuthContext';
 import {Context} from '../data/Context';
 import PostTileList from '../components/PostTileList';
 
-export default ProfileScreen = () => {
+export default ProfileScreen = (navigation) => {
   const [profileData] = useContext(Context);
   //hab als Bsp einfach user m1 genommen
   const persId = profileData.profiles[0].id
-  const posts = profileData.posts.filter(item => item.userId == persId);
+  const posts = profileData.posts.filter(item => item.userId == "m1");
 
 
   console.log(posts)
   return(
-    <View>
-      <Text>Profile</Text>
-      <Text>Own posts!</Text>
-      <View style = {styles.container}>
-        <PostTileList listData ={posts} />
-      </View>
+    <View style={styles.container}>
+      <PostTileList listData ={posts} navigation={navigation}/>
     </View>
   );
 
