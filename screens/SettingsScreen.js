@@ -13,12 +13,14 @@ export default SettingsScreen = () => {
   return(
     <View style={styles.screenContainer}>
       <View style={styles.topContainer}>
-        <Text>SettingsScreen</Text>
         <Text>Signed in!</Text>
       </View>
       <View style={styles.middleContainer}>
-        <Button title="Design "type="clear" icon={<Ionicons name="md-color-palette" size={28}/>} onPress={signOut}/>
-        <Button title="Sign out" type="clear" icon={<Ionicons name="md-exit-outline" size={28}/>} onPress={signOut}/>
+        <Button title="Design" buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signOut}/>
+        <Button title="Account" buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10}}/>} onPress={signOut}/>
+        <Button title="Info" buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-information-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signOut}/>
+        <Button title="Help" buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-help-buoy-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signOut}/>
+        <Button title="Sign out" buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-exit-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signOut}/>
       </View>
       <View style={styles.bottomContainer}>
         
@@ -36,7 +38,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   middleContainer: {
-    flex: 3
+    flex: 3,
+    justifyContent: "space-evenly",
+    marginLeft: 20
   },
   bottomContainer: {
     flex: 1
