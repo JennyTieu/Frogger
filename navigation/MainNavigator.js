@@ -4,6 +4,7 @@ import {Ionicons} from '@expo/vector-icons';
 import HomeNavigator from "../navigation/HomeNavigator";
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +31,7 @@ export default MainNavigator = () => {
     >
       <Tab.Screen name ="Home" component={HomeNavigator} options={{headerShown: false}}/>
       <Tab.Screen name ="Trending" component={HomeScreen}/>
-      <Tab.Screen name ="Profile" component={HomeScreen}/>
+      <Tab.Screen name ="Profile" component={ProfileScreen}/>
       <Tab.Screen name ="Settings" component={SettingsScreen}/>
     </Tab.Navigator>
   );
