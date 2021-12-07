@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     leftContainer:{
-        
+        width:'15%'
     },
     mainContainer:{
         width:'85%',
