@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet, View, FlatList} from 'react-native';
-import PostTile from "./PostTile";
+import PostTile from './PostTile'
 
 export default PostTileList =(props) =>{
     return(
@@ -11,12 +11,20 @@ export default PostTileList =(props) =>{
                 renderItem={(itemData)=>{
                     return(
                         <PostTile
-                            PostId ={itemData.item.postId}
+                            postId ={itemData.item.postId}
                             userId ={itemData.item.userId}
-                            
+                            date = {itemData.item.date}
+                            image= {itemData.item.image}
+                            text= {itemData.item.text}
+                            audio= {itemData.item.audio}
+                            video= {itemData.item.video}
+                            upvotes= {itemData.item.upvotes}
+                            commentIds= {itemData.item.commentIds}
                         />
                     )
                 }}
+                style={{width: '100%'}}
+                contentContainerStyle={{allignItems: 'center', padding:10}}
             />
         </View>
     );

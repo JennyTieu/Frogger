@@ -28,7 +28,7 @@ export default MainNavigator = () => {
       },
     })}
     >
-      <Tab.Screen name ="Home" component={HomeNavigator}/>
+      <Tab.Screen name ="Home" component={HomeNavigator} options={{headerShown: false}}/>
       <Tab.Screen name ="Trending" component={HomeScreen}/>
       <Tab.Screen name ="Profile" component={HomeScreen}/>
       <Tab.Screen name ="Settings" component={SettingsScreen}/>

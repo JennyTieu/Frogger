@@ -1,34 +1,36 @@
-import React, {useContext, useState} from 'react';
-import {View, Text, FlatList, StyleSheet, Button} from "react-native";
+import React, {useLayoutEffect, useContext, useState} from 'react';
+import {View, Text, FlatList, StyleSheet} from "react-native";
 import {Context} from '../data/Context';
 import {AuthContext} from '../data/AuthContext';
+import {Button} from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
+import PostTileList from '../components/PostTileList';
 
-export default HomeScreen = () => {
+
+export default HomeScreen = ({navigation}) => {
+
+  useLayoutEffect(()=> {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button 
+          type="clear" 
+          icon={<Ionicons 
+            name="search" 
+            size={30} 
+            color='black'/>} 
+          onPress={() => {}}
+        />)
+    });
+  },[navigation]);
+
   const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
-  const ids =profileData.profiles.filter(item => item.id);
+  const posts =profileData.posts;
 
-  const renderItem = ({ item }) => (
-    <Item id={item.id} />
-  );
-
-  const Item = ({ id }) => (
-    <View style={styles.item}>
-      <Text style={styles.id}>{id}</Text>
-    </View>
-  );
 
   return(
-    <View>
-      <View>
-        
-      </View>
-      <View>
-        <FlatList
-        data={ids}
-        renderItem={renderItem}
-        />
-      </View>
+    <View style={styles.container}>
+      <PostTileList listData ={posts} navigation={navigation}/>
     </View>
   );
 }
