@@ -7,7 +7,7 @@ export default PostTileList =(props) =>{
         <View style={{flex:1}}>
             <FlatList
                 data={props.listData}
-                keyExtractor={(item, index) => item.id}
+                keyExtractor={(item, index) => item.postId}
                 renderItem={(itemData)=>{
                     return(
                         <PostTile
