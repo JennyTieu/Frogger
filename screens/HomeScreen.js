@@ -25,7 +25,8 @@ export default HomeScreen = ({navigation}) => {
 
   const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
-  const posts =profileData.posts;
+  const [accountData] = profileData.profiles.filter(item => item.id === "m1");
+  const posts = profileData.posts.filter(item => accountData.follows.includes(item.userId));
 
 
   return(

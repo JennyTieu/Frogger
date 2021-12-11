@@ -15,7 +15,7 @@ export default PostTile =(props) =>{
     return(
         <View style={styles.itemContainer}>
             <View style={styles.leftContainer}>
-                <Image style={styles.profileImage} source={{uri: userData.image}}/>
+                <Image style={styles.profileImage} source={userData.image}/>
             </View>
             
             <View style={styles.mainContainer}>
