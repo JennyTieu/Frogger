@@ -3,17 +3,29 @@ import React,{useContext,useState} from "react";
 import {StyleSheet, View, Text, FlatList,Image, TouchableOpacity} from 'react-native';
 import { Button } from "react-native-elements";
 import { Context } from "../data/Context";
+import OptionsMenu from "react-native-option-menu";
+import MenuDropdown from "./MenuDropdown";
 
 
 export default PostTile =(props) =>{
 
     const [profileData,setProfileData] = useContext(Context);
     const id='m1'
+    const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
     const [userData] = profileData.profiles.filter(item => item.id === props.userId);
 
     const likedIcon = props.upvotes.includes(id) ? 'heart':'heart-outline';
     const markedIcon = 'bookmark-outline';
+    const isFollowed = loggedUser.follows.includes(props.userId);
 
+    const onDelete =(postId)=>{
+        console.log("Delete "+postId);
+    };
+
+    const onFollow =(userId)=>{
+        console.log(userId);
+    };
+    
     const onClick = (pickedUserId) => {
         if(pickedUserId!== id){
             console.log("Navigate to User Profile "+pickedUserId);
@@ -120,19 +132,9 @@ export default PostTile =(props) =>{
                                 }
                             />  
                         </View>
+                        
                         <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={() => {}}
-                                type='clear'
-                                icon={
-                                    <MaterialIcons
-                                        name='more-vert'
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
+                            <MenuDropdown data={props}  onDelete={()=>{onDelete(props.postId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>
                         </View>
                     </View>
                 </View>
@@ -205,18 +207,7 @@ export default PostTile =(props) =>{
                             />  
                         </View>
                         <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={() => {}}
-                                type='clear'
-                                icon={
-                                    <MaterialIcons
-                                        name='more-vert'
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
+                            <MenuDropdown data={props}  onDelete={()=>{onDelete(props.postId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>   
                         </View>
                     </View>
                 </View>
