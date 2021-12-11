@@ -16,7 +16,7 @@ export default PostTile =(props) =>{
 
     const onClick = (pickedUserId) => {
         if(pickedUserId!== id){
-            console.log("Navigate to User Profile"+pickedUserId);
+            console.log("Navigate to User Profile "+pickedUserId);
         }
         
     };
