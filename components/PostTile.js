@@ -3,17 +3,53 @@ import React,{useContext,useState} from "react";
 import {StyleSheet, View, Text, FlatList,Image, TouchableOpacity} from 'react-native';
 import { Button } from "react-native-elements";
 import { Context } from "../data/Context";
+import OptionsMenu from "react-native-option-menu";
+import MenuDropdown from "./MenuDropdown";
 
 
 export default PostTile =(props) =>{
 
     const [profileData,setProfileData] = useContext(Context);
     const id='m1'
+    const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
     const [userData] = profileData.profiles.filter(item => item.id === props.userId);
 
     const likedIcon = props.upvotes.includes(id) ? 'heart':'heart-outline';
     const markedIcon = 'bookmark-outline';
+    const isFollowed = loggedUser.follows.includes(props.userId);
 
+    const onDelete =(postId)=>{
+        console.log("Delete "+postId);
+    };
+
+    const onFollow =(userId)=>{
+        let itemToChange = profileData.profiles.find(profileItem => profileItem.id === id);
+        if (loggedUser.follows.includes(userId)){
+            itemToChange.follows.splice(itemToChange.follows.indexOf(userId),1);
+
+            setProfileData(profileData =>({
+                profiles: profileData.profiles.map(profile => profile.id === id? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }else{
+            itemToChange.follows.push(userId);
+
+            setProfileData(profileData =>({
+                profiles: profileData.profiles.map(profile => profile.id === id? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }
+        
+    };
+    
     const onClick = (pickedUserId) => {
         if(pickedUserId!== id){
             console.log("Navigate to User Profile "+pickedUserId);
@@ -28,7 +64,7 @@ export default PostTile =(props) =>{
     const onLike =(pickedPostId) =>{
         let itemToChange =  profileData.posts.find(postItem => postItem.postId === pickedPostId);
         if(props.upvotes.includes(id)){
-            itemToChange.upvotes.splice(id);
+            itemToChange.upvotes.splice(itemToChange.upvotes.indexOf(id),1);
 
             setProfileData(profileData => ({
                 profiles: profileData.profiles,
@@ -120,19 +156,9 @@ export default PostTile =(props) =>{
                                 }
                             />  
                         </View>
+                        
                         <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={() => {}}
-                                type='clear'
-                                icon={
-                                    <MaterialIcons
-                                        name='more-vert'
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
+                            <MenuDropdown data={props}  onDelete={()=>{onDelete(props.postId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>
                         </View>
                     </View>
                 </View>
@@ -205,18 +231,7 @@ export default PostTile =(props) =>{
                             />  
                         </View>
                         <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={() => {}}
-                                type='clear'
-                                icon={
-                                    <MaterialIcons
-                                        name='more-vert'
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
+                            <MenuDropdown data={props}  onDelete={()=>{onDelete(props.postId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>   
                         </View>
                     </View>
                 </View>
