@@ -7,9 +7,18 @@ import { Context } from "../data/Context";
 export default ProfileTile = (props) => {
     const [profileData] = useContext(Context);
     const id = 'm1'
-    //const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
     const [userData] = profileData.profiles.filter(item => item.id === id);
-console.log(userData)
+
+    function followerCount(profileData){
+        var followers = 0
+        for (let index =0; index <profileData.profiles.length; index++){
+            const profile = profileData.profiles[index];
+            if (profile.follows.includes(id)){
+                followers++;
+            }
+        }
+        return followers
+    }
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.mainContainer}>
@@ -37,7 +46,8 @@ console.log(userData)
                     <Text style={{ fontSize: 16, color: 'gray'}}>{userData.job} in</Text>
                     <Text style={{ fontSize: 16, color: 'black', paddingLeft:5, paddingRight: 5 }}>{userData.country}</Text>
                     <Text style={{ fontSize: 16, color: 'black', paddingRight: 5 }}>{userData.bio}</Text>
-                    <Text style={{ fontWeight:'bold', fontSize: 15, color:'black', paddingRight: 5 }}>You follow {userData.follows.length}</Text>
+                    <Text style={{ fontWeight:'bold', fontSize: 15, color:'black', paddingRight: 5 }}>{userData.follows.length} Follows </Text>
+                    <Text style={{ fontWeight:'bold', fontSize: 15, color:'black', paddingRight: 5 }}>{followerCount(profileData)} Follower</Text>
                 </View >
 
 

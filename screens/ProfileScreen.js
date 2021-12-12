@@ -12,7 +12,7 @@ export default ProfileScreen = (navigation) => {
   //hab als Bsp einfach user m1 genommen
   const persId = profileData.profiles[0].id
   const posts = profileData.posts.filter(item => item.userId == persId);
-  const persData = personData.profiles.filter(item => item.id === persId);
+  //const persData = personData.profiles.filter(item => item.id === persId);
 
   const sortedPosts = posts.sort(function (a, b) {
     var dateA = new Moment(a.date),
@@ -23,7 +23,7 @@ export default ProfileScreen = (navigation) => {
   return (
     <View style ={styles.itemContainer}>
       <View style={styles.topCont}>
-        <ProfileTile data={persData} navigation={navigation} />
+        <ProfileTile data={personData} navigation={navigation} />
       </View>
       <View style={styles.bottomCont}>
         <Text style={{ fontWeight:'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Your Posts </Text>
