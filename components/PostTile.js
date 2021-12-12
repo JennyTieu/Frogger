@@ -23,7 +23,31 @@ export default PostTile =(props) =>{
     };
 
     const onFollow =(userId)=>{
-        console.log(userId);
+        let itemToChange = profileData.profiles.find(profileItem => profileItem.id === id);
+        if (loggedUser.follows.includes(userId)){
+            itemToChange.follows.splice(itemToChange.follows.indexOf(userId),1);
+
+            setProfileData(profileData =>({
+                profiles: profileData.profiles.map(profile => profile.id === id? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }else{
+            itemToChange.follows.push(userId);
+
+            setProfileData(profileData =>({
+                profiles: profileData.profiles.map(profile => profile.id === id? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }
+        
     };
     
     const onClick = (pickedUserId) => {
@@ -40,7 +64,7 @@ export default PostTile =(props) =>{
     const onLike =(pickedPostId) =>{
         let itemToChange =  profileData.posts.find(postItem => postItem.postId === pickedPostId);
         if(props.upvotes.includes(id)){
-            itemToChange.upvotes.splice(id);
+            itemToChange.upvotes.splice(itemToChange.upvotes.indexOf(id),1);
 
             setProfileData(profileData => ({
                 profiles: profileData.profiles,
