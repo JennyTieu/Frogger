@@ -5,16 +5,22 @@ import {Context} from '../data/Context';
 import PostTileList from '../components/PostTileList';
 
 export default ProfileScreen = (navigation) => {
+  const Moment = require('moment');
   const [profileData] = useContext(Context);
   //hab als Bsp einfach user m1 genommen
   const persId = profileData.profiles[0].id
   const posts = profileData.posts.filter(item => item.userId == "m1");
+  const sortedPosts = posts.sort(function(a,b){
+    var dateA = new Moment(a.date),
+      dateB = new Moment(b.date)
+    return dateB-dateA
+  });
 
 
   console.log(posts)
   return(
     <View style={styles.container}>
-      <PostTileList listData ={posts} navigation={navigation}/>
+      <PostTileList listData ={sortedPosts} navigation={navigation}/>
     </View>
   );
 

@@ -24,7 +24,7 @@ export default PostTileList =(props) =>{
                     )
                 }}
                 style={{width: '100%'}}
-                contentContainerStyle={{allignItems: 'center', padding:10}}
+                contentContainerStyle={{allignItems: 'center'}}
             />
         </View>
     );

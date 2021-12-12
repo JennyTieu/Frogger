@@ -3,17 +3,60 @@ import React,{useContext,useState} from "react";
 import {StyleSheet, View, Text, FlatList,Image, TouchableOpacity} from 'react-native';
 import { Button } from "react-native-elements";
 import { Context } from "../data/Context";
+import MenuDropdown from "./MenuDropdown";
+import moment from "moment";
 
 
 export default PostTile =(props) =>{
 
     const [profileData,setProfileData] = useContext(Context);
     const id='m1'
+    const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
     const [userData] = profileData.profiles.filter(item => item.id === props.userId);
 
     const likedIcon = props.upvotes.includes(id) ? 'heart':'heart-outline';
     const markedIcon = 'bookmark-outline';
+    const isFollowed = loggedUser.follows.includes(props.userId);
 
+    const onDelete =(postId)=>{
+        setProfileData(profileData => ({
+            profiles: profileData.profiles,
+            posts: profileData.posts.filter(postItem =>postItem.postId !== postId),
+            idCounterProfiles: profileData.idCounterProfiles,
+            comments: profileData.comments,
+            idCounterComments: profileData.idCounterComments,
+            idCounterPosts: profileData.idCounterPosts
+        }))
+    };
+
+    const onFollow =(userId)=>{
+        let itemToChange = profileData.profiles.find(profileItem => profileItem.id === id);
+        if (loggedUser.follows.includes(userId)){
+            itemToChange.follows.splice(itemToChange.follows.indexOf(userId),1);
+
+            setProfileData(profileData =>({
+                profiles: profileData.profiles.map(profile => profile.id === id? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }else{
+            itemToChange.follows.push(userId);
+
+            setProfileData(profileData =>({
+                profiles: profileData.profiles.map(profile => profile.id === id? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }
+        
+    };
+    
     const onClick = (pickedUserId) => {
         if(pickedUserId!== id){
             console.log("Navigate to User Profile "+pickedUserId);
@@ -28,7 +71,7 @@ export default PostTile =(props) =>{
     const onLike =(pickedPostId) =>{
         let itemToChange =  profileData.posts.find(postItem => postItem.postId === pickedPostId);
         if(props.upvotes.includes(id)){
-            itemToChange.upvotes.splice(id);
+            itemToChange.upvotes.splice(itemToChange.upvotes.indexOf(id),1);
 
             setProfileData(profileData => ({
                 profiles: profileData.profiles,
@@ -68,7 +111,7 @@ export default PostTile =(props) =>{
                     <View style={styles.userCont}>
                         <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
                         <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>@{userData.userName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {props.date}</Text>
+                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
                     </View >
                     
                     <Text style={{ fontSize:15}}>{props.text}</Text>
@@ -120,19 +163,9 @@ export default PostTile =(props) =>{
                                 }
                             />  
                         </View>
+                        
                         <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={() => {}}
-                                type='clear'
-                                icon={
-                                    <MaterialIcons
-                                        name='more-vert'
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
+                            <MenuDropdown data={props}  onDelete={()=>{onDelete(props.postId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>
                         </View>
                     </View>
                 </View>
@@ -155,7 +188,7 @@ export default PostTile =(props) =>{
                     <View style={styles.userCont}>
                         <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
                         <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>@{userData.userName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {props.date}</Text>
+                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
                     </View >
                     
                     <Text style={{ fontSize:15}}>{props.text}</Text>
@@ -205,18 +238,7 @@ export default PostTile =(props) =>{
                             />  
                         </View>
                         <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={() => {}}
-                                type='clear'
-                                icon={
-                                    <MaterialIcons
-                                        name='more-vert'
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
+                            <MenuDropdown data={props}  onDelete={()=>{onDelete(props.postId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>   
                         </View>
                     </View>
                 </View>
@@ -233,9 +255,9 @@ const styles = StyleSheet.create({
         flex:1,
         flexDirection:'row',
         backgroundColor: 'white',
-        padding: 10,
-        marginVertical: 8,
-        marginHorizontal: 8,
+        padding:15,
+        borderColor:'gray',
+        borderBottomWidth:0.5
     },
     profileImage:{
         height: 50,
