@@ -1,19 +1,19 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Context } from "../data/Context";
 
 export default ProfileTile = (props) => {
     const [profileData] = useContext(Context);
-    const id = 'm1'
-    const [userData] = profileData.profiles.filter(item => item.id === id);
+    //const id = 'm1'
+    //const profile = profileData.profiles.filter(item => item.id === props.id);
 
     function followerCount(profileData){
         var followers = 0
         for (let index =0; index <profileData.profiles.length; index++){
             const profile = profileData.profiles[index];
-            if (profile.follows.includes(id)){
+            if (profile.follows.includes(props.data[0].id)){
                 followers++;
             }
         }
@@ -23,7 +23,7 @@ export default ProfileTile = (props) => {
         <View style={{ flex: 1 }}>
             <View style={styles.mainContainer}>
                 <View style={styles.topCont}>
-                    <Image style={styles.profileImage} source={userData.image} />
+                    <Image style={styles.profileImage} source={props.data[0].image} />
                     <View style={styles.singleButton}>
                         <Button
                             onPress={() => { }}
@@ -40,14 +40,24 @@ export default ProfileTile = (props) => {
                     </View>
                 </View>
                 <View style={styles.userCont}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}>{userData.firstName} {userData.lastName}</Text>
-                    <Text style={{ fontSize: 15, color: 'gray', paddingHorizontal: 2, paddingRight:5 }}>@{userData.userName}</Text>
-                    <Text style={{ fontSize: 16, color: 'gray', paddingLeft: 5,paddingRight:5 }}>({userData.gender})</Text>
-                    <Text style={{ fontSize: 16, color: 'gray'}}>{userData.job} in</Text>
-                    <Text style={{ fontSize: 16, color: 'black', paddingLeft:5, paddingRight: 5 }}>{userData.country}</Text>
-                    <Text style={{ fontSize: 16, color: 'black', paddingRight: 5 }}>{userData.bio}</Text>
-                    <Text style={{ fontWeight:'bold', fontSize: 15, color:'black', paddingRight: 5 }}>{userData.follows.length} Follows </Text>
-                    <Text style={{ fontWeight:'bold', fontSize: 15, color:'black', paddingRight: 5 }}>{followerCount(profileData)} Follower</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}>{props.data[0].firstName} {props.lastName}</Text>
+                    <Text style={{ fontSize: 15, color: 'gray', paddingHorizontal: 2, paddingRight:5 }}>@{props.data[0].userName}</Text>
+                    <Text style={{ fontSize: 16, color: 'gray', paddingLeft: 5,paddingRight:5 }}>({props.data[0].gender})</Text>
+                    <Text style={{ fontSize: 16, color: 'gray'}}>{props.data[0].job} in</Text>
+                    <Text style={{ fontSize: 16, color: 'black', paddingLeft:5, paddingRight: 5 }}>{props.data[0].country}</Text>
+                    <Text style={{ fontSize: 16, color: 'black', paddingRight: 5 }}>{props.data[0].bio}</Text>
+                    <TouchableOpacity 
+                        onPress={() => onFollows(props.data[0].userId)}
+                    >
+                      <Text style={{ fontWeight:'bold', fontSize: 15, color:'black', paddingRight: 5 }}>{props.data[0].follows.length} Follows </Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity 
+                        onPress={() => onFollowers(props.userId)}
+                    >
+                       <Text style={{ fontWeight:'bold', fontSize: 15, color:'black', paddingRight: 5 }}>{followerCount(profileData)} Follower</Text>
+                    </TouchableOpacity>
+                   
                 </View >
 
 
@@ -56,6 +66,15 @@ export default ProfileTile = (props) => {
         </View>
     );
 }
+const onFollows = () => {
+    console.log("Go to your Follows");
+    
+};
+const onFollowers = (pickedUserId) => {
+        console.log("Go to your Follower List");
+};
+
+
 
 const styles = StyleSheet.create({
     topCont: {
