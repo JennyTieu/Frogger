@@ -2,12 +2,12 @@ import React, {useLayoutEffect, useContext, useState} from 'react';
 import {View, Text, FlatList, StyleSheet, TouchableOpacity} from "react-native";
 import {Context} from '../data/Context';
 import {AuthContext} from '../data/AuthContext';
-import {Button} from 'react-native-elements';
+import {Button, SearchBar} from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import PostTileList from '../components/PostTileList';
 
 
-export default HomeScreen = ({navigation}) => {
+export default SearchScreen = ({navigation}) => {
 
   // useLayoutEffect(()=> {
   //   navigation.setOptions({
@@ -22,7 +22,8 @@ export default HomeScreen = ({navigation}) => {
   //       />)
   //   });
   // },[navigation]);
-
+  const [searchText, setSearchText] = useState("");
+  const [searchValue, setSearchValue] = useState(true);
   const Moment = require('moment');
   const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
@@ -33,12 +34,32 @@ export default HomeScreen = ({navigation}) => {
       dateB = new Moment(b.date)
     return dateB-dateA
   });
-
+  let referencesSearchBar = [];
  
+  
 
 
   return(
+
     <View style={{height:'100%'}}>
+        <View style={styles.topContainer}>
+        <Button 
+          type="clear"
+          icon={searchValue === true ? <Ionicons name="md-search" size={20} color='grey'/> : <Ionicons name="md-arrow-undo-outline" size={22} color='grey'/>}
+          onPress={()=>{}}
+        />
+        <SearchBar 
+          placeholder="search ..."
+          autoCorrect={false}
+          value={searchText}
+          containerStyle= {styles.searchBar}
+          lightTheme="true"
+          searchIcon={false}
+          onChangeText={()=>{}}
+          onSubmitEditing={()=>{}}
+          onClear={()=>{}}
+        />
+      </View>
       <View  style={styles.container}>
         <PostTileList listData ={sortedPosts} navigation={navigation}/>
       </View>
@@ -78,5 +99,16 @@ const styles = StyleSheet.create({
   },
   id: {
     fontSize: 32,
+  },
+  topContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  searchBar: {
+    flex: 1,
+    backgroundColor: "transparent",
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
   },
 });
