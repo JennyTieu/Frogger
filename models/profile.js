@@ -1,5 +1,5 @@
 class Profile {
-  constructor(id, email, password, firstName, lastName, userName, birthday, gender, city, country, image, job, bio, follows){
+  constructor(id, email, password, firstName, lastName, userName, birthday, gender, city, country, image, job, bio, follows, bookmarks){
       this.id = id;
       this.email = email;
       this.password = password;
@@ -14,6 +14,7 @@ class Profile {
       this.job = job;
       this.bio = bio;
       this.follows = follows;
+      this.bookmarks = bookmarks;
   }
 }
 export default Profile;
