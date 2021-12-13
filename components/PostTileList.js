@@ -20,6 +20,7 @@ export default PostTileList =(props) =>{
                             video= {itemData.item.video}
                             upvotes= {itemData.item.upvotes}
                             commentIds= {itemData.item.commentIds}
+                            navigation={props.navigation}
                         />
                     )
                 }}

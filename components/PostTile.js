@@ -7,6 +7,7 @@ import MenuDropdown from "./MenuDropdown";
 import moment from "moment";
 
 
+
 export default PostTile =(props) =>{
 
     const [profileData,setProfileData] = useContext(Context);
@@ -59,7 +60,7 @@ export default PostTile =(props) =>{
     
     const onClick = (pickedUserId) => {
         if(pickedUserId!== id){
-            console.log("Navigate to User Profile "+pickedUserId);
+            props.navigation.navigate("Home",{screen:"PickedProfile", params:{userId:pickedUserId},});
         }
         
     };
