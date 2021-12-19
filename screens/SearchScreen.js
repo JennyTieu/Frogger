@@ -5,9 +5,14 @@ import {AuthContext} from '../data/AuthContext';
 import {Button, SearchBar} from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import PostTileList from '../components/PostTileList';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import SearchTopScreen from './SearchTopScreen';
+import SearchLatestScreen from './SearchLatestScreen';
+import SearchPeopleScreen from './SearchPeopleScreen';
 
-
+const Tab = createMaterialTopTabNavigator();
 export default SearchScreen = ({navigation}) => {
+
 
   // useLayoutEffect(()=> {
   //   navigation.setOptions({
@@ -27,54 +32,141 @@ export default SearchScreen = ({navigation}) => {
   const Moment = require('moment');
   const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
-  const [accountData] = profileData.profiles.filter(item => item.id === "m1");
-  const posts = profileData.posts.filter(item => accountData.follows.includes(item.userId));
+  const [allPosts, setAllPosts] = useState(profileData.posts);
+  const [allProfiles, setAllProfiles] = useState(profileData.profiles);
+  const posts = profileData.posts;
+  const profiles = profileData.profiles;
   const sortedPosts = posts.sort(function(a,b){
-    var dateA = new Moment(a.date),
-      dateB = new Moment(b.date)
-    return dateB-dateA
+    var A = a.upvotes.length,
+      B = b.upvotes.length
+    return B-A
   });
-  let referencesSearchBar = [];
+  const trendingPosts = sortedPosts.slice(0,10);
+
+
+  let postSearchBar = [];
+  let profileSearchBar =[];
  
   
-
-
-  return(
-
-    <View style={{height:'100%'}}>
-        <View style={styles.topContainer}>
-        <Button 
-          type="clear"
-          icon={searchValue === true ? <Ionicons name="md-search" size={20} color='grey'/> : <Ionicons name="md-arrow-undo-outline" size={22} color='grey'/>}
-          onPress={()=>{}}
-        />
-        <SearchBar 
-          placeholder="search ..."
-          autoCorrect={false}
-          value={searchText}
-          containerStyle= {styles.searchBar}
-          lightTheme="true"
-          searchIcon={false}
-          onChangeText={()=>{}}
-          onSubmitEditing={()=>{}}
-          onClear={()=>{}}
-        />
-      </View>
-      <View  style={styles.container}>
-        <PostTileList listData ={sortedPosts} navigation={navigation} root="Search"/>
-      </View>
+  const searchHandler=()=>{
+    if (searchText === "") {
+      setSearchValue(true);
+    } else {
+      postSearchBar.length = 0;  
+      profileSearchBar.length = 0;  
+      for (let i = 0; i < posts.length; i++) {
+        if(posts[i].text!==null){
+          if (posts[i].text.toLowerCase().includes(searchText.toLowerCase())) {
+              postSearchBar.push(posts[i]);
+              
+           }
+        }
+      }
       
-      <TouchableOpacity
-          style={styles.floatingButton}
-          onPress={()=>{}}
-      >
-        <Ionicons name='create' size={30} color="white"/>
-      </TouchableOpacity>
-    </View>
-  );
-}
+      for(let j = 0; j <profiles.length; j++){
+        if(profiles[j].firstName.toLowerCase().includes(searchText.toLowerCase())||
+        profiles[j].lastName.toLowerCase().includes(searchText.toLowerCase())||
+        profiles[j].userName.toLowerCase().includes(searchText.toLowerCase())){
+          profileSearchBar.push(profiles[j]);
+        }
+      }
+    }
+      setAllPosts(postSearchBar);
+      setSearchValue(false);
+    
+  };
+
+  const quitSearchHandler=()=>{
+    setAllPosts(posts);
+    setSearchValue(true);
+  };
+  
+  const clearSearchBarHandler = () => {
+    setSearchText("");
+    setAllPosts(posts);
+    setSearchValue(true);
+  };
+
+
+
+
+  if(searchValue===true){
+    return(
+
+      <View style={{height:'100%'}}>
+          <View style={styles.topContainer}>
+          <Button 
+            type="clear"
+            icon={searchValue === true ? <Ionicons name="md-search" size={20} color='grey'/> : <Ionicons name="md-arrow-undo-outline" size={22} color='grey'/>}
+            onPress={searchValue === true? searchHandler : quitSearchHandler}
+          />
+          <SearchBar 
+            placeholder="search ..."
+            autoCorrect={false}
+            value={searchText}
+            containerStyle= {styles.searchBar}
+            lightTheme="true"
+            searchIcon={false}
+            onChangeText={(val) => setSearchText(val)}
+            onClear={clearSearchBarHandler}
+          />
+        </View>
+        <View  style={styles.container}>
+          <View style={styles.headerContainer}>
+            <Text style={styles.header}>Top 10 Picks</Text>
+          </View>
+          
+          <PostTileList listData ={trendingPosts} navigation={navigation} root="Search"/>
+        </View>
+        
+      </View>
+    );
+  }
+  else{
+    return(
+
+      <View style={{height:'100%'}}>
+          <View style={styles.topContainer}>
+          <Button 
+            type="clear"
+            icon={searchValue === true ? <Ionicons name="md-search" size={20} color='grey'/> : <Ionicons name="md-arrow-undo-outline" size={22} color='grey'/>}
+            onPress={searchValue === true? searchHandler : quitSearchHandler}
+          />
+          <SearchBar 
+            placeholder="search ..."
+            autoCorrect={false}
+            value={searchText}
+            containerStyle= {styles.searchBar}
+            lightTheme="true"
+            searchIcon={false}
+            onChangeText={(val) => setSearchText(val)}
+            onClear={clearSearchBarHandler}
+          />
+        </View>
+        <View  style={styles.container}>
+          <Tab.Navigator>
+            <Tab.Screen name= "Top" component={SearchTopScreen} initialParams={{data: allPosts}}/>
+            <Tab.Screen name= "Latest" component={SearchLatestScreen} initialParams={{data: allPosts}}/>
+            <Tab.Screen name= "People" component={SearchPeopleScreen} initialParams={{data: allPosts}}/>
+          </Tab.Navigator>
+        </View>
+        
+
+      </View>
+    );
+  }
+  
+};
 
 const styles = StyleSheet.create({
+  headerContainer:{
+    padding:5,
+    backgroundColor:"white",
+  },
+  header:{
+    fontSize:25,
+    fontWeight: "bold"
+  },
   container: {
     flex: 1,
   },
