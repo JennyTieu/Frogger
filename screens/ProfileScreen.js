@@ -6,7 +6,7 @@ import PostTileList from '../components/PostTileList';
 import ProfileTile from '../components/ProfileTile';
 import { Ionicons } from '@expo/vector-icons';
 
-export default ProfileScreen = (navigation) => {
+export default ProfileScreen = ({navigation}) => {
   const Moment = require('moment');
   const [profileData] = useContext(Context);
   const [personData] = useContext(Context);
@@ -22,10 +22,10 @@ export default ProfileScreen = (navigation) => {
   });
 
   return (
-    <View style = {{height: '100%'}}>
+    <View style={{ height: '100%' }}>
       <View style={styles.itemContainer}>
         <View style={styles.topCont}>
-          <ProfileTile data={profile} navigation={navigation} />
+          <ProfileTile data={profile} navigation={navigation} root="Profile"/>
         </View>
         <View style={styles.bottomCont}>
           <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Your Posts </Text>

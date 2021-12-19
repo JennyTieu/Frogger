@@ -27,7 +27,7 @@ export default OtherProfileScreen = (props) => {
                     <ProfileTile data={profile}/>
                 </View>
                 <View style={styles.bottomCont}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Your Posts </Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Their Posts </Text>
                     <PostTileList listData={sortedPosts}/>
                 </View>
             </View>
