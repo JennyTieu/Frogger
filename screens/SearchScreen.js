@@ -61,7 +61,7 @@ export default SearchScreen = ({navigation}) => {
         />
       </View>
       <View  style={styles.container}>
-        <PostTileList listData ={sortedPosts} navigation={navigation}/>
+        <PostTileList listData ={sortedPosts} navigation={navigation} root="Search"/>
       </View>
       
       <TouchableOpacity

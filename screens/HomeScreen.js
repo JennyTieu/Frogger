@@ -40,7 +40,7 @@ export default HomeScreen = ({navigation}) => {
   return(
     <View style={{height:'100%'}}>
       <View  style={styles.container}>
-        <PostTileList listData ={sortedPosts} navigation={navigation}/>
+        <PostTileList listData ={sortedPosts} navigation={navigation} root="Home"/>
       </View>
       
       <TouchableOpacity

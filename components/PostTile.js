@@ -60,7 +60,7 @@ export default PostTile =(props) =>{
     
     const onClick = (pickedUserId) => {
         if(pickedUserId!== id){
-            props.navigation.navigate("Home",{screen:"PickedProfile", params:{userId:pickedUserId},});
+            props.navigation.navigate(props.root,{screen:"PickedProfile", params:{userId:pickedUserId},});
         }
         
     };

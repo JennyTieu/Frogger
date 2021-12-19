@@ -21,6 +21,7 @@ export default PostTileList =(props) =>{
                             upvotes= {itemData.item.upvotes}
                             commentIds= {itemData.item.commentIds}
                             navigation={props.navigation}
+                            root={props.root}
                         />
                     )
                 }}

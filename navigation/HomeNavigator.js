@@ -17,7 +17,7 @@ export default HomeNavigator = () => {
       }
     }}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-      <HomeStack.Screen name="PickedProfile" component ={OtherProfileScreen}/>
+      <HomeStack.Screen name="PickedProfile" component ={OtherProfileScreen} options={{headerTitle:"Profile"}}/>
       
     </HomeStack.Navigator>
   );
