@@ -7,6 +7,8 @@ import MainNavigator from './navigation/MainNavigator';
 import LoginScreen from './screens/LoginScreen';
 import {Context} from './data/Context';
 import{ PROFILES, IDCOUNTERPROFILES, COMMENTS, IDCOUNTERCOMMENTS, POSTS, IDCOUNTERPOSTS} from './data/dummyData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RegistrationScreen from './screens/RegistrationScreen';
 
 function SplashScreen() {
   return (
@@ -49,11 +51,19 @@ export default function App({ navigation }) {
             isSignout: true,
             userToken: null,
           };
+          case 'SIGN_UP':
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+            isSignedUp: false
+          };
       }
     },
     {
       isLoading: true,
       isSignout: false,
+      isSignedUp: true,
       userToken: null,
     }
   );
@@ -87,8 +97,12 @@ export default function App({ navigation }) {
         // We will also need to handle errors if sign in failed
         // After getting token, we need to persist the token using `SecureStore` or any other encrypted storage
         // In the example, we'll use a dummy token
-
         dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+        try {
+          await AsyncStorage.setItem('storedId', data.id)
+        } catch (e) {
+          // saving error
+        }
       },
       signOut: () => dispatch({ type: 'SIGN_OUT' }),
       signUp: async (data) => {
@@ -97,7 +111,7 @@ export default function App({ navigation }) {
         // After getting token, we need to persist the token using `SecureStore` or any other encrypted storage
         // In the example, we'll use a dummy token
 
-        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+        dispatch({ type: 'SIGN_UP', token: 'dummy-auth-token' });
       },
     }),
     []
@@ -111,18 +125,31 @@ export default function App({ navigation }) {
             {state.isLoading ? (
               // We haven't finished checking for the token yet
               <Stack.Screen name="Splash" component={SplashScreen} />
+
             ) : state.userToken == null ? (
-              // No token found, user isn't signed in
-              <Stack.Screen
-                name="SignIn"
-                component={LoginScreen}
-                options={{
-                  title: 'Sign in',
-                  // When logging out, a pop animation feels intuitive
-                  animationTypeForReplace: state.isSignout ? 'pop' : 'push',
-                }}
-              />
-            ) : (
+
+              state.isSignedUp == true ? (
+                // No token found, user isn't signed in
+                <Stack.Screen
+                  name="SignIn"
+                  component={LoginScreen}
+                  options={{
+                    title: 'Sign in',
+                    // When logging out, a pop animation feels intuitive
+                    animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+                  }}
+                />
+                ) : (
+                  <Stack.Screen
+                  name="SignUp"
+                  component={RegistrationScreen}
+                  options={{
+                    title: 'Sign up',
+                    // When logging out, a pop animation feels intuitive
+                    animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+                  }}
+                />
+            )) : (
               // User is signed in
               <Stack.Screen name="MainNavigator" component={MainNavigator} options={{headerShown: false}}/>
             )}

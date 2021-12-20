@@ -7,14 +7,14 @@ import {Ionicons} from "@expo/vector-icons";
 
 export default LoginScreen = ({navigation}) => {
   const [profileData] = useContext(Context);
-  const { signIn } = useContext(AuthContext);
+  const { signIn, signUp } = useContext(AuthContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [currentUserName, setCurrentUserName] = useState("");
- 
+
   const userNames = profileData.profiles.filter(item => item.userName);
 
   const changeTextHandlerUserName = (enteredText) => {
@@ -30,9 +30,14 @@ export default LoginScreen = ({navigation}) => {
       if (userNames[i].userName == currentUserName && userNames[i].password == currentPassword) { 
         setUsername(currentUserName)
         setPassword(currentPassword)
-        signIn({ username, password })
+        const id = userNames[i].id
+        signIn({ id })
       } 
     }
+  };
+
+  const signUpHandler = () => {
+    signUp()
   };
 
   const registrationHandler = () => {
@@ -59,7 +64,7 @@ export default LoginScreen = ({navigation}) => {
       <View style={styles.middleContainer}>
         <Button title="HomeScreen" type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={() => signIn({ username, password })}/>
         <Button title="Sign In" type="solid" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={loginHandler}/>
-        <Button title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10 }}/>} onPress={registrationHandler}/>
+        <Button title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signUpHandler}/>
       </View>
       <View style={styles.bottomContainer}>
       </View>
