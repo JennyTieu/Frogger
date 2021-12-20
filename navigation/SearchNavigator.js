@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import SearchScreen from '../screens/SearchScreen';
 import OtherProfileScreen from '../screens/OtherProfileScreen';
+import InspectPostScreen from '../screens/InspectPostScreen';
 
 const SearchStack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default SearchNavigator = () => {
     }}>
       <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
       <SearchStack.Screen name="PickedProfile" component ={OtherProfileScreen}/>
+      <SearchStack.Screen name="InspectPost" component={InspectPostScreen} />
       
     </SearchStack.Navigator>
   );

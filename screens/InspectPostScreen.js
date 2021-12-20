@@ -1,27 +1,27 @@
-import { Ionicons , MaterialIcons} from "@expo/vector-icons";
-import React,{useContext,useState} from "react";
-import {StyleSheet, View, Text, FlatList,Image, TouchableOpacity} from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet,Image, ScrollView, SafeAreaView} from "react-native";
+import { TouchableOpacity } from 'react-native';
 import { Button } from "react-native-elements";
-import { Context } from "../data/Context";
-import MenuDropdown from "./MenuDropdown";
+import { Context } from '../data/Context';
 import moment from "moment";
+import MenuDropdown from '../components/MenuDropdown';
+import { Ionicons , MaterialIcons} from "@expo/vector-icons";
 
-
-
-export default PostTile =(props) =>{
-
-    const [profileData,setProfileData] = useContext(Context);
+export default InspectPostScreen =(props) => {
+    const [profileData, setProfileData] = useContext(Context);
     const id='m1';
+    const postId= props.route.params.postId;
+    const postData= profileData.posts.filter(item => item.postId === postId);
     const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
-    const [userData] = profileData.profiles.filter(item => item.id === props.userId);
-    const likedIcon = props.upvotes.includes(id) ? 'heart':'heart-outline';
-    const markedIcon = loggedUser.bookmarks.includes(props.postId) ? 'bookmark':'bookmark-outline';
-    const isFollowed = loggedUser.follows.includes(props.userId);
+    const userOfPost= profileData.profiles.filter(item=> item.id === postData[0].userId);
+    const likedIcon = postData[0].upvotes.includes(id) ? 'heart':'heart-outline';
+    const markedIcon = loggedUser.bookmarks.includes(postId) ? 'bookmark':'bookmark-outline';
+    const isFollowed = loggedUser.follows.includes(postData[0].userId);
 
-    const onDelete =(postId)=>{
+    const onDelete =(post)=>{
         setProfileData(profileData => ({
             profiles: profileData.profiles,
-            posts: profileData.posts.filter(postItem =>postItem.postId !== postId),
+            posts: profileData.posts.filter(postItem =>postItem.postId !== post),
             idCounterProfiles: profileData.idCounterProfiles,
             comments: profileData.comments,
             idCounterComments: profileData.idCounterComments,
@@ -59,19 +59,19 @@ export default PostTile =(props) =>{
     
     const onClick = (pickedUserId) => {
         if(pickedUserId!== id){
-            props.navigation.navigate(props.root,{screen:"PickedProfile", params:{userId:pickedUserId},});
+            props.route.params.navigation.navigate(props.root,{screen:"PickedProfile", params:{userId:pickedUserId},});
         }
         
     };
 
     const onComment = (pickedPostId) =>{
-        props.navigation.navigate(props.root,{screen:"InspectPost", params:{postId:pickedPostId},})
+        // props.navigation.navigate(props.root,{screen:"InspectPost", params:{postId:pickedPostId},})
         
     };
 
     const onLike =(pickedPostId) =>{
         let itemToChange =  profileData.posts.find(postItem => postItem.postId === pickedPostId);
-        if(props.upvotes.includes(id)){
+        if(postData[0].upvotes.includes(id)){
             itemToChange.upvotes.splice(itemToChange.upvotes.indexOf(id),1);
 
             setProfileData(profileData => ({
@@ -122,34 +122,29 @@ export default PostTile =(props) =>{
         
 
     };
-
-    if(props.image!==null){
-        return(
-            <View style={styles.itemContainer}>
-                <View style={styles.leftContainer}>
-                    <TouchableOpacity 
-                        onPress={() => onClick(props.userId)}
+    if(postData[0].image!==null){
+        return (
+            <SafeAreaView style={styles.itemContainer}>
+                <ScrollView style={styles.topContainer}>
+                    <TouchableOpacity
+                    style={{flexDirection:'row', width:'100%'}}
+                    onPress={()=>{}}
                     >
-                        <Image style={styles.profileImage} source={userData.image}/>   
+                        <Image style={styles.profileImage} source={userOfPost[0].image}/>
+                        <View>
+                        <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
+                            <Text style={{ fontSize:15, color:'gray', paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
+                            
+                        </View>
                     </TouchableOpacity>
-                    
-                </View>
-                
-                <View style={styles.mainContainer}>
-                    <View style={styles.userCont}>
-                        <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>@{userData.userName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
-                    </View >
-                    
-                    <Text style={{ fontSize:15}}>{props.text}</Text>
-                    
-                    <Image style={styles.postImage} source={props.image}/>
-                    
+                    <Text style={{ fontSize:15}}>{postData[0].text}</Text>
+                    <Image style={styles.postImage} source={postData[0].image}/>
+                    <Text style={{ fontSize:15, color:'gray',  paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
+                    <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
                     <View style={styles.buttonContainer}>
                         <View style={styles.singleButton}>
                             <Button
-                                onPress={() => {onComment(props.postId)}}
+                                onPress={() => {}}
                                 type='clear'
                                 icon={
                                     <Ionicons
@@ -160,12 +155,12 @@ export default PostTile =(props) =>{
                                     
                                 }
                             />
-                            <Text>{props.commentIds.length}</Text>
+                            
                         </View>
                         <View style={styles.singleButton}>
                             <Button
                                 style={{width:'40%'}}
-                                onPress={() => {onLike(props.postId)}}
+                                onPress={() => {onLike(postId)}}
                                 type='clear'
                                 icon={
                                     <Ionicons
@@ -175,12 +170,12 @@ export default PostTile =(props) =>{
                                     />
                                 }
                             />  
-                            <Text>{props.upvotes.length}</Text>
+    
                         </View>
                         <View style={styles.singleButton}>
                             <Button
                                 style={{width:'40%'}}
-                                onPress={()=>{onMarked(props.postId)}}
+                                onPress={()=>{onMarked(postId)}}
                                 type='clear'
                                 icon={
                                     <Ionicons
@@ -193,37 +188,38 @@ export default PostTile =(props) =>{
                         </View>
                         
                         <View style={styles.singleButton}>
-                            <MenuDropdown data={props}  onDelete={()=>{onDelete(props.postId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>
+                            <MenuDropdown data={postData[0]}  onDelete={()=>{onDelete(postId)}} onFollow={()=>{onFollow(postData[0].userId)}} followed={isFollowed}/>
                         </View>
                     </View>
-                </View>
+                    <View>
+                        <Text>Comments</Text>
+                    </View>
+                </ScrollView>
                 
-                
-            </View>
-        );
+            </SafeAreaView>
+        )
     }else{
-        return(
-            <View style={styles.itemContainer}>
-                <View style={styles.leftContainer}>
-                    <TouchableOpacity 
-                        onPress={() => onClick(props.userId)}
+        return (
+            <SafeAreaView style={styles.itemContainer}>
+                <ScrollView style={styles.topContainer}>
+                    <TouchableOpacity
+                    style={{flexDirection:'row', width:'100%'}}
+                    onPress={()=>{}}
                     >
-                        <Image style={styles.profileImage} source={userData.image}/>   
+                        <Image style={styles.profileImage} source={userOfPost[0].image}/>
+                        <View>
+                        <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
+                            <Text style={{ fontSize:15, color:'gray', paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
+                            
+                        </View>
                     </TouchableOpacity>
-                </View>
-                
-                <View style={styles.mainContainer}>
-                    <View style={styles.userCont}>
-                        <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>@{userData.userName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
-                    </View >
-                    
-                    <Text style={{ fontSize:15}}>{props.text}</Text>
+                    <Text style={{ fontSize:15}}>{postData[0].text}</Text>
+                    <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
+                    <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
                     <View style={styles.buttonContainer}>
                         <View style={styles.singleButton}>
                             <Button
-                                onPress={() => {onComment(props.postId)}}
+                                onPress={() => {}}
                                 type='clear'
                                 icon={
                                     <Ionicons
@@ -234,12 +230,12 @@ export default PostTile =(props) =>{
                                     
                                 }
                             />
-                            <Text>{props.commentIds.length}</Text>
+                            
                         </View>
                         <View style={styles.singleButton}>
                             <Button
                                 style={{width:'40%'}}
-                                onPress={() => {onLike(props.postId)}}
+                                onPress={() => {onLike(postId)}}
                                 type='clear'
                                 icon={
                                     <Ionicons
@@ -249,12 +245,12 @@ export default PostTile =(props) =>{
                                     />
                                 }
                             />  
-                            <Text>{props.upvotes.length}</Text>
+    
                         </View>
                         <View style={styles.singleButton}>
                             <Button
                                 style={{width:'40%'}}
-                                onPress={()=>{onMarked(props.postId)}}
+                                onPress={()=>{onMarked(postId)}}
                                 type='clear'
                                 icon={
                                     <Ionicons
@@ -265,27 +261,28 @@ export default PostTile =(props) =>{
                                 }
                             />  
                         </View>
+                        
                         <View style={styles.singleButton}>
-                            <MenuDropdown data={props}  onDelete={()=>{onDelete(props.postId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>   
+                            <MenuDropdown data={postData[0]}  onDelete={()=>{onDelete(postId)}} onFollow={()=>{onFollow(postData[0].userId)}} followed={isFollowed}/>
                         </View>
                     </View>
-                </View>
+                    <View>
+                        <Text>Comments</Text>
+                    </View>
+                </ScrollView>
                 
-                
-            </View>
-        );
+            </SafeAreaView>
+        )
     }
-}
+}; 
 
 const styles = StyleSheet.create({
     itemContainer:{
         flexWrap:'wrap',
-        flex:1,
-        flexDirection:'row',
+        flexDirection:'column',
         backgroundColor: 'white',
-        padding:15,
         borderColor:'gray',
-        borderBottomWidth:0.5
+        borderBottomWidth:0.5,
     },
     profileImage:{
         height: 50,
@@ -293,8 +290,13 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
         borderRadius: 100,
     },
-    leftContainer:{
-        width:'15%'
+    topContainer:{
+        width:'100%',
+        flexDirection:"column",
+        borderBottomWidth:0.5,
+        borderBottomColor:'gray',
+        paddingVertical:10,
+        padding:10
     },
     mainContainer:{
         width:'85%',
@@ -307,17 +309,17 @@ const styles = StyleSheet.create({
         width:'100%',
     },
     buttonContainer:{
-        flex: 1,
         width: '100%',
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "flex-start",
+        justifyContent: "space-between",
         backgroundColor: "white",
+        borderBottomWidth:0.5,
+        borderBottomColor:'gray'
     },
     singleButton:{
         flexDirection:'row',
         alignItems: 'center',
-        paddingRight:30
     },
     postImage:{
         height:350,
