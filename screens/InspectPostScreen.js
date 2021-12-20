@@ -8,7 +8,6 @@ import MenuDropdown from '../components/MenuDropdown';
 import { Ionicons , MaterialIcons} from "@expo/vector-icons";
 
 export default InspectPostScreen =(props) => {
-    console.log(props);
     const [profileData, setProfileData] = useContext(Context);
     const id='m1';
     const postId= props.route.params.postId;
