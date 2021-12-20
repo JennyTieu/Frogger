@@ -14,9 +14,8 @@ export default PostTile =(props) =>{
     const id='m1'
     const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
     const [userData] = profileData.profiles.filter(item => item.id === props.userId);
-
     const likedIcon = props.upvotes.includes(id) ? 'heart':'heart-outline';
-    const markedIcon = 'bookmark-outline';
+    const markedIcon = loggedUser.bookmarks.includes(props.postId) ? 'bookmark':'bookmark-outline';
     const isFollowed = loggedUser.follows.includes(props.userId);
 
     const onDelete =(postId)=>{
@@ -96,6 +95,33 @@ export default PostTile =(props) =>{
         }
     };
 
+    const onMarked = (pickedPostId) =>{
+        let itemToChange = profileData.profiles.find(profileItem => profileItem.id === id);
+        if(itemToChange.bookmarks.includes(pickedPostId)){
+            itemToChange.bookmarks.splice(itemToChange.bookmarks.indexOf(pickedPostId),1);
+            setProfileData(profileData =>({
+                profiles: profileData.profiles.map(profile => profile.id === id? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }else{
+            itemToChange.bookmarks.push(pickedPostId);
+            setProfileData(profileData =>({
+                profiles: profileData.profiles.map(profile => profile.id === id? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }
+        
+
+    };
+
     if(props.image!==null){
         return(
             <View style={styles.itemContainer}>
@@ -153,7 +179,7 @@ export default PostTile =(props) =>{
                         <View style={styles.singleButton}>
                             <Button
                                 style={{width:'40%'}}
-                                onPress={() => {}}
+                                onPress={()=>{onMarked(props.postId)}}
                                 type='clear'
                                 icon={
                                     <Ionicons
@@ -227,7 +253,7 @@ export default PostTile =(props) =>{
                         <View style={styles.singleButton}>
                             <Button
                                 style={{width:'40%'}}
-                                onPress={() => {}}
+                                onPress={()=>{onMarked(props.postId)}}
                                 type='clear'
                                 icon={
                                     <Ionicons
