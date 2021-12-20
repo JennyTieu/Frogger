@@ -65,7 +65,7 @@ export default PostTile =(props) =>{
     };
 
     const onComment = (pickedPostId) =>{
-        props.navigation.navigate(props.root,{screen:"InspectPost", params:{postId:pickedPostId},})
+        props.navigation.navigate(props.root,{screen:"InspectPost", params:{postId:pickedPostId,  root:props.root},})
         
     };
 

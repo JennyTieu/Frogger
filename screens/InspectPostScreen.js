@@ -8,6 +8,7 @@ import MenuDropdown from '../components/MenuDropdown';
 import { Ionicons , MaterialIcons} from "@expo/vector-icons";
 
 export default InspectPostScreen =(props) => {
+    console.log(props);
     const [profileData, setProfileData] = useContext(Context);
     const id='m1';
     const postId= props.route.params.postId;
@@ -59,7 +60,7 @@ export default InspectPostScreen =(props) => {
     
     const onClick = (pickedUserId) => {
         if(pickedUserId!== id){
-            props.route.params.navigation.navigate(props.root,{screen:"PickedProfile", params:{userId:pickedUserId},});
+            props.navigation.navigate(props.route.params.root,{screen:"PickedProfile", params:{userId:pickedUserId},});
         }
         
     };
@@ -128,7 +129,7 @@ export default InspectPostScreen =(props) => {
                 <ScrollView style={styles.topContainer}>
                     <TouchableOpacity
                     style={{flexDirection:'row', width:'100%'}}
-                    onPress={()=>{}}
+                    onPress={()=>{onClick(postData[0].userId)}}
                     >
                         <Image style={styles.profileImage} source={userOfPost[0].image}/>
                         <View>
@@ -204,7 +205,7 @@ export default InspectPostScreen =(props) => {
                 <ScrollView style={styles.topContainer}>
                     <TouchableOpacity
                     style={{flexDirection:'row', width:'100%'}}
-                    onPress={()=>{}}
+                    onPress={()=>{onClick(postData[0].userId)}}
                     >
                         <Image style={styles.profileImage} source={userOfPost[0].image}/>
                         <View>
