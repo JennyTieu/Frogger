@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet,Image, ScrollView, SafeAreaView} from "react-native";
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet,Image, TextInput ,ScrollView, SafeAreaView} from "react-native";
 import { TouchableOpacity } from 'react-native';
 import { Button } from "react-native-elements";
 import { Context } from '../data/Context';
@@ -11,6 +11,7 @@ import { render } from 'react-dom';
 
 export default InspectPostScreen =(props) => {
     const Moment = require('moment');
+    const [commentText, setCommentText] = useState("");
     const [profileData, setProfileData] = useContext(Context);
     const id='m1';
     const postId= props.route.params.postId;
@@ -147,7 +148,7 @@ export default InspectPostScreen =(props) => {
                                 
                             </View>
                         </TouchableOpacity>
-                        <Text style={{ fontSize:15}}>{postData[0].text}</Text>
+                        <Text style={{ fontSize:15, paddingVertical:10}}>{postData[0].text}</Text>
                         <Image style={styles.postImage} source={postData[0].image}/>
                         <Text style={{ fontSize:15, color:'gray',  paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
                         <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
@@ -219,7 +220,7 @@ export default InspectPostScreen =(props) => {
                                     
                                 </View>
                             </TouchableOpacity>
-                            <Text style={{ fontSize:15}}>{postData[0].text}</Text>
+                            <Text style={{ fontSize:15, paddingVertical:10}}>{postData[0].text}</Text>
                             <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
                             <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
                             <View style={styles.buttonContainer}>
@@ -283,11 +284,55 @@ export default InspectPostScreen =(props) => {
     
     
     return(
-        <CommentList listData={sortedComments} navigation={props.navigation} root={props.root} getHeader={getHeader} />
+        <View style={styles.container}>
+            <CommentList listData={sortedComments} navigation={props.navigation} root={props.route.params.root} getHeader={getHeader} />
+            <View style={styles.bottomContainer}>
+                <TextInput 
+                    style={styles.input}
+                    onChangeText={(val)=> setCommentText(val)}
+                    placeholderTextColor='gray'
+                    placeholder='Write a comment...'
+                    borderColor='white'
+                />
+                <Button
+                    type='clear'
+                    icon={<Ionicons name='send' size={25} color='gray'/>}
+                    onPress={()=>{}}
+                />
+                
+            </View>
+        </View>
+        
     )
 }; 
 
 const styles = StyleSheet.create({
+    input:{
+        width:'90%',
+        height:'100%',
+        paddingHorizontal:10,
+        backgroundColor:'white'
+    },
+    bottomContainer:{
+        padding:10,
+        flexWrap:'wrap',
+        alignItems:'center',
+        justifyContent:'center',
+        height:'10%',
+        backgroundColor:'#D0D0D0',
+        position:'absolute',
+        left:0,
+        right:0,
+        bottom:0
+        
+    },
+    container:{
+        height:'100%',
+        flex:1,
+        flexDirection:'column',
+        backgroundColor: 'white',
+        
+    },
     itemContainer:{
         flexWrap:'wrap',
         flexDirection:'column',
@@ -306,7 +351,6 @@ const styles = StyleSheet.create({
         flexDirection:"column",
         borderBottomWidth:0.5,
         borderBottomColor:'gray',
-        paddingVertical:10,
         padding:10,
         backgroundColor:'white'
     },
@@ -325,8 +369,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        borderBottomWidth:0.5,
-        borderBottomColor:'gray'
     },
     singleButton:{
         flexDirection:'row',

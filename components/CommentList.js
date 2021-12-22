@@ -20,7 +20,7 @@ export default CommentList =(props) =>{
                         />
                     )
                 }}
-                style={{width: '100%'}}
+                style={{width: '100%', height:'90%', paddingBottom:20}}
                 contentContainerStyle={{allignItems: 'center'}}
                 ListHeaderComponent={props.getHeader}
             />
