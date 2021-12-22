@@ -29,7 +29,7 @@ export default ProfileScreen = ({navigation}) => {
         </View>
         <View style={styles.bottomCont}>
           <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Your Posts </Text>
-          <PostTileList listData={sortedPosts} navigation={navigation} />
+          <PostTileList listData={sortedPosts} navigation={navigation} root="Profile" />
         </View>
       </View>
 

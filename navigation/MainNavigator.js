@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchNavigator from './SearchNavigator';
+import ProfileNavigator from './ProfileNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ export default MainNavigator = () => {
     >
       <Tab.Screen name ="Home" component={HomeNavigator} options={{headerShown: false}}/>
       <Tab.Screen name ="Search" component={SearchNavigator}  options={{headerShown: false}}/>
-      <Tab.Screen name ="Profile" component={ProfileScreen}/>
+      <Tab.Screen name ="Profile" component={ProfileNavigator} options={{headerShown: false}}/>
       <Tab.Screen name ="Settings" component={SettingsScreen}/>
     </Tab.Navigator>
   );

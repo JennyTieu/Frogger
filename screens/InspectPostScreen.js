@@ -6,8 +6,11 @@ import { Context } from '../data/Context';
 import moment from "moment";
 import MenuDropdown from '../components/MenuDropdown';
 import { Ionicons , MaterialIcons} from "@expo/vector-icons";
+import CommentList from '../components/CommentList';
+import { render } from 'react-dom';
 
 export default InspectPostScreen =(props) => {
+    const Moment = require('moment');
     const [profileData, setProfileData] = useContext(Context);
     const id='m1';
     const postId= props.route.params.postId;
@@ -17,6 +20,12 @@ export default InspectPostScreen =(props) => {
     const likedIcon = postData[0].upvotes.includes(id) ? 'heart':'heart-outline';
     const markedIcon = loggedUser.bookmarks.includes(postId) ? 'bookmark':'bookmark-outline';
     const isFollowed = loggedUser.follows.includes(postData[0].userId);
+    const comments = profileData.comments.filter(item=> postData[0].commentIds.includes(item.commentId));
+    const sortedComments = comments.sort(function(a,b){
+        var dateA = new Moment(a.date),
+            dateB = new Moment(b.date)
+        return dateB-dateA
+    });
 
     const onDelete =(post)=>{
         setProfileData(profileData => ({
@@ -122,158 +131,160 @@ export default InspectPostScreen =(props) => {
         
 
     };
-    if(postData[0].image!==null){
-        return (
-            <SafeAreaView style={styles.itemContainer}>
-                <ScrollView style={styles.topContainer}>
-                    <TouchableOpacity
-                    style={{flexDirection:'row', width:'100%'}}
-                    onPress={()=>{onClick(postData[0].userId)}}
-                    >
-                        <Image style={styles.profileImage} source={userOfPost[0].image}/>
-                        <View>
-                        <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
-                            <Text style={{ fontSize:15, color:'gray', paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
+    
+        const getHeader =()=>{
+            if(postData[0].image!==null){
+                return(
+                    <View style={styles.topContainer}>
+                        <TouchableOpacity
+                        style={{flexDirection:'row', width:'100%'}}
+                        onPress={()=>{onClick(postData[0].userId)}}
+                        >
+                            <Image style={styles.profileImage} source={userOfPost[0].image}/>
+                            <View>
+                            <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
+                                <Text style={{ fontSize:15, color:'gray', paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
+                                
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={{ fontSize:15}}>{postData[0].text}</Text>
+                        <Image style={styles.postImage} source={postData[0].image}/>
+                        <Text style={{ fontSize:15, color:'gray',  paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
+                        <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
+                        <View style={styles.buttonContainer}>
+                            <View style={styles.singleButton}>
+                                <Button
+                                    onPress={() => {}}
+                                    type='clear'
+                                    icon={
+                                        <Ionicons
+                                            name='chatbubble-outline'
+                                            size={30}
+                                            color='gray'
+                                        />
+                                        
+                                    }
+                                />
+                                
+                            </View>
+                            <View style={styles.singleButton}>
+                                <Button
+                                    style={{width:'40%'}}
+                                    onPress={() => {onLike(postId)}}
+                                    type='clear'
+                                    icon={
+                                        <Ionicons
+                                            name={likedIcon}
+                                            size={30}
+                                            color='gray'
+                                        />
+                                    }
+                                />  
+        
+                            </View>
+                            <View style={styles.singleButton}>
+                                <Button
+                                    style={{width:'40%'}}
+                                    onPress={()=>{onMarked(postId)}}
+                                    type='clear'
+                                    icon={
+                                        <Ionicons
+                                            name={markedIcon}
+                                            size={30}
+                                            color='gray'
+                                        />
+                                    }
+                                />  
+                            </View>
                             
+                            <View style={styles.singleButton}>
+                                <MenuDropdown data={postData[0]}  onDelete={()=>{onDelete(postId)}} onFollow={()=>{onFollow(postData[0].userId)}} followed={isFollowed}/>
+                            </View>
                         </View>
-                    </TouchableOpacity>
-                    <Text style={{ fontSize:15}}>{postData[0].text}</Text>
-                    <Image style={styles.postImage} source={postData[0].image}/>
-                    <Text style={{ fontSize:15, color:'gray',  paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
-                    <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.singleButton}>
-                            <Button
-                                onPress={() => {}}
-                                type='clear'
-                                icon={
-                                    <Ionicons
-                                        name='chatbubble-outline'
-                                        size={30}
-                                        color='gray'
+                    </View>
+                )
+            }
+            else{
+                return (
+                    
+                        <View style={styles.topContainer}>
+                            <TouchableOpacity
+                            style={{flexDirection:'row', width:'100%'}}
+                            onPress={()=>{onClick(postData[0].userId)}}
+                            >
+                                <Image style={styles.profileImage} source={userOfPost[0].image}/>
+                                <View>
+                                <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
+                                    <Text style={{ fontSize:15, color:'gray', paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
+                                    
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={{ fontSize:15}}>{postData[0].text}</Text>
+                            <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
+                            <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
+                            <View style={styles.buttonContainer}>
+                                <View style={styles.singleButton}>
+                                    <Button
+                                        onPress={() => {}}
+                                        type='clear'
+                                        icon={
+                                            <Ionicons
+                                                name='chatbubble-outline'
+                                                size={30}
+                                                color='gray'
+                                            />
+                                            
+                                        }
                                     />
                                     
-                                }
-                            />
+                                </View>
+                                <View style={styles.singleButton}>
+                                    <Button
+                                        style={{width:'40%'}}
+                                        onPress={() => {onLike(postId)}}
+                                        type='clear'
+                                        icon={
+                                            <Ionicons
+                                                name={likedIcon}
+                                                size={30}
+                                                color='gray'
+                                            />
+                                        }
+                                    />  
+            
+                                </View>
+                                <View style={styles.singleButton}>
+                                    <Button
+                                        style={{width:'40%'}}
+                                        onPress={()=>{onMarked(postId)}}
+                                        type='clear'
+                                        icon={
+                                            <Ionicons
+                                                name={markedIcon}
+                                                size={30}
+                                                color='gray'
+                                            />
+                                        }
+                                    />  
+                                </View>
+                                
+                                <View style={styles.singleButton}>
+                                    <MenuDropdown data={postData[0]}  onDelete={()=>{onDelete(postId)}} onFollow={()=>{onFollow(postData[0].userId)}} followed={isFollowed}/>
+                                </View>
+                            </View>
+                            
                             
                         </View>
-                        <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={() => {onLike(postId)}}
-                                type='clear'
-                                icon={
-                                    <Ionicons
-                                        name={likedIcon}
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
+                    
+                )
+            
+            }
+        }
     
-                        </View>
-                        <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={()=>{onMarked(postId)}}
-                                type='clear'
-                                icon={
-                                    <Ionicons
-                                        name={markedIcon}
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
-                        </View>
-                        
-                        <View style={styles.singleButton}>
-                            <MenuDropdown data={postData[0]}  onDelete={()=>{onDelete(postId)}} onFollow={()=>{onFollow(postData[0].userId)}} followed={isFollowed}/>
-                        </View>
-                    </View>
-                    <View>
-                        <Text>Comments</Text>
-                    </View>
-                </ScrollView>
-                
-            </SafeAreaView>
-        )
-    }else{
-        return (
-            <SafeAreaView style={styles.itemContainer}>
-                <ScrollView style={styles.topContainer}>
-                    <TouchableOpacity
-                    style={{flexDirection:'row', width:'100%'}}
-                    onPress={()=>{onClick(postData[0].userId)}}
-                    >
-                        <Image style={styles.profileImage} source={userOfPost[0].image}/>
-                        <View>
-                        <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
-                            <Text style={{ fontSize:15, color:'gray', paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
-                            
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={{ fontSize:15}}>{postData[0].text}</Text>
-                    <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
-                    <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.singleButton}>
-                            <Button
-                                onPress={() => {}}
-                                type='clear'
-                                icon={
-                                    <Ionicons
-                                        name='chatbubble-outline'
-                                        size={30}
-                                        color='gray'
-                                    />
-                                    
-                                }
-                            />
-                            
-                        </View>
-                        <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={() => {onLike(postId)}}
-                                type='clear'
-                                icon={
-                                    <Ionicons
-                                        name={likedIcon}
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
     
-                        </View>
-                        <View style={styles.singleButton}>
-                            <Button
-                                style={{width:'40%'}}
-                                onPress={()=>{onMarked(postId)}}
-                                type='clear'
-                                icon={
-                                    <Ionicons
-                                        name={markedIcon}
-                                        size={30}
-                                        color='gray'
-                                    />
-                                }
-                            />  
-                        </View>
-                        
-                        <View style={styles.singleButton}>
-                            <MenuDropdown data={postData[0]}  onDelete={()=>{onDelete(postId)}} onFollow={()=>{onFollow(postData[0].userId)}} followed={isFollowed}/>
-                        </View>
-                    </View>
-                    <View>
-                        <Text>Comments</Text>
-                    </View>
-                </ScrollView>
-                
-            </SafeAreaView>
-        )
-    }
+    return(
+        <CommentList listData={sortedComments} navigation={props.navigation} root={props.root} getHeader={getHeader} />
+    )
 }; 
 
 const styles = StyleSheet.create({
@@ -296,7 +307,8 @@ const styles = StyleSheet.create({
         borderBottomWidth:0.5,
         borderBottomColor:'gray',
         paddingVertical:10,
-        padding:10
+        padding:10,
+        backgroundColor:'white'
     },
     mainContainer:{
         width:'85%',
@@ -313,7 +325,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "white",
         borderBottomWidth:0.5,
         borderBottomColor:'gray'
     },

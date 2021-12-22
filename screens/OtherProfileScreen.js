@@ -12,7 +12,6 @@ export default OtherProfileScreen = (props) => {
     const persId = props.route.params.userId;
     const posts = profileData.posts.filter(item => item.userId == persId);
     const profile = personData.profiles.filter(item => item.id == persId);
-
     const sortedPosts = posts.sort(function (a, b) {
         var dateA = new Moment(a.date),
             dateB = new Moment(b.date)
@@ -28,7 +27,7 @@ export default OtherProfileScreen = (props) => {
                 </View>
                 <View style={styles.bottomCont}>
                     <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Their Posts </Text>
-                    <PostTileList listData={sortedPosts}/>
+                    <PostTileList listData={sortedPosts} navigation={props.navigation} root={props.route.params.root} />
                 </View>
             </View>
             <TouchableOpacity

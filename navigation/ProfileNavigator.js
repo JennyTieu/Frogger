@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen';
-import OtherProfileScreen from '../screens/OtherProfileScreen';
+import InspectPostScreen from '../screens/InspectPostScreen';
+import FollowerScreen from '../screens/FollowerScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const ProfileStack = createStackNavigator();
 
@@ -16,9 +17,10 @@ export default HomeNavigator = () => {
         color: "black"
       }
     }}>
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} options={{headerTitle:"Profile"}}/>
       <ProfileStack.Screen name="Followers" component ={FollowerScreen} options={{headerTitle:"Followers"}}/>
-      <ProfileStack.Screen name ="Follows" />
+      {/* <ProfileStack.Screen name ="Follows" /> */}
+      <ProfileStack.Screen name ="InspectPost" component={InspectPostScreen} />
     </ProfileStack.Navigator>
   );
 };
