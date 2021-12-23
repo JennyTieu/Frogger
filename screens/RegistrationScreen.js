@@ -5,13 +5,11 @@ import {AuthContext} from '../data/AuthContext';
 import {Button, Input} from "react-native-elements";
 import {Ionicons} from "@expo/vector-icons";
 import { Dropdown } from 'react-native-element-dropdown';
+import DateField from 'react-native-datefield';
 
 export default RegistrationScreen = () => {
   const [profileData, setProfileData] = useContext(Context);
-  const { signIn, signUp } = useContext(AuthContext);
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { signOut } = useContext(AuthContext);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [currentUserName, setCurrentUserName] = useState("");
@@ -38,24 +36,13 @@ export default RegistrationScreen = () => {
   };
 
   const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
-
-    const renderLabel = () => {
-      if (value || isFocus) {
-        return (
-          <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-            Dropdown label
-          </Text>
-        );
-      }
-      return null;
-    };
+  const [isFocus, setIsFocus] = useState(false);
 
   const addProfile = (id, email, password, firstName, lastName, userName, birthday, gender, city, country, image, job, bio, follows, bookmarks) =>{
     let newIdCounter = profileData.idCounterProfiles +=1;
     let newProfiles = profileData.profiles;
 
-    newProfile.push(new Profile('m'+ newIdCounter, email, password, firstName, lastName, userName, birthday, gender, city, country, image, job, bio, follows, bookmarks));
+    newProfiles.push(new Profile('m'+ newIdCounter, email, password, firstName, lastName, userName, birthday, gender, city, country, image, job, null, null, null));
     setProfileData(profileData => ({
         profiles: newProfiles,
         idCounterProfiles: newIdCounter,
@@ -64,62 +51,67 @@ export default RegistrationScreen = () => {
         posts: profileData.posts,
         idCounterPosts: profileData.idCounterPosts
     }));
-  navigation.goBack();  
-}
+    navigation.goBack();  
+  }
 
   return(
     <View style={styles.screenContainer}>
       <View style={styles.topContainer}>
+        <Text>Registration</Text>
       </View>
       <View style={styles.middleContainer}>
         <ScrollView>
           <Input 
-            placeholder="mail"
+            inputStyle={styles.textInputStyle}
+            placeholder="E-Mail"
             leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10 }}/>}
             onChangeText={changeTextHandlerUserName}
             value={currentUserName}
           />
           <Input 
-            placeholder="password"
+            inputStyle={styles.textInputStyle}
+            placeholder="Password"
             leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
             onChangeText={changeTextHandlerPassword}
             value={currentPassword}
             secureTextEntry
           />
           <Input 
+            inputStyle={styles.textInputStyle}
             placeholder="First Name"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
             onChangeText={changeTextHandlerPassword}
             value={currentPassword}
-            secureTextEntry
           />
           <Input 
+            inputStyle={styles.textInputStyle}
             placeholder="Last Name"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
             onChangeText={changeTextHandlerPassword}
             value={currentPassword}
-            secureTextEntry
           />
-          <Input 
+          <Input
+            inputStyle={styles.textInputStyle} 
             placeholder="Username"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
             onChangeText={changeTextHandlerPassword}
             value={currentPassword}
-            secureTextEntry
+          /> 
+          <Text>Birthday</Text>
+          <DateField
+            labelDate="Input date"
+            labelMonth="Input month"
+            labelYear="Input year"
+            defaultValue={new Date()}
+            styleInput={styles.inputBorder}
+            onSubmit={(value) => console.log(value)}
           />
           <Input 
-            placeholder="Birthday"
+            inputStyle={styles.textInputStyle}
+            placeholder="Job"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
             onChangeText={changeTextHandlerPassword}
             value={currentPassword}
-            secureTextEntry
-          />
-          <Input 
-            placeholder="First Name"
-            //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-            onChangeText={changeTextHandlerPassword}
-            value={currentPassword}
-            secureTextEntry
           />
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
@@ -129,7 +121,7 @@ export default RegistrationScreen = () => {
             maxHeight={100}
             labelField="label"
             valueField="value"
-            placeholder={!isFocus ? 'Select item' : '...'}
+            placeholder={!isFocus ? 'Gender' : '...'}
             value={value}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
@@ -139,11 +131,11 @@ export default RegistrationScreen = () => {
             }}
           />
           <Input 
+            inputStyle={styles.textInputStyle}
             placeholder="City"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
             onChangeText={changeTextHandlerPassword}
             value={currentPassword}
-            secureTextEntry
           />
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
@@ -156,7 +148,7 @@ export default RegistrationScreen = () => {
             maxHeight={300}
             labelField="label"
             valueField="value"
-            placeholder={!isFocus ? 'Select item' : '...'}
+            placeholder={!isFocus ? 'Country' : '...'}
             searchPlaceholder="Search..."
             value={value}
             onFocus={() => setIsFocus(true)}
@@ -167,23 +159,16 @@ export default RegistrationScreen = () => {
             }}
           />
           <Input 
+            inputStyle={styles.textInputStyle}
             placeholder="Image"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
             onChangeText={changeTextHandlerPassword}
             value={currentPassword}
-            secureTextEntry
-          />
-          <Input 
-            placeholder="Job"
-            //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-            onChangeText={changeTextHandlerPassword}
-            value={currentPassword}
-            secureTextEntry
           />
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Button title="Continue" type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={() => signIn({ username, password })}/>
+        <Button title="Continue" type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={addProfile}/>
       </View>
     </View>
   );
@@ -205,7 +190,13 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 1
   },
-
+  titleStyleBirthday: {
+    color: "black",
+  },
+  textInputStyle: {
+    marginTop: 10,
+    marginBottom: 10
+  },
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
@@ -221,6 +212,8 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   dropdown: {
+    marginTop: 10,
+    marginBottom: 10,
     height: 50,
     borderColor: 'gray',
     borderWidth: 0.5,
@@ -238,5 +231,12 @@ const styles = StyleSheet.create({
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
+  },
+  inputBorder: {
+    width: '30%',
+    borderRadius: 8,
+    borderColor: '#cacaca',
+    borderWidth: 1,
+    marginBottom: 20,
   },
 });
