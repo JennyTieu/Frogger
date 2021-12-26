@@ -9,13 +9,15 @@ export default ProfileTile = (props) => {
     const [userData] = profileData.profiles.filter(item => item.id === props.data[0].id);
     //const id = 'm1'
     //const profile = profileData.profiles.filter(item => item.id === userData.id);
+    
     const onFollows = (pickedUserId) => {
-        console.log("Go to your Follows");
+        console.log("Go to your Follows of " + pickedUserId);
+        props.navigation.navigate(props.root, { screen: "Follows", params: { userId: pickedUserId, root:props.root} })
 
     };
     const onFollowers = (pickedUserId) => {
-        console.log("Go to your Follower List");
-        props.navigation.navigate(props.root, { screen: "Followers", params: { userId: pickedUserId } })
+        console.log("Go to your Follower List of " + pickedUserId);
+        props.navigation.navigate(props.root, { screen: "Followers", params: { userId: pickedUserId, root:props.root} })
     };
 
     function followerCount(profileData) {
