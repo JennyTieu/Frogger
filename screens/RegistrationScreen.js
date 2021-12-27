@@ -12,7 +12,12 @@ export default RegistrationScreen = () => {
   const { signOut } = useContext(AuthContext);
 
   const [currentPassword, setCurrentPassword] = useState("");
+  const [currentEmail, setCurrentEmail] = useState("");
+  const [currentFirstName, setCurrentFirstName] = useState("");
+  const [currentLastName, setCurrentLastName] = useState("");
   const [currentUserName, setCurrentUserName] = useState("");
+  const [currentJob, setCurrentJob] = useState("");
+  const [currentCity, setCurrentCity] = useState("");
 
   const countryData = [
     { label: 'Germany', value: '1' },
@@ -27,22 +32,43 @@ export default RegistrationScreen = () => {
     { label: 'F', value: '2' },
   ];
 
-  const changeTextHandlerUserName = (enteredText) => {
-    setCurrentUserName(enteredText);
+  const changeTextHandlerEmail = (enteredText) => {
+    setCurrentEmail(enteredText);
   };
 
   const changeTextHandlerPassword = (enteredText) => {
     setCurrentPassword(enteredText);
   };
 
-  const [value, setValue] = useState(null);
+  const changeTextHandlerFirstName = (enteredText) => {
+    setCurrentFirstName(enteredText);
+  };
+
+  const changeTextHandlerLastName = (enteredText) => {
+    setCurrentLastName(enteredText);
+  };
+
+  const changeTextHandlerUserName = (enteredText) => {
+    setCurrentUserName(enteredText);
+  };
+
+  const changeTextHandlerJob = (enteredText) => {
+    setCurrentJob(enteredText);
+  };
+
+  const changeTextHandlerCity = (enteredText) => {
+    setCurrentCity(enteredText);
+  };
+
+  const [gender, setGender] = useState(null);
+  const [country, setCountry] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
   const addProfile = (id, email, password, firstName, lastName, userName, birthday, gender, city, country, image, job, bio, follows, bookmarks) =>{
     let newIdCounter = profileData.idCounterProfiles +=1;
     let newProfiles = profileData.profiles;
 
-    newProfiles.push(new Profile('m'+ newIdCounter, email, password, firstName, lastName, userName, birthday, gender, city, country, image, job, null, null, null));
+    newProfiles.push(new Profile('m'+ newIdCounter, currentEmail, currentPassword, currentFirstName, currentLastName, currentUserName, birthday, gender, currentCity, country, image, currentJob, null, null, null));
     setProfileData(profileData => ({
         profiles: newProfiles,
         idCounterProfiles: newIdCounter,
@@ -65,8 +91,8 @@ export default RegistrationScreen = () => {
             inputStyle={styles.textInputStyle}
             placeholder="E-Mail"
             leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10 }}/>}
-            onChangeText={changeTextHandlerUserName}
-            value={currentUserName}
+            onChangeText={changeTextHandlerEmail}
+            value={currentEmail}
           />
           <Input 
             inputStyle={styles.textInputStyle}
@@ -80,22 +106,22 @@ export default RegistrationScreen = () => {
             inputStyle={styles.textInputStyle}
             placeholder="First Name"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-            onChangeText={changeTextHandlerPassword}
-            value={currentPassword}
+            onChangeText={changeTextHandlerFirstName}
+            value={currentFirstName}
           />
           <Input 
             inputStyle={styles.textInputStyle}
             placeholder="Last Name"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-            onChangeText={changeTextHandlerPassword}
-            value={currentPassword}
+            onChangeText={changeTextHandlerLastName}
+            value={currentLastName}
           />
           <Input
             inputStyle={styles.textInputStyle} 
             placeholder="Username"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-            onChangeText={changeTextHandlerPassword}
-            value={currentPassword}
+            onChangeText={changeTextHandlerUserName}
+            value={currentUserName}
           /> 
           <Text>Birthday</Text>
           <DateField
@@ -110,8 +136,8 @@ export default RegistrationScreen = () => {
             inputStyle={styles.textInputStyle}
             placeholder="Job"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-            onChangeText={changeTextHandlerPassword}
-            value={currentPassword}
+            onChangeText={changeTextHandlerJob}
+            value={currentJob}
           />
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
@@ -122,11 +148,11 @@ export default RegistrationScreen = () => {
             labelField="label"
             valueField="value"
             placeholder={!isFocus ? 'Gender' : '...'}
-            value={value}
+            value={gender}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
             onChange={item => {
-              setValue(item.value);
+              setGender(item.value);
               setIsFocus(false);
             }}
           />
@@ -134,8 +160,8 @@ export default RegistrationScreen = () => {
             inputStyle={styles.textInputStyle}
             placeholder="City"
             //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-            onChangeText={changeTextHandlerPassword}
-            value={currentPassword}
+            onChangeText={changeTextHandlerCity}
+            value={currentCity}
           />
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
@@ -150,11 +176,11 @@ export default RegistrationScreen = () => {
             valueField="value"
             placeholder={!isFocus ? 'Country' : '...'}
             searchPlaceholder="Search..."
-            value={value}
+            value={country}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
             onChange={item => {
-              setValue(item.value);
+              setCountry(item.value);
               setIsFocus(false);
             }}
           />
