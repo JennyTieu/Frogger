@@ -26,7 +26,7 @@ export default SettingsScreen = () => {
   }
 
   const placeholder = () => {
-    
+    console.log(profileData.idCounterProfiles)
   };
 
 

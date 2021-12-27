@@ -38,18 +38,21 @@ export default function App({ navigation }) {
             ...prevState,
             userToken: action.token,
             isLoading: false,
+            isSignedUp: true
           };
         case 'SIGN_IN':
           return {
             ...prevState,
             isSignout: false,
             userToken: action.token,
+            isSignedUp: true
           };
         case 'SIGN_OUT':
           return {
             ...prevState,
             isSignout: true,
             userToken: null,
+            isSignedUp: true,
           };
           case 'SIGN_UP':
           return {

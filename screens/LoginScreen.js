@@ -16,6 +16,7 @@ export default LoginScreen = ({navigation}) => {
   const [currentUserName, setCurrentUserName] = useState("");
 
   const userNames = profileData.profiles.filter(item => item.userName);
+  const profiles = profileData.profiles;
 
   const changeTextHandlerUserName = (enteredText) => {
     setCurrentUserName(enteredText);
@@ -26,11 +27,14 @@ export default LoginScreen = ({navigation}) => {
   };
 
   const loginHandler = () => {
-    for (let i = 0; i < userNames.length; i++) {
-      if (userNames[i].userName == currentUserName && userNames[i].password == currentPassword) { 
+    for (let i = 0; i < profiles.length; i++) {
+     
+      if (profiles[i].email == currentUserName && profiles[i].password == currentPassword ||
+        profiles[i].userName == currentUserName && profiles[i].password == currentPassword
+      ) { 
         setUsername(currentUserName)
         setPassword(currentPassword)
-        const id = userNames[i].id
+        const id = emails[i].id
         signIn({ id })
       } 
     }
@@ -38,10 +42,6 @@ export default LoginScreen = ({navigation}) => {
 
   const signUpHandler = () => {
     signUp()
-  };
-
-  const registrationHandler = () => {
-    navigation.navigate("RegistrationScreen")
   };
 
   return (
