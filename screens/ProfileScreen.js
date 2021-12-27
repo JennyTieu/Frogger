@@ -20,7 +20,6 @@ export default ProfileScreen = ({navigation}) => {
       dateB = new Moment(b.date)
     return dateB - dateA
   });
-
   return (
     <View style={{ height: '100%' }}>
       <View style={styles.itemContainer}>

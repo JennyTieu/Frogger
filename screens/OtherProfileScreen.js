@@ -23,7 +23,7 @@ export default OtherProfileScreen = (props) => {
         <View style={{ height: '100%' }}>
             <View style={styles.itemContainer}>
                 <View style={styles.topCont}>
-                    <ProfileTile data={profile}/>
+                    <ProfileTile data={profile} navigation={props.navigation} root={props.route.params.root}/>
                 </View>
                 <View style={styles.bottomCont}>
                     <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Their Posts </Text>
