@@ -13,7 +13,7 @@ export default SettingsNavigator = () => {
       headerStyle: {height: 90},
       title:'Settings',
       headerTitleStyle: {
-        fontSize: 32,
+        fontSize: 24,
         fontWeight: 'bold',
         color: "black"
       }
