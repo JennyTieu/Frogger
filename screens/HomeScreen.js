@@ -5,9 +5,11 @@ import {AuthContext} from '../data/AuthContext';
 import {Button} from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import PostTileList from '../components/PostTileList';
-
+import { useTheme } from '@react-navigation/native';
 
 export default HomeScreen = ({navigation}) => {
+
+  const { colors } = useTheme();
 
   // useLayoutEffect(()=> {
   //   navigation.setOptions({
@@ -44,10 +46,10 @@ export default HomeScreen = ({navigation}) => {
       </View>
       
       <TouchableOpacity
-          style={styles.floatingButton}
+          style={[styles.floatingButton, {backgroundColor: colors.card, borderColor: colors.primary}]}
           onPress={()=>{}}
       >
-        <Ionicons name='create' size={30} color="white"/>
+        <Ionicons name='create' size={30} color={colors.primary}/>
       </TouchableOpacity>
     </View>
   );
@@ -59,7 +61,6 @@ const styles = StyleSheet.create({
   },
   floatingButton: {
     borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.2)',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
@@ -67,7 +68,6 @@ const styles = StyleSheet.create({
     right: 13,
     width: 55,
     height: 55,
-    backgroundColor: "#3996FF",
     borderRadius: 100,
   },
   item: {

@@ -4,8 +4,12 @@ import {Context} from '../data/Context';
 import {AuthContext} from '../data/AuthContext';
 import {Button, Input} from "react-native-elements";
 import {Ionicons} from "@expo/vector-icons";
+import Color from '../constants/Colors';
+import { useTheme } from '@react-navigation/native';
 
 export default LoginScreen = ({navigation}) => {
+  const { colors } = useTheme();
+
   const [profileData] = useContext(Context);
   const { signIn, signUp } = useContext(AuthContext);
 
@@ -62,9 +66,9 @@ export default LoginScreen = ({navigation}) => {
         />
       </View>
       <View style={styles.middleContainer}>
-        <Button title="HomeScreen" type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={() => signIn({ username, password })}/>
-        <Button title="Sign In" type="solid" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={loginHandler}/>
-        <Button title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signUpHandler}/>
+        <Button titleStyle={{color: colors.primary}} buttonStyle={{ backgroundColor: colors.card }} title="HomeScreen"  type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={() => signIn({ username, password })}/>
+        <Button titleStyle={{color: colors.primary}} buttonStyle={{ backgroundColor: colors.card }} title="Sign In" type="solid" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={loginHandler}/>
+        <Button titleStyle={{color: colors.primary}} buttonStyle={{ backgroundColor: colors.card }} title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signUpHandler}/>
       </View>
       <View style={styles.bottomContainer}>
       </View>
@@ -89,4 +93,10 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 1
   },
+  button: {
+    backgroundColor: Color.card,
+  },
+  titleStyleButton: {
+    color: Color.primary
+  }
 });

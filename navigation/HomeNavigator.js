@@ -11,7 +11,7 @@ const HomeStack = createStackNavigator();
 export default HomeNavigator = () => {
   return (
     <HomeStack.Navigator initialRouteName="Home" screenOptions={{
-      headerStyle: {height: 90, backgroundColor: "#D0D0D0"},
+      headerStyle: {height: 90},
       title:'Home',
       headerTitleStyle: {
         fontSize: 32,

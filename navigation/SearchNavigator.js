@@ -9,7 +9,7 @@ const SearchStack = createStackNavigator();
 export default SearchNavigator = () => {
   return (
     <SearchStack.Navigator initialRouteName="Search" screenOptions={{
-      headerStyle: {height: 90, backgroundColor: "#D0D0D0"},
+      headerStyle: {height: 90},
       headerTitleStyle: {
         fontSize: 32,
         fontWeight: 'bold',

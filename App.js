@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {AuthContext} from './data/AuthContext';
 import MainNavigator from './navigation/MainNavigator';
@@ -9,6 +9,7 @@ import {Context} from './data/Context';
 import{ PROFILES, IDCOUNTERPROFILES, COMMENTS, IDCOUNTERCOMMENTS, POSTS, IDCOUNTERPOSTS} from './data/dummyData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RegistrationScreen from './screens/RegistrationScreen';
+import Color from './constants/Colors';
 
 function SplashScreen() {
   return (
@@ -17,6 +18,51 @@ function SplashScreen() {
     </View>
   );
 }
+
+const GreenTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#146356',
+    background: 'white',
+    card: '#A6CF98',
+    border: '#146356'
+  },
+};
+
+const BlueTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#1A374D',
+    background: 'white',
+    card: '#B1D0E0',
+    border: '#1A374D'
+  },
+};
+
+const PinkTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#F2789F',
+    background: 'white',
+    card: '#F9C5D5',
+    border: '#F2789F'
+  },
+};
+
+const DarkTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'white',
+    background: '#414141',
+    card: '#313131',
+    border: '#F2789F',
+    text: 'white'
+  },
+};
 
 const Stack = createStackNavigator();
 
@@ -123,7 +169,7 @@ export default function App({ navigation }) {
   return (
     <Context.Provider value ={[profileData, setProfileData]}>
       <AuthContext.Provider value={authContext}>
-        <NavigationContainer>
+        <NavigationContainer theme={GreenTheme}>
           <Stack.Navigator>
             {state.isLoading ? (
               // We haven't finished checking for the token yet
