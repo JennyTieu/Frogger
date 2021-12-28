@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {View, StyleSheet, Text, ScrollView, Alert} from "react-native";
+import {View, StyleSheet, Text, ScrollView, Alert, Image, TouchableOpacity} from "react-native";
 import {Context} from '../data/Context';
 import {AuthContext} from '../data/AuthContext';
 import {Button, Input} from "react-native-elements";
@@ -8,10 +8,13 @@ import { Dropdown } from 'react-native-element-dropdown';
 import DateField from 'react-native-datefield';
 import Profile from '../models/profile'
 import moment from 'moment';
+import { useTheme } from '@react-navigation/native';
+import * as ImagePicker from "expo-image-picker";
 
 export default RegistrationScreen = ({navigation}) => {
+  const { colors } = useTheme();
   const [profileData, setProfileData] = useContext(Context);
-  const { signIn } = useContext(AuthContext);
+  const { signIn, signOut } = useContext(AuthContext);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [currentPassword2, setCurrentPassword2] = useState("");
@@ -26,8 +29,20 @@ export default RegistrationScreen = ({navigation}) => {
     { label: 'Germany', value: 'Germany' },
     { label: 'Italy', value: 'Italy' },
     { label: 'France', value: 'France' },
-    { label: 'USA', value: 'USA' },
-    { label: 'Russia', value: 'Russia' }
+    { label: 'United Kingdom', value: 'United Kingdom' },
+    { label: 'Russia', value: 'Russia' },
+    { label: 'Belgium', value: 'Belgium' },
+    { label: 'Netherlands', value: 'Netherlands' },
+    { label: 'Spain', value: 'Spain' },
+    { label: 'Poland', value: 'Poland' },
+    { label: 'Portugal', value: 'Portugal' },
+    { label: 'Austria', value: 'Austria' },
+    { label: 'Switzerland', value: 'Switzerland' },
+    { label: 'Sweden', value: 'Sweden' },
+    { label: 'Norway', value: 'Norway' },
+    { label: 'Denmark', value: 'Denmark' },
+    { label: 'Ireland', value: 'Ireland' },
+    { label: 'Greece', value: 'Greece' },
   ];
 
   const genderData = [
@@ -72,13 +87,59 @@ export default RegistrationScreen = ({navigation}) => {
   const [isFocus, setIsFocus] = useState(false);
   const [birthday, setBirthday] = useState(null);
   const [ready, setReady] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const addProfile = (image) => {
-    if (currentEmail !== "" && currentFirstName !== "" && currentLastName !== "" && currentUserName !== "" && currentCity !== "" && gender !== null && country !== null && currentJob !== "") {
-      if (currentPassword !== currentPassword2) {
+  const showImagePicker = async () => {
+    // Ask the user for the permission to access the media library 
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your photos!");
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync();
+
+    if (!result.cancelled) {
+      setSelectedImage({ localUri: result.uri });
+    }
+  }
+
+  const openCamera = async () => {
+    // Ask the user for the permission to access the camera
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync();
+    if (!result.cancelled) {
+      setSelectedImage({ localUri: result.uri });
+    }
+  }
+
+  const addProfile = () => {
+    if (!ready) {
+      if (currentEmail !== "" && currentFirstName !== "" && currentLastName !== "" && currentUserName !== "" && currentCity !== "" && gender !== null && country !== null && currentJob !== "" && selectedImage!==null) {
+        if (currentPassword !== currentPassword2) {
+          Alert.alert(
+            "Error",
+            "Your entered passwords do not match",
+            [
+              {
+                text: "Cancel",
+              },
+            ],
+            {
+              cancelable: true,          
+            }
+          );
+        } else {
+          setReady(true);
+          setReady(true);
+        }
+      } else {
         Alert.alert(
           "Error",
-          "Your entered passwords do not match",
+          "Please fill in all fields",
           [
             {
               text: "Cancel",
@@ -88,31 +149,13 @@ export default RegistrationScreen = ({navigation}) => {
             cancelable: true,          
           }
         );
-      } else {
-        setReady(true);
-        setReady(true);
       }
     } else {
-      Alert.alert(
-        "Error",
-        "Please fill in all fields",
-        [
-          {
-            text: "Cancel",
-          },
-        ],
-        {
-          cancelable: true,          
-        }
-      );
-    }
-
-    if (ready) {
       let newIdCounter = profileData.idCounterProfiles +=1;
       let newProfiles = profileData.profiles;
       let newId = 'm'+ newIdCounter;
   
-      newProfiles.push(new Profile(newId, currentEmail, currentPassword, currentFirstName, currentLastName, currentUserName, birthday, gender, currentCity, country, image, currentJob, null, null, null));
+      newProfiles.push(new Profile(newId, currentEmail, currentPassword, currentFirstName, currentLastName, currentUserName, birthday, gender, currentCity, country, { uri: selectedImage.localUri }, currentJob, [], [], []));
       setProfileData(profileData => ({
           profiles: newProfiles,
           idCounterProfiles: newIdCounter,
@@ -121,43 +164,73 @@ export default RegistrationScreen = ({navigation}) => {
           posts: profileData.posts,
           idCounterPosts: profileData.idCounterPosts
       }));
-      console.log(newId + " " + currentEmail + " " + currentPassword + " " + currentFirstName + " " + currentLastName + " " + currentUserName + " " + birthday + " " + gender + " " + currentCity + " " + country + " " + image + " " + currentJob)
-      signIn({newId})
+      signOut()
     }
   }
 
   return(
     <View style={styles.screenContainer}>
       <View style={styles.topContainer}>
-        <Text>Registration</Text>
+        <Text style={styles.createAccountStyle}>CREATE ACCOUNT</Text>
       </View>
       <View style={styles.middleContainer}>
         <ScrollView>
           <View style={styles.upperScrollContainer}>
-            <Input 
-              inputStyle={styles.textInputStyle}
-              placeholder="E-Mail"
-              leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10 }}/>}
-              onChangeText={changeTextHandlerEmail}
-              value={currentEmail}
+          {selectedImage === null ? (
+            <Image
+              source={require("../data/images/dummyImage.jpg")}
+              style={styles.cameraPreviewBlank}
             />
-            <Input 
-              inputStyle={styles.textInputStyle}
-              placeholder="Password"
-              leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-              onChangeText={changeTextHandlerPassword}
-              value={currentPassword}
-              secureTextEntry
-            />
-            <Input 
-              inputStyle={styles.textInputStyle}
-              placeholder="Repeat Password"
-              leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-              onChangeText={changeTextHandlerPassword2}
-              value={currentPassword2}
-              secureTextEntry
-            />
-          </View>
+          ) : (
+            <TouchableOpacity onPress={() => setSelectedImage(null)}>
+              <Image
+                source={{ uri: selectedImage.localUri }}
+                style={styles.cameraPreview}
+              />
+            </TouchableOpacity>
+          )}
+          <Button type= "clear"
+            icon={
+              <Ionicons
+                name="md-images"
+                size={30}
+                color={colors.primary}
+              />}
+            onPress={showImagePicker} 
+          />
+          <Button type= "clear" 
+            icon={
+              <Ionicons
+                name="md-camera"
+                size={30}
+                color={colors.primary}
+              />} 
+            onPress={openCamera} 
+          />
+        <Input 
+          inputStyle={styles.textInputStyle}
+          placeholder="E-Mail"
+          leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10 }}/>}
+          onChangeText={changeTextHandlerEmail}
+          value={currentEmail}
+        />
+        <Input 
+          inputStyle={styles.textInputStyle}
+          placeholder="Password"
+          leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
+          onChangeText={changeTextHandlerPassword}
+          value={currentPassword}
+          secureTextEntry
+        />
+        <Input 
+          inputStyle={styles.textInputStyle}
+          placeholder="Repeat Password"
+          leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
+          onChangeText={changeTextHandlerPassword2}
+          value={currentPassword2}
+          secureTextEntry
+        />
+        </View>
           <View style={styles.lowerScrollContainer}>
             <Input
               inputStyle={styles.textInputStyle} 
@@ -180,7 +253,7 @@ export default RegistrationScreen = ({navigation}) => {
               onChangeText={changeTextHandlerLastName}
               value={currentLastName}
             /> 
-            <Text>Birthday</Text>
+            <Text style={{fontSize: 15, marginBottom: 5}}>Birthday</Text>
             <DateField
               labelDate="Input date"
               labelMonth="Input month"
@@ -241,18 +314,11 @@ export default RegistrationScreen = ({navigation}) => {
               onChangeText={changeTextHandlerCity}
               value={currentCity}
             />
-            <Input 
-              inputStyle={styles.textInputStyle}
-              placeholder="Image"
-              //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
-              onChangeText={changeTextHandlerPassword}
-              value={currentPassword}
-            />
           </View>
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Button title="Continue" type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={addProfile}/>
+        <Button titleStyle={{color: colors.primary}} buttonStyle={{ backgroundColor: colors.card }} title="Continue" type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={addProfile}/>
       </View>
     </View>
   );
@@ -275,10 +341,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
   upperScrollContainer: {
-    marginBottom: 30
+    marginBottom: 30,
   },
   lowerScrollContainer: {
 
+  },
+  createAccountStyle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: "center"
   },
   titleStyleBirthday: {
     color: "black",
@@ -328,5 +399,25 @@ const styles = StyleSheet.create({
     borderColor: '#cacaca',
     borderWidth: 1,
     marginBottom: 20,
+  },
+  cameraPreview: {
+    alignSelf: "center",
+    width: 120,
+    height: 120,
+    borderRadius: 50,
+    alignItems:'center',
+    justifyContent: 'center',
+    resizeMode: "cover",
+    backgroundColor:"white"
+  },
+  cameraPreviewBlank: {
+    alignSelf: "center",
+    width: 120,
+    height: 120,
+    borderRadius: 50,
+    alignItems:'center',
+    justifyContent: 'center',
+    resizeMode: "contain",
+    backgroundColor:"white"
   },
 });
