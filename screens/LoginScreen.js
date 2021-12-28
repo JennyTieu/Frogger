@@ -67,7 +67,6 @@ export default LoginScreen = ({navigation}) => {
         />
       </View>
       <View style={styles.middleContainer}>
-        <Button titleStyle={{color: colors.primary}} buttonStyle={{ backgroundColor: colors.card }} title="HomeScreen"  type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={() => signIn({ username, password })}/>
         <Button titleStyle={{color: colors.primary}} buttonStyle={{ backgroundColor: colors.card }} title="Sign In" type="solid" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={loginHandler}/>
         <Button titleStyle={{color: colors.primary}} buttonStyle={{ backgroundColor: colors.card }} title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signUpHandler}/>
       </View>
