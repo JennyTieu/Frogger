@@ -318,7 +318,8 @@ export default RegistrationScreen = ({navigation}) => {
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Button titleStyle={{color: colors.primary}} buttonStyle={{ backgroundColor: colors.card }} title="Continue" type="solid" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={addProfile}/>
+        <Button titleStyle={{color: colors.primary, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, marginBottom: 5, borderRadius: 10, marginRight: 20, marginLeft: 20 }} title="Continue" type="solid" onPress={addProfile}/>
+        <Button titleStyle={{color: colors.primary, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, borderRadius: 10, marginRight: 20, marginLeft: 20 }} title="Cancel" type="solid" onPress={signOut}/>
       </View>
     </View>
   );
@@ -326,19 +327,19 @@ export default RegistrationScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    flex: 1
+    flex: 1,
   },
   topContainer: {
     flex: 1,
     justifyContent: "flex-end"
   },
   middleContainer: {
-    flex: 7,
+    flex: 4,
     justifyContent: "space-evenly",
     margin: 30,
   },
   bottomContainer: {
-    flex: 1
+    flex: 1,
   },
   upperScrollContainer: {
     marginBottom: 30,
