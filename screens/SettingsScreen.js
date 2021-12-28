@@ -7,7 +7,7 @@ import {Ionicons} from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@react-navigation/native';
 
-export default SettingsScreen = () => {
+export default SettingsScreen = ({navigation}) => {
   const { colors } = useTheme();
   const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
@@ -25,22 +25,18 @@ export default SettingsScreen = () => {
         // error reading value
       }
   }, [])
-  
-  const placeholder = () => {
-    console.log(id)
-  };
 
   return(
     <View style={styles.screenContainer}>
       <View style={styles.topContainer}>
-        <Text>Signed in!</Text>
+      
       </View>
       <View style={styles.middleContainer}>
-        <Button title="Design" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={placeholder}/>
-        <Button title="Account" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10}}/>} onPress={placeholder}/>
-        <Button title="Info" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-information-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={placeholder}/>
-        <Button title="Help" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-help-buoy-outline" size={28} style={{ marginRight: 10 }}/>} onPress={placeholder}/>
-        <Button title="Sign out" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-exit-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signOut}/>
+        <Button title="Design" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card}} type="clear" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={() => (navigation.navigate("Design"))}/>
+        <Button title="Account" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card }} type="clear" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10}}/>} onPress={() => (console.log("Account"))}/>
+        <Button title="Info" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card }} type="clear" icon={<Ionicons name="md-information-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={() => (navigation.navigate("Info"))}/>
+        <Button title="Help" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card }} type="clear" icon={<Ionicons name="md-help-buoy-outline" size={28} style={{ marginRight: 10 }}/>} onPress={() => (navigation.navigate("Help"))}/>
+        <Button title="Sign out" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card }} type="clear" icon={<Ionicons name="md-exit-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signOut}/>
       </View>
       <View style={styles.bottomContainer}>
         
@@ -55,12 +51,13 @@ const styles = StyleSheet.create({
     justifyContent:"space-evenly"
   },
   topContainer: {
-    flex: 1
+    flex: 1,
+    justifyContent: "center"
   },
   middleContainer: {
-    flex: 3,
+    flex: 7,
     justifyContent: "space-evenly",
-    marginLeft: 20
+    //marginLeft: 20
   },
   bottomContainer: {
     flex: 1

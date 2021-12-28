@@ -7,6 +7,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchNavigator from './SearchNavigator';
 import ProfileNavigator from './ProfileNavigator';
+import SettingsNavigator from './SettingsNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ export default MainNavigator = () => {
           iconName = focused ? 'md-person-circle' : 'md-person-circle-outline';
         } else if (route.name === 'Search') {
           iconName = focused ? 'md-search' : 'md-search-outline';
-        } else if (route.name === 'Settings') {
+        } else if (route.name === 'SettingsScreen') {
           iconName = focused ? 'md-settings' : 'md-settings-outline';
         }
           
@@ -34,7 +35,7 @@ export default MainNavigator = () => {
       <Tab.Screen name ="Home" component={HomeNavigator} options={{headerShown: false}}/>
       <Tab.Screen name ="Search" component={SearchNavigator}  options={{headerShown: false}}/>
       <Tab.Screen name ="Profile" component={ProfileNavigator} options={{headerShown: false}}/>
-      <Tab.Screen name ="Settings" component={SettingsScreen}/>
+      <Tab.Screen name ="SettingsScreen" component={SettingsNavigator} options={{headerShown: false}}/>
     </Tab.Navigator>
   );
 };
