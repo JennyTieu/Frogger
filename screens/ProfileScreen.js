@@ -1,19 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AuthContext } from '../data/AuthContext';
 import { Context } from '../data/Context';
 import PostTileList from '../components/PostTileList';
 import ProfileTile from '../components/ProfileTile';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default ProfileScreen = ({navigation}) => {
+
+  const [id, setId] = useState("")
+
+  useEffect(async () => {
+    try {
+      const value = await AsyncStorage.getItem('storedId')
+      if(value !== null) {
+        // value previously stored
+      }
+      setId(value);
+      setId(value);
+    } catch(e) {
+      // error reading value
+    }
+  }, [])
+
   const Moment = require('moment');
   const [profileData] = useContext(Context);
   const [personData] = useContext(Context);
   //hab als Bsp einfach user m1 genommen
-  const persId = profileData.profiles[0].id
-  const posts = profileData.posts.filter(item => item.userId == persId);
-  const profile = personData.profiles.filter(item => item.id === persId);
+  //const persId = profileData.profiles[0].id
+  const posts = profileData.posts.filter(item => item.userId.includes(id));
+  const profile = personData.profiles.filter(item => item.id.includes(id));
 
   const sortedPosts = posts.sort(function (a, b) {
     var dateA = new Moment(a.date),

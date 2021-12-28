@@ -38,7 +38,8 @@ export default LoginScreen = ({navigation}) => {
       ) { 
         setUsername(currentUserName)
         setPassword(currentPassword)
-        const id = emails[i].id
+        const id = profiles[i].id
+        console.log(id)
         signIn({ id })
       } 
     }

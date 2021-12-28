@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from "react-native";
 import {Context} from '../data/Context';
 import {AuthContext} from '../data/AuthContext';
@@ -9,27 +9,26 @@ import { useTheme } from '@react-navigation/native';
 
 export default SettingsScreen = () => {
   const { colors } = useTheme();
-  const {signIn, signOut } = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
   const ids = profileData.profiles.filter(item => item.id);
-  var neu = "";
+  var id = "";
 
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('storedId')
-      if(value !== null) {
-        // value previously stored
+  useEffect(async () => {
+      try {
+        const value = await AsyncStorage.getItem('storedId')
+        if(value !== null) {
+          // value previously stored
+        }
+        id = value
+      } catch(e) {
+        // error reading value
       }
-      neu = value
-    } catch(e) {
-      // error reading value
-    }
-  }
-
+  }, [])
+  
   const placeholder = () => {
-
+    console.log(id)
   };
-
 
   return(
     <View style={styles.screenContainer}>
@@ -37,7 +36,7 @@ export default SettingsScreen = () => {
         <Text>Signed in!</Text>
       </View>
       <View style={styles.middleContainer}>
-        <Button title="Design" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={getData}/>
+        <Button title="Design" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-color-palette-outline" size={28} style={{ marginRight: 10 }}/>} onPress={placeholder}/>
         <Button title="Account" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10}}/>} onPress={placeholder}/>
         <Button title="Info" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-information-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={placeholder}/>
         <Button title="Help" titleStyle={{color: colors.primary}} buttonStyle={{ justifyContent: 'flex-start' }} type="clear" icon={<Ionicons name="md-help-buoy-outline" size={28} style={{ marginRight: 10 }}/>} onPress={placeholder}/>
