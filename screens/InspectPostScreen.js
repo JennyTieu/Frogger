@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet,Image, TextInput ,ScrollView, SafeAreaView} from "react-native";
 import { TouchableOpacity } from 'react-native';
 import { Button } from "react-native-elements";
@@ -9,16 +9,30 @@ import { Ionicons , MaterialIcons} from "@expo/vector-icons";
 import CommentList from '../components/CommentList';
 import { render } from 'react-dom';
 import { useTheme } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default InspectPostScreen =(props) => {
+    const [id, setId] = useState("")
+
+  useEffect(async () => {
+    try {
+      const value = await AsyncStorage.getItem('storedId')
+      if(value !== null) {
+        // value previously stored
+      }
+      setId(value);
+      setId(value);
+    } catch(e) {
+      // error reading value
+    }
+  }, [])
     const { colors } = useTheme();
     const Moment = require('moment');
     const [commentText, setCommentText] = useState("");
     const [profileData, setProfileData] = useContext(Context);
-    const id='m1';
     const postId= props.route.params.postId;
     const postData= profileData.posts.filter(item => item.postId === postId);
-    const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
+    const [loggedUser] = profileData.profiles.filter(item => item.id.includes(id));
     const userOfPost= profileData.profiles.filter(item=> item.id === postData[0].userId);
     const likedIcon = postData[0].upvotes.includes(id) ? 'heart':'heart-outline';
     const markedIcon = loggedUser.bookmarks.includes(postId) ? 'bookmark':'bookmark-outline';

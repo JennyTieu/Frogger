@@ -28,9 +28,7 @@ export default ProfileScreen = ({navigation}) => {
   const Moment = require('moment');
   const [profileData] = useContext(Context);
   const [personData] = useContext(Context);
-  //hab als Bsp einfach user m1 genommen
-  //const persId = profileData.profiles[0].id
-  const posts = profileData.posts.filter(item => item.userId.includes(id));
+  const posts = profileData.posts.filter(item => item.userId == id);
   const profile = personData.profiles.filter(item => item.id.includes(id));
 
   const sortedPosts = posts.sort(function (a, b) {
