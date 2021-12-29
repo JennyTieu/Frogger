@@ -3,10 +3,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SettingsScreen from '../screens/SettingsScreen';
 import InfoScreen from '../screens/InfoScreen';
 import HelpScreen from '../screens/HelpScreen';
+import { useTheme } from '@react-navigation/native';
 
 const ProfileStack = createStackNavigator();
 
 export default SettingsNavigator = () => {
+  const { colors } = useTheme();
   return (
     <ProfileStack.Navigator initialRouteName="Settings" screenOptions={{
       headerStyle: {height: 90},
@@ -14,7 +16,7 @@ export default SettingsNavigator = () => {
       headerTitleStyle: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: "black"
+        color: colors.text
       }
     }}>
       <ProfileStack.Screen name="Settings" component={SettingsScreen} options={{headerTitle:"SettingsScreen"}}/>

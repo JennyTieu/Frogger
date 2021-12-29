@@ -46,4 +46,37 @@ export const ThemeContext = React.createContext({
       text: 'white'
     },
   },
+  PurpleTheme: {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#7027A0',
+      background: 'white',
+      card: '#BAABDA',
+      border: '#D77FA1',
+      text: 'black'
+    },
+  },
+  RedTheme: {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#BD1616',
+      background: 'white',
+      card: '#FE8F8F',
+      border: '#3D0000',
+      text: 'black'
+    },
+  }, 
+  TurquoiseTheme: {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#3FA796',
+      background: 'white',
+      card: '#7CD1B8',
+      border: '#3E8E7E',
+      text: 'black'
+    },
+  },
 });

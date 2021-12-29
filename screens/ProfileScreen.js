@@ -37,13 +37,14 @@ export default ProfileScreen = ({navigation}) => {
     return dateB - dateA
   });
   return (
-    <View style={{ height: '100%' }}>
+    <View style={{ flex: 1, height: '100%' }}>
       <View style={[styles.itemContainer, {backgroundColor: colors.background}]}>
         <View style={styles.topCont}>
           <ProfileTile data={profile} navigation={navigation} root="Profile"/>
         </View>
+
         <View style={styles.bottomCont}>
-          <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Your Posts </Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}> Your Posts </Text>
           <PostTileList listData={sortedPosts} navigation={navigation} root="Profile" />
         </View>
       </View>
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   },
 
   bottomCont: {
-    flex: 1,
+    flex: 1.5,
   },
 
   itemContainer: {

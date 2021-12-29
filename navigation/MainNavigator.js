@@ -8,10 +8,12 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SearchNavigator from './SearchNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import SettingsNavigator from './SettingsNavigator';
+import { useTheme } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
 export default MainNavigator = () => {
+  const { colors } = useTheme();
   return (
     
     <Tab.Navigator screenOptions={({ route }) => ({
@@ -30,6 +32,8 @@ export default MainNavigator = () => {
           
       return <Ionicons name={iconName} size={size} color={color} />;
       },
+      tabBarActiveTintColor: colors.primary,
+      tabBarInactiveTintColor: colors.primary,
     })}
     >
       <Tab.Screen name ="Home" component={HomeNavigator} options={{headerShown: false}}/>

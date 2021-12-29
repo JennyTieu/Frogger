@@ -114,7 +114,7 @@ export default SearchScreen = ({navigation}) => {
         </View>
         <View  style={styles.container}>
           <View style={[styles.headerContainer, {backgroundColor: colors.background}]}>
-            <Text style={styles.header}>Top 10 Picks</Text>
+            <Text style={[styles.header, {color: colors.text}]}>Top 10 Picks</Text>
           </View>
           
           <PostTileList listData ={trendingPosts} navigation={navigation} root="Search"/>

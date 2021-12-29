@@ -173,7 +173,7 @@ export default PostTile =(props) =>{
                                     
                                 }
                             />
-                            <Text>{props.commentIds.length}</Text>
+                            <Text style={{color: colors.text}}>{props.commentIds.length}</Text>
                         </View>
                         <View style={styles.singleButton}>
                             <Button
@@ -188,7 +188,7 @@ export default PostTile =(props) =>{
                                     />
                                 }
                             />  
-                            <Text>{props.upvotes.length}</Text>
+                            <Text style={{color: colors.text}}>{props.upvotes.length}</Text>
                         </View>
                         <View style={styles.singleButton}>
                             <Button
@@ -247,7 +247,7 @@ export default PostTile =(props) =>{
                                     
                                 }
                             />
-                            <Text>{props.commentIds.length}</Text>
+                            <Text style={{color: colors.text}}>{props.commentIds.length}</Text>
                         </View>
                         <View style={styles.singleButton}>
                             <Button
@@ -262,7 +262,7 @@ export default PostTile =(props) =>{
                                     />
                                 }
                             />  
-                            <Text>{props.upvotes.length}</Text>
+                            <Text style={{color: colors.text}}>{props.upvotes.length}</Text>
                         </View>
                         <View style={styles.singleButton}>
                             <Button

@@ -98,7 +98,7 @@ export default CommentTile =(props) =>{
                             
                         </View >
                         
-                        <Text style={{ fontSize:15}}>{props.comment}</Text>
+                        <Text style={{ fontSize:15, color: colors.text}}>{props.comment}</Text>
                 
                         
                 </View>

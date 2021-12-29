@@ -171,7 +171,7 @@ export default RegistrationScreen = ({navigation}) => {
   return(
     <View style={styles.screenContainer}>
       <View style={styles.topContainer}>
-        <Text style={styles.createAccountStyle}>CREATE ACCOUNT</Text>
+        <Text style={[styles.createAccountStyle, {color: colors.text}]}>CREATE ACCOUNT</Text>
       </View>
       <View style={styles.middleContainer}>
         <ScrollView>
@@ -179,13 +179,13 @@ export default RegistrationScreen = ({navigation}) => {
           {selectedImage === null ? (
             <Image
               source={require("../data/images/dummyImage.jpg")}
-              style={styles.cameraPreviewBlank}
+              style={[styles.cameraPreviewBlank, {backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border}]}
             />
           ) : (
             <TouchableOpacity onPress={() => setSelectedImage(null)}>
               <Image
                 source={{ uri: selectedImage.localUri }}
-                style={styles.cameraPreview}
+                style={[styles.cameraPreview, {backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border}]}
               />
             </TouchableOpacity>
           )}
@@ -209,23 +209,26 @@ export default RegistrationScreen = ({navigation}) => {
           />
         <Input 
           inputStyle={styles.textInputStyle}
+          placeholderTextColor = {colors.text}
           placeholder="E-Mail"
-          leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10 }}/>}
+          leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerEmail}
           value={currentEmail}
         />
         <Input 
           inputStyle={styles.textInputStyle}
+          placeholderTextColor = {colors.text}
           placeholder="Password"
-          leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
+          leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword}
           value={currentPassword}
           secureTextEntry
         />
         <Input 
           inputStyle={styles.textInputStyle}
+          placeholderTextColor = {colors.text}
           placeholder="Repeat Password"
-          leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
+          leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword2}
           value={currentPassword2}
           secureTextEntry
@@ -234,6 +237,7 @@ export default RegistrationScreen = ({navigation}) => {
           <View style={styles.lowerScrollContainer}>
             <Input
               inputStyle={styles.textInputStyle} 
+              placeholderTextColor = {colors.text}
               placeholder="Username"
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerUserName}
@@ -241,6 +245,7 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Input 
               inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
               placeholder="First Name"
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerFirstName}
@@ -248,30 +253,32 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Input 
               inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
               placeholder="Last Name"
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerLastName}
               value={currentLastName}
             /> 
-            <Text style={{fontSize: 15, marginBottom: 5}}>Birthday</Text>
+            <Text style={{fontSize: 15, marginBottom: 5, color: colors.text}}>Birthday</Text>
             <DateField
               labelDate="Input date"
               labelMonth="Input month"
               labelYear="Input year"
               defaultValue={new Date()}
-              styleInput={styles.inputBorder}
+              styleInput={[styles.inputBorder, {borderColor: colors.primary, color: colors.text}]}
               onSubmit={(value) => setBirthday(moment(value).format("MM/DD/YYYY"))}
             />
             <Input 
               inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
               placeholder="Job"
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerJob}
               value={currentJob}
             />
             <Dropdown
-              style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-              placeholderStyle={styles.placeholderStyle}
+              style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
               selectedTextStyle={styles.selectedTextStyle}
               data={genderData}
               maxHeight={100}
@@ -287,8 +294,8 @@ export default RegistrationScreen = ({navigation}) => {
               }}
             />
             <Dropdown
-              style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-              placeholderStyle={styles.placeholderStyle}
+              style={[styles.dropdown,, {borderColor: colors.primary}, isFocus && { borderColor: 'blue' }]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
@@ -309,6 +316,7 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Input 
               inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
               placeholder="City"
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerCity}
@@ -318,8 +326,8 @@ export default RegistrationScreen = ({navigation}) => {
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Button titleStyle={{color: colors.primary, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, marginBottom: 5, borderRadius: 10, marginRight: 20, marginLeft: 20 }} title="Continue" type="solid" onPress={addProfile}/>
-        <Button titleStyle={{color: colors.primary, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, borderRadius: 10, marginRight: 20, marginLeft: 20 }} title="Cancel" type="solid" onPress={signOut}/>
+        <Button titleStyle={{color: colors.text, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, marginBottom: 5, borderRadius: 10, marginRight: 20, marginLeft: 20 }} title="Continue" type="solid" onPress={addProfile}/>
+        <Button titleStyle={{color: colors.text, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, borderRadius: 10, marginRight: 20, marginLeft: 20 }} title="Cancel" type="solid" onPress={signOut}/>
       </View>
     </View>
   );
@@ -369,15 +377,10 @@ const styles = StyleSheet.create({
   selectedTextStyle: {
     fontSize: 16,
   },
-  container: {
-    backgroundColor: 'white',
-    padding: 16,
-  },
   dropdown: {
     marginTop: 10,
     marginBottom: 10,
     height: 50,
-    borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
@@ -385,19 +388,9 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 5,
   },
-  label: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
   inputBorder: {
     width: '30%',
     borderRadius: 8,
-    borderColor: '#cacaca',
     borderWidth: 1,
     marginBottom: 20,
   },

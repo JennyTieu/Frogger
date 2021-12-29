@@ -5,10 +5,12 @@ import OtherProfileScreen from '../screens/OtherProfileScreen';
 import InspectPostScreen from '../screens/InspectPostScreen';
 import FollowsScreen from '../screens/FollowsScreen';
 import FollowerScreen from '../screens/FollowerScreen';
+import { useTheme } from '@react-navigation/native';
 
 const HomeStack = createStackNavigator();
 
 export default HomeNavigator = () => {
+  const { colors } = useTheme();
   return (
     <HomeStack.Navigator initialRouteName="Home" screenOptions={{
       headerStyle: {height: 90},
@@ -16,7 +18,7 @@ export default HomeNavigator = () => {
       headerTitleStyle: {
         fontSize: 32,
         fontWeight: 'bold',
-        color: "black"
+        color: colors.text
       }
     }}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />

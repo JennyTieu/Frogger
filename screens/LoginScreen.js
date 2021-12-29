@@ -53,21 +53,23 @@ export default LoginScreen = ({navigation}) => {
       <View style={styles.topContainer}>
         <Input 
           placeholder="mail/username"
-          leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10 }}/>}
+          placeholderTextColor = {colors.text}
+          leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerUserName}
           value={currentUserName}
         />
         <Input 
           placeholder="password"
-          leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
+          placeholderTextColor = {colors.text}
+          leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword}
           value={currentPassword}
           secureTextEntry
         />
       </View>
       <View style={styles.middleContainer}>
-        <Button titleStyle={{color: 'black'}} buttonStyle={{ backgroundColor: colors.card }} title="Sign In" type="solid" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10 }}/>} onPress={loginHandler}/>
-        <Button titleStyle={{color: 'black'}} buttonStyle={{ backgroundColor: colors.card }} title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10 }}/>} onPress={signUpHandler}/>
+        <Button titleStyle={{color: colors.text}} buttonStyle={{ backgroundColor: colors.card }} title="Sign In" type="solid" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>} onPress={loginHandler}/>
+        <Button titleStyle={{color: colors.text}} buttonStyle={{ backgroundColor: colors.card }} title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>} onPress={signUpHandler}/>
       </View>
       <View style={styles.bottomContainer}>
       </View>

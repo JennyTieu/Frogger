@@ -31,7 +31,7 @@ export default function App({ navigation }) {
     idCounterPosts: IDCOUNTERPOSTS
   });
 
-  const { PinkTheme, GreenTheme, BlueTheme, DarkTheme } = useContext(ThemeContext)
+  const { PinkTheme, GreenTheme, BlueTheme, DarkTheme, PurpleTheme, RedTheme, TurquoiseTheme } = useContext(ThemeContext)
   const [theme, setTheme] = useState(GreenTheme);
 
   const toggleGreenTheme = React.useCallback(() => {
@@ -50,14 +50,29 @@ export default function App({ navigation }) {
     return setTheme(DarkTheme);
   }, [DarkTheme]);
 
+  const togglePurpleTheme = React.useCallback(() => {
+    return setTheme(PurpleTheme);
+  }, [PurpleTheme]);
+
+  const toggleRedTheme = React.useCallback(() => {
+    return setTheme(RedTheme);
+  }, [RedTheme]);
+
+  const toggleTurquoiseTheme = React.useCallback(() => {
+    return setTheme(TurquoiseTheme);
+  }, [TurquoiseTheme]);
+
   const themes = React.useMemo(
     () => ({
       toggleGreenTheme,
       togglePinkTheme,
       toggleBlueTheme,
       toggleDarkTheme,
+      togglePurpleTheme,
+      toggleRedTheme,
+      toggleTurquoiseTheme
     }),
-    [toggleGreenTheme, togglePinkTheme, toggleDarkTheme, toggleBlueTheme]
+    [toggleGreenTheme, togglePinkTheme, toggleDarkTheme, toggleBlueTheme, togglePurpleTheme, toggleTurquoiseTheme, toggleRedTheme]
   );
 
   const [state, dispatch] = React.useReducer(

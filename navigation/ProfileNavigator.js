@@ -5,10 +5,12 @@ import FollowerScreen from '../screens/FollowerScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FollowsScreen from '../screens/FollowsScreen';
 import OtherProfileScreen from '../screens/OtherProfileScreen';
+import { useTheme } from '@react-navigation/native';
 
 const ProfileStack = createStackNavigator();
 
 export default ProfileNavigator = () => {
+  const { colors } = useTheme();
   return (
     <ProfileStack.Navigator initialRouteName="Profile" screenOptions={{
       headerStyle: {height: 90},
@@ -16,7 +18,7 @@ export default ProfileNavigator = () => {
       headerTitleStyle: {
         fontSize: 32,
         fontWeight: 'bold',
-        color: "black"
+        color: colors.text
       }
     }}>
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} options={{headerTitle:"Profile"}}/>

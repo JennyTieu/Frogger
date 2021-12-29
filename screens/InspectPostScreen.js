@@ -10,6 +10,7 @@ import CommentList from '../components/CommentList';
 import { render } from 'react-dom';
 import { useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { color } from 'react-native-elements/dist/helpers';
 
 export default InspectPostScreen =(props) => {
     const [id, setId] = useState("")
@@ -159,15 +160,15 @@ export default InspectPostScreen =(props) => {
                         >
                             <Image style={styles.profileImage} source={userOfPost[0].image}/>
                             <View>
-                            <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
-                                <Text style={{ fontSize:15, color:'gray', paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
+                            <Text style={{fontWeight:'bold', fontSize:16, color: colors.text, paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
+                                <Text style={{ fontSize:15, color:colors.text, paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
                                 
                             </View>
                         </TouchableOpacity>
                         <Text style={{ fontSize:15, paddingVertical:10}}>{postData[0].text}</Text>
                         <Image style={styles.postImage} source={postData[0].image}/>
-                        <Text style={{ fontSize:15, color:'gray',  paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
+                        <Text style={{ fontSize:15, color: colors.text,  paddingVertical:10, borderBottomColor:colors.primary, borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
+                        <Text style={{ fontSize:15, color: colors.text, paddingVertical:10, borderBottomColor:colors.primary, borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
                         <View style={styles.buttonContainer}>
                             <View style={styles.singleButton}>
                                 <Button
@@ -177,7 +178,7 @@ export default InspectPostScreen =(props) => {
                                         <Ionicons
                                             name='chatbubble-outline'
                                             size={30}
-                                            color='gray'
+                                            color={colors.primary}
                                         />
                                         
                                     }
@@ -193,7 +194,7 @@ export default InspectPostScreen =(props) => {
                                         <Ionicons
                                             name={likedIcon}
                                             size={30}
-                                            color='gray'
+                                            color={colors.primary}
                                         />
                                     }
                                 />  
@@ -208,7 +209,7 @@ export default InspectPostScreen =(props) => {
                                         <Ionicons
                                             name={markedIcon}
                                             size={30}
-                                            color='gray'
+                                            color={colors.primary}
                                         />
                                     }
                                 />  
@@ -231,14 +232,14 @@ export default InspectPostScreen =(props) => {
                             >
                                 <Image style={styles.profileImage} source={userOfPost[0].image}/>
                                 <View>
-                                <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
-                                    <Text style={{ fontSize:15, color:'gray', paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
+                                <Text style={{fontWeight:'bold', fontSize:16, color:colors.text, paddingHorizontal:10}}>{userOfPost[0].firstName} {userOfPost[0].lastName}</Text>
+                                    <Text style={{ fontSize:15, color:colors.text, paddingHorizontal:10}}>@{userOfPost[0].userName}</Text>
                                     
                                 </View>
                             </TouchableOpacity>
-                            <Text style={{ fontSize:15, paddingVertical:10}}>{postData[0].text}</Text>
-                            <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
-                            <Text style={{ fontSize:15, color:'gray', paddingVertical:10, borderBottomColor:'gray', borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
+                            <Text style={{ fontSize:15, color:colors.text, paddingVertical:10}}>{postData[0].text}</Text>
+                            <Text style={{ fontSize:15, color:colors.text, paddingVertical:10, borderBottomColor:colors.primary, borderBottomWidth:0.5}}>{moment(postData[0].date).format("h:mm a")} • {moment(postData[0].date).format("D MMM YY")}</Text>
+                            <Text style={{ fontSize:15, color:colors.text, paddingVertical:10, borderBottomColor:colors.primary, borderBottomWidth:0.5}}>{postData[0].commentIds.length} Comments  {postData[0].upvotes.length} Upvotes</Text>
                             <View style={styles.buttonContainer}>
                                 <View style={styles.singleButton}>
                                     <Button
@@ -248,7 +249,7 @@ export default InspectPostScreen =(props) => {
                                             <Ionicons
                                                 name='chatbubble-outline'
                                                 size={30}
-                                                color='gray'
+                                                color={colors.primary}
                                             />
                                             
                                         }
@@ -264,7 +265,7 @@ export default InspectPostScreen =(props) => {
                                             <Ionicons
                                                 name={likedIcon}
                                                 size={30}
-                                                color='gray'
+                                                color={colors.primary}
                                             />
                                         }
                                     />  
@@ -279,7 +280,7 @@ export default InspectPostScreen =(props) => {
                                             <Ionicons
                                                 name={markedIcon}
                                                 size={30}
-                                                color='gray'
+                                                color={colors.primary}
                                             />
                                         }
                                     />  
