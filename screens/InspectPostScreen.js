@@ -8,8 +8,10 @@ import MenuDropdown from '../components/MenuDropdown';
 import { Ionicons , MaterialIcons} from "@expo/vector-icons";
 import CommentList from '../components/CommentList';
 import { render } from 'react-dom';
+import { useTheme } from '@react-navigation/native';
 
 export default InspectPostScreen =(props) => {
+    const { colors } = useTheme();
     const Moment = require('moment');
     const [commentText, setCommentText] = useState("");
     const [profileData, setProfileData] = useContext(Context);
@@ -136,7 +138,7 @@ export default InspectPostScreen =(props) => {
         const getHeader =()=>{
             if(postData[0].image!==null){
                 return(
-                    <View style={styles.topContainer}>
+                    <View style={[styles.topContainer, {backgroundColor: colors.background, borderColor: colors.primary}]}>
                         <TouchableOpacity
                         style={{flexDirection:'row', width:'100%'}}
                         onPress={()=>{onClick(postData[0].userId)}}
@@ -208,7 +210,7 @@ export default InspectPostScreen =(props) => {
             else{
                 return (
                     
-                        <View style={styles.topContainer}>
+                        <View style={[styles.topContainer, {backgroundColor: colors.background, borderColor: colors.primary}]}>
                             <TouchableOpacity
                             style={{flexDirection:'row', width:'100%'}}
                             onPress={()=>{onClick(postData[0].userId)}}
@@ -286,17 +288,17 @@ export default InspectPostScreen =(props) => {
     return(
         <View style={styles.container}>
             <CommentList listData={sortedComments} navigation={props.navigation} root={props.route.params.root} getHeader={getHeader} />
-            <View style={styles.bottomContainer}>
+            <View style={[styles.bottomContainer, {backgroundColor: colors.card}]}>
                 <TextInput 
-                    style={styles.input}
+                    style={[styles.input, {backgroundColor: colors.background}]}
                     onChangeText={(val)=> setCommentText(val)}
-                    placeholderTextColor='gray'
+                    placeholderTextColor={colors.primary}
                     placeholder='Write a comment...'
-                    borderColor='white'
+                    borderColor={colors.primary}
                 />
                 <Button
                     type='clear'
-                    icon={<Ionicons name='send' size={25} color='gray'/>}
+                    icon={<Ionicons name='send' size={25} color={colors.primary}/>}
                     onPress={()=>{}}
                 />
                 
@@ -311,7 +313,6 @@ const styles = StyleSheet.create({
         width:'90%',
         height:'100%',
         paddingHorizontal:10,
-        backgroundColor:'white'
     },
     bottomContainer:{
         padding:10,
@@ -319,7 +320,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         height:'10%',
-        backgroundColor:'#D0D0D0',
         position:'absolute',
         left:0,
         right:0,
@@ -330,14 +330,11 @@ const styles = StyleSheet.create({
         height:'100%',
         flex:1,
         flexDirection:'column',
-        backgroundColor: 'white',
         
     },
     itemContainer:{
         flexWrap:'wrap',
         flexDirection:'column',
-        backgroundColor: 'white',
-        borderColor:'gray',
         borderBottomWidth:0.5,
     },
     profileImage:{
@@ -350,9 +347,7 @@ const styles = StyleSheet.create({
         width:'100%',
         flexDirection:"column",
         borderBottomWidth:0.5,
-        borderBottomColor:'gray',
         padding:10,
-        backgroundColor:'white'
     },
     mainContainer:{
         width:'85%',

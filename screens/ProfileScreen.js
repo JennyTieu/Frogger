@@ -6,9 +6,10 @@ import PostTileList from '../components/PostTileList';
 import ProfileTile from '../components/ProfileTile';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '@react-navigation/native';
 
 export default ProfileScreen = ({navigation}) => {
-
+  const { colors } = useTheme();
   const [id, setId] = useState("")
 
   useEffect(async () => {
@@ -39,7 +40,7 @@ export default ProfileScreen = ({navigation}) => {
   });
   return (
     <View style={{ height: '100%' }}>
-      <View style={styles.itemContainer}>
+      <View style={[styles.itemContainer, {backgroundColor: colors.background}]}>
         <View style={styles.topCont}>
           <ProfileTile data={profile} navigation={navigation} root="Profile"/>
         </View>
@@ -50,10 +51,10 @@ export default ProfileScreen = ({navigation}) => {
       </View>
 
       <TouchableOpacity
-        style={styles.floatingButton}
+        style={[styles.floatingButton, {backgroundColor: colors.card, borderColor: colors.primary}]}
         onPress={() => { }}
       >
-        <Ionicons name='create' size={30} color="white" />
+        <Ionicons name='create' size={30} color={colors.primary} />
       </TouchableOpacity>
     </View>
   );
@@ -73,7 +74,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'white',
     padding: 10,
     borderColor: 'gray',
     borderBottomWidth: 0.5

@@ -2,16 +2,18 @@ import React, {useLayoutEffect, useContext, useState} from 'react';
 import {View, Text, FlatList, StyleSheet, TouchableOpacity} from "react-native";
 import {Context} from '../data/Context';
 import {AuthContext} from '../data/AuthContext';
-import {Button, SearchBar} from 'react-native-elements';
+import {Button, colors, SearchBar} from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import PostTileList from '../components/PostTileList';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import SearchTopScreen from './SearchTopScreen';
 import SearchLatestScreen from './SearchLatestScreen';
 import SearchPeopleScreen from './SearchPeopleScreen';
+import { useTheme } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 export default SearchScreen = ({navigation}) => {
+  const { colors } = useTheme();
 
 
   // useLayoutEffect(()=> {
@@ -87,9 +89,6 @@ export default SearchScreen = ({navigation}) => {
     setSearchValue(true);
   };
 
-
-
-
   if(searchValue===true){
     return(
 
@@ -97,13 +96,15 @@ export default SearchScreen = ({navigation}) => {
           <View style={styles.topContainer}>
           <Button 
             type="clear"
-            icon={searchValue === true ? <Ionicons name="md-search" size={20} color='grey'/> : <Ionicons name="md-arrow-undo-outline" size={22} color='grey'/>}
+            icon={searchValue === true ? <Ionicons name="md-search" size={25} color={colors.primary}/> : <Ionicons name="md-arrow-undo-outline" size={22} color={colors.primary}/>}
             onPress={searchValue === true? searchHandler : quitSearchHandler}
           />
           <SearchBar 
             placeholder="search ..."
             autoCorrect={false}
             value={searchText}
+            inputContainerStyle={{backgroundColor: colors.card}}
+            placeholderTextColor={colors.text}
             containerStyle= {styles.searchBar}
             lightTheme="true"
             searchIcon={false}
@@ -112,7 +113,7 @@ export default SearchScreen = ({navigation}) => {
           />
         </View>
         <View  style={styles.container}>
-          <View style={styles.headerContainer}>
+          <View style={[styles.headerContainer, {backgroundColor: colors.background}]}>
             <Text style={styles.header}>Top 10 Picks</Text>
           </View>
           
@@ -129,7 +130,7 @@ export default SearchScreen = ({navigation}) => {
           <View style={styles.topContainer}>
           <Button 
             type="clear"
-            icon={searchValue === true ? <Ionicons name="md-search" size={20} color='grey'/> : <Ionicons name="md-arrow-undo-outline" size={22} color='grey'/>}
+            icon={searchValue === true ? <Ionicons name="md-search" size={20} color={colors.primary}/> : <Ionicons name="md-arrow-undo-outline" size={22} color={colors.primary}/>}
             onPress={searchValue === true? searchHandler : quitSearchHandler}
           />
           <SearchBar 
@@ -161,7 +162,6 @@ export default SearchScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   headerContainer:{
     padding:5,
-    backgroundColor:"white",
   },
   header:{
     fontSize:25,

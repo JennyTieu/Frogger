@@ -10,6 +10,7 @@ export const ThemeContext = React.createContext({
       background: 'white',
       card: '#A6CF98',
       border: '#146356',
+      text: "black"
     }
   },
   PinkTheme: {
@@ -20,6 +21,7 @@ export const ThemeContext = React.createContext({
       background: 'white',
       card: '#F9C5D5',
       border: '#F2789F',
+      text: "black"
     }
   },
   BlueTheme: {
@@ -29,7 +31,8 @@ export const ThemeContext = React.createContext({
       primary: '#1A374D',
       background: 'white',
       card: '#B1D0E0',
-      border: '#1A374D'
+      border: '#1A374D',
+      text: "black"
     },
   },
   DarkTheme: {
@@ -37,9 +40,9 @@ export const ThemeContext = React.createContext({
     colors: {
       ...DefaultTheme.colors,
       primary: 'white',
-      background: '#414141',
-      card: '#313131',
-      border: '#F2789F',
+      background: '#4d4d4d',
+      card: '#323232',
+      border: '#292929',
       text: 'white'
     },
   },

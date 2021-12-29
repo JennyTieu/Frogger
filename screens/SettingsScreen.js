@@ -33,11 +33,11 @@ export default SettingsScreen = ({navigation}) => {
   }, [])
 
   return(
-    <View style={styles.screenContainer}>
+    <View style={[styles.screenContainer, {backgroundColor: colors.background}]}>
         <Modal
         animationType="slide"
         visible={modalVisible}
-        style={styles.modalStyle}
+        style={[styles.modalStyle, {backgroundColor: colors.background}]}
       >
           <Button title="Hide Modal" titleStyle={{color: 'black'}} buttonStyle={{ backgroundColor: colors.card, marginBottom: 20, marginTop: 20}} type="solid" icon={<Ionicons name="md-arrow-back" size={28} style={{ marginRight: 10 }}/>} onPress={() => (setModalVisible(!modalVisible))}/>
           <Button title="Pink"titleStyle={{color: 'black'}}  buttonStyle={{ backgroundColor: "#F9C5D5", marginBottom: 20, margin: 20, borderRadius: 30}} type="solid" onPress={() => (togglePinkTheme())}/>  
@@ -78,15 +78,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   modalStyle: {
-    //flex: 1,
-    backgroundColor: "white",
     justifyContent: "center",
     alignContent: "center",
-    //margin: 15,
-    //marginTop: 30,
-    //marginBottom: 180,
-    //borderRadius: 15,
-    height: 100,
-    width: 100
   },
 });

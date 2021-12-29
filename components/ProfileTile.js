@@ -3,10 +3,12 @@ import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Context } from "../data/Context";
+import { useTheme } from '@react-navigation/native';
 
 export default ProfileTile = (props) => {
     const [profileData] = useContext(Context);
     const [userData] = profileData.profiles.filter(item => item.id === props.data[0].id);
+    const { colors } = useTheme();
     //const id = 'm1'
     //const profile = profileData.profiles.filter(item => item.id === userData.id);
     
@@ -33,7 +35,7 @@ export default ProfileTile = (props) => {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.mainContainer}>
-                <View style={styles.topCont}>
+                <View style={[styles.topCont, {backgroundColor: colors.background}]}>
                     <Image style={styles.profileImage} source={userData.image} />
                     <View style={styles.singleButton}>
                         <Button
@@ -43,7 +45,7 @@ export default ProfileTile = (props) => {
                                 <Ionicons
                                     name='create'
                                     size={20}
-                                    color='gray'
+                                    color={colors.primary}
                                 />
 
                             }
@@ -51,23 +53,23 @@ export default ProfileTile = (props) => {
                     </View>
                 </View>
                 <View style={styles.userCont}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}>{userData.firstName} {userData.lastName}</Text>
-                    <Text style={{ fontSize: 15, color: 'gray', paddingHorizontal: 2, paddingRight: 5 }}>@{userData.userName}</Text>
-                    <Text style={{ fontSize: 16, color: 'gray', paddingLeft: 5, paddingRight: 5 }}>({userData.gender})</Text>
-                    <Text style={{ fontSize: 16, color: 'gray' }}>{userData.job} in</Text>
-                    <Text style={{ fontSize: 16, color: 'black', paddingLeft: 5, paddingRight: 5 }}>{userData.country}</Text>
-                    <Text style={{ fontSize: 16, color: 'black', paddingRight: 5 }}>{userData.bio}</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}>{userData.firstName} {userData.lastName}</Text>
+                    <Text style={{ fontSize: 15, color: colors.text, paddingHorizontal: 2, paddingRight: 5 }}>@{userData.userName}</Text>
+                    <Text style={{ fontSize: 16, color: colors.text, paddingLeft: 5, paddingRight: 5 }}>({userData.gender})</Text>
+                    <Text style={{ fontSize: 16, color: colors.text }}>{userData.job} in</Text>
+                    <Text style={{ fontSize: 16, color: colors.text, paddingLeft: 5, paddingRight: 5 }}>{userData.country}</Text>
+                    <Text style={{ fontSize: 16, color: colors.text, paddingRight: 5 }}>{userData.bio}</Text>
                     <TouchableOpacity
 
                         onPress={() => onFollows(userData.id)}
                     >
-                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'black', paddingRight: 5 }}>{userData.follows.length} Follows </Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: colors.text, paddingRight: 5 }}>{userData.follows.length} Follows </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         onPress={() => onFollowers(userData.id)}
                     >
-                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'black', paddingRight: 5 }}>{followerCount(profileData)} Follower</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: colors.text, paddingRight: 5 }}>{followerCount(profileData)} Follower</Text>
                     </TouchableOpacity>
 
                 </View >
@@ -83,7 +85,6 @@ export default ProfileTile = (props) => {
 const styles = StyleSheet.create({
     topCont: {
         flexDirection: 'row',
-        backgroundColor: 'white',
         marginVertical: 8,
     },
     profileImage: {

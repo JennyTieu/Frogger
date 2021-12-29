@@ -1,18 +1,31 @@
 import { Ionicons , MaterialIcons} from "@expo/vector-icons";
-import React,{useContext,useState} from "react";
+import React,{useContext,useState, useEffect} from "react";
 import {StyleSheet, View, Text, FlatList,Image, TouchableOpacity} from 'react-native';
-import { Button } from "react-native-elements";
+import { Button, colors } from "react-native-elements";
 import { Context } from "../data/Context";
 import MenuDropdown from "./MenuDropdown";
 import moment from "moment";
-
-
+import { useTheme } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default PostTile =(props) =>{
+    const [id, setId] = useState("")
+    useEffect(async () => {
+        try {
+          const value = await AsyncStorage.getItem('storedId')
+          if(value !== null) {
+            // value previously stored
+          }
+          setId(value);
+          setId(value);
+        } catch(e) {
+          // error reading value
+        }
+      }, [])
 
+    const { colors } = useTheme();
     const [profileData,setProfileData] = useContext(Context);
-    const id='m1';
-    const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
+    const [loggedUser] = profileData.profiles.filter(item => item.id.includes(id));
     const [userData] = profileData.profiles.filter(item => item.id === props.userId);
     const likedIcon = props.upvotes.includes(id) ? 'heart':'heart-outline';
     const markedIcon = loggedUser.bookmarks.includes(props.postId) ? 'bookmark':'bookmark-outline';
@@ -125,7 +138,7 @@ export default PostTile =(props) =>{
 
     if(props.image!==null){
         return(
-            <View style={styles.itemContainer}>
+            <View style={[styles.itemContainer, {backgroundColor: colors.background}]}>
                 <View style={styles.leftContainer}>
                     <TouchableOpacity 
                         onPress={() => onClick(props.userId)}
@@ -137,16 +150,16 @@ export default PostTile =(props) =>{
                 
                 <View style={styles.mainContainer}>
                     <View style={styles.userCont}>
-                        <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>@{userData.userName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
+                        <Text style={{fontWeight:'bold', fontSize:16, color:colors.text, paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
+                        <Text style={{ fontSize:15, color: colors.text, paddingHorizontal:2}}>@{userData.userName}</Text>
+                        <Text style={{ fontSize:15, color:colors.text, paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
                     </View >
                     
-                    <Text style={{ fontSize:15}}>{props.text}</Text>
+                    <Text style={{ fontSize:15, color: colors.text}}>{props.text}</Text>
                     
                     <Image style={styles.postImage} source={props.image}/>
                     
-                    <View style={styles.buttonContainer}>
+                    <View style={[styles.buttonContainer, {backgroundColor: colors.background}]}>
                         <View style={styles.singleButton}>
                             <Button
                                 onPress={() => {onComment(props.postId)}}
@@ -155,7 +168,7 @@ export default PostTile =(props) =>{
                                     <Ionicons
                                         name='chatbubble-outline'
                                         size={30}
-                                        color='gray'
+                                        color={colors.primary}
                                     />
                                     
                                 }
@@ -171,7 +184,7 @@ export default PostTile =(props) =>{
                                     <Ionicons
                                         name={likedIcon}
                                         size={30}
-                                        color='gray'
+                                        color={colors.primary}
                                     />
                                 }
                             />  
@@ -186,7 +199,7 @@ export default PostTile =(props) =>{
                                     <Ionicons
                                         name={markedIcon}
                                         size={30}
-                                        color='gray'
+                                        color={colors.primary}
                                     />
                                 }
                             />  
@@ -203,7 +216,7 @@ export default PostTile =(props) =>{
         );
     }else{
         return(
-            <View style={styles.itemContainer}>
+            <View style={[styles.itemContainer, {backgroundColor: colors.background}]}>
                 <View style={styles.leftContainer}>
                     <TouchableOpacity 
                         onPress={() => onClick(props.userId)}
@@ -214,13 +227,13 @@ export default PostTile =(props) =>{
                 
                 <View style={styles.mainContainer}>
                     <View style={styles.userCont}>
-                        <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>@{userData.userName}</Text>
-                        <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
+                        <Text style={{fontWeight:'bold', fontSize:16, color:colors.text, paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
+                        <Text style={{ fontSize:15, color:colors.text, paddingHorizontal:2}}>@{userData.userName}</Text>
+                        <Text style={{ fontSize:15, color:colors.text, paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
                     </View >
                     
-                    <Text style={{ fontSize:15}}>{props.text}</Text>
-                    <View style={styles.buttonContainer}>
+                    <Text style={{ fontSize:15, color: colors.text}}>{props.text}</Text>
+                    <View style={[styles.buttonContainer, {backgroundColor: colors.background}]}>
                         <View style={styles.singleButton}>
                             <Button
                                 onPress={() => {onComment(props.postId)}}
@@ -229,7 +242,7 @@ export default PostTile =(props) =>{
                                     <Ionicons
                                         name='chatbubble-outline'
                                         size={30}
-                                        color='gray'
+                                        color={colors.primary}
                                     />
                                     
                                 }
@@ -245,7 +258,7 @@ export default PostTile =(props) =>{
                                     <Ionicons
                                         name={likedIcon}
                                         size={30}
-                                        color='gray'
+                                        color={colors.primary}
                                     />
                                 }
                             />  
@@ -260,7 +273,7 @@ export default PostTile =(props) =>{
                                     <Ionicons
                                         name={markedIcon}
                                         size={30}
-                                        color='gray'
+                                        color={colors.primary}
                                     />
                                 }
                             />  
@@ -282,9 +295,7 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
         flex:1,
         flexDirection:'row',
-        backgroundColor: 'white',
         padding:15,
-        borderColor:'gray',
         borderBottomWidth:0.5
     },
     profileImage:{
@@ -312,7 +323,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "flex-start",
-        backgroundColor: "white",
     },
     singleButton:{
         flexDirection:'row',

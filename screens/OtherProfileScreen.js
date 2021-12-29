@@ -4,8 +4,10 @@ import { Context } from '../data/Context';
 import PostTileList from '../components/PostTileList';
 import ProfileTile from '../components/ProfileTile';
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from '@react-navigation/native';
 
 export default OtherProfileScreen = (props) => {
+    const { colors } = useTheme();
     const Moment = require('moment');
     const [profileData] = useContext(Context);
     const [personData] = useContext(Context);
@@ -21,7 +23,7 @@ export default OtherProfileScreen = (props) => {
     return (
 
         <View style={{ height: '100%' }}>
-            <View style={styles.itemContainer}>
+            <View style={styles.itemContainer, {backgroundColor: colors.background}}>
                 <View style={styles.topCont}>
                     <ProfileTile data={profile} navigation={props.navigation} root={props.route.params.root}/>
                 </View>
@@ -34,7 +36,7 @@ export default OtherProfileScreen = (props) => {
                 style={styles.floatingButton}
                 onPress={() => { }}
             >
-                <Ionicons name='create' size={30} color="white" />
+                <Ionicons name='create' size={30} color={colors.primary} />
             </TouchableOpacity>
         </View>
     )
@@ -54,7 +56,6 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       flex: 1,
       flexDirection: 'column',
-      backgroundColor: 'white',
       padding: 10,
       borderColor: 'gray',
       borderBottomWidth: 0.5

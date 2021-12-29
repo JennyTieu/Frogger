@@ -1,18 +1,33 @@
 import { Ionicons , MaterialIcons} from "@expo/vector-icons";
-import React,{useContext,useState} from "react";
+import React,{useContext,useState,useEffect} from "react";
 import {StyleSheet, View, Text, FlatList,Image, TouchableOpacity} from 'react-native';
 import { Button } from "react-native-elements";
 import { Context } from "../data/Context";
 import MenuDropdown from "./MenuDropdown";
 import moment from "moment";
+import { useTheme } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default CommentTile =(props) =>{
+    const [id, setId] = useState("")
 
+    useEffect(async () => {
+      try {
+        const value = await AsyncStorage.getItem('storedId')
+        if(value !== null) {
+          // value previously stored
+        }
+        setId(value);
+        setId(value);
+      } catch(e) {
+        // error reading value
+      }
+    }, [])
     const [profileData,setProfileData] = useContext(Context);
-    const id='m1';
-    const [loggedUser] = profileData.profiles.filter(item => item.id ===id);
+    const [loggedUser] = profileData.profiles.filter(item => item.id.includes(id));
     const [userData] = profileData.profiles.filter(item => item.id === props.userId);
     const isFollowed = loggedUser.follows.includes(props.userId);
+    const { colors } = useTheme();
 
     const onDelete =(commentId)=>{
         setProfileData(profileData => ({
@@ -62,8 +77,8 @@ export default CommentTile =(props) =>{
 
     
     return(
-        <View style={styles.itemContainer}>
-            <View style={styles.container}>
+        <View style={[styles.itemContainer, {backgroundColor: colors.background}]}>
+            <View style={[styles.container, {backgroundColor: colors.background}]}>
 
             
                 <View style={styles.leftContainer}>
@@ -77,9 +92,9 @@ export default CommentTile =(props) =>{
                     
                     <View style={styles.mainContainer}>
                         <View style={styles.userCont}>
-                            <Text style={{fontWeight:'bold', fontSize:16, color:'black', paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
-                            <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>@{userData.userName}</Text>
-                            <Text style={{ fontSize:15, color:'gray', paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
+                            <Text style={{fontWeight:'bold', fontSize:16, color: colors.text, paddingRight:5}}>{userData.firstName} {userData.lastName}</Text>
+                            <Text style={{ fontSize:15, color: colors.text, paddingHorizontal:2}}>@{userData.userName}</Text>
+                            <Text style={{ fontSize:15, color: colors.text, paddingHorizontal:2}}>• {moment(props.date).fromNow()}</Text>
                             
                         </View >
                         
@@ -88,7 +103,7 @@ export default CommentTile =(props) =>{
                         
                 </View>
             </View>
-            <View style={styles.buttonContainer}>
+            <View style={[styles.buttonContainer, {backgroundColor: colors.background}]}>
                         
                             <View style={styles.singleButton}>
                                 <MenuDropdown data={props}  onDelete={()=>{onDelete(props.commentId)}} onFollow={()=>{onFollow(props.userId)}} followed={isFollowed}/>
@@ -104,7 +119,6 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
         flex:7,
         flexDirection:'row',
-        backgroundColor: 'white',
         width:'95%',
         paddingVertical:10,
         paddingLeft:10
@@ -113,7 +127,6 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
         flex:1,
         flexDirection:'row',
-        backgroundColor: 'white',
         borderColor:'gray',
         borderBottomWidth:0.5
     },
@@ -140,7 +153,6 @@ const styles = StyleSheet.create({
         flex:1,
         width: '5%',
         paddingTop:5,
-        backgroundColor: "white",
     },
     singleButton:{
         alignItems: 'center',

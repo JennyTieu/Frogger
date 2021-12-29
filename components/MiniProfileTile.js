@@ -3,8 +3,10 @@ import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Context } from "../data/Context";
+import { useTheme } from '@react-navigation/native';
 
 export default MiniProfileTile = (props) => {
+    const { colors } = useTheme();
     const [profileData, setProfileData] = useContext(Context);
     const id = 'm1';
     const [loggedUser] = profileData.profiles.filter(item => item.id === id);
@@ -141,7 +143,7 @@ export default MiniProfileTile = (props) => {
     if (checkFollower()==false && youFollow) {
         return (
             <View style={{ flex: 1 }}>
-                <View style={styles.mainContainer}>
+                <View style={[styles.mainContainer, {backgroundColor: colors.background}]}>
                     <TouchableOpacity
                         onPress={() => onClick(props.id)} >
                         <Image style={styles.profileImage} source={props.image} />
@@ -221,7 +223,6 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingLeft: 10,
         flexDirection: 'row',
-        backgroundColor: 'white',
         borderColor: 'gray',
         borderBottomWidth: 0.5,
         paddingBottom: 5,
