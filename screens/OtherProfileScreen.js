@@ -19,13 +19,12 @@ export default OtherProfileScreen = (props) => {
             dateB = new Moment(b.date)
         return dateB - dateA
     });
-    
-    return (
 
-        <View style={{ height: '100%' }}>
-            <View style={styles.itemContainer, {backgroundColor: colors.background}}>
+    return (
+        < View style={{ height: '100%', color: colors.background } }>
+            <View style={styles.itemContainer}>
                 <View style={styles.topCont}>
-                    <ProfileTile data={profile} navigation={props.navigation} root={props.route.params.root}/>
+                    <ProfileTile data={profile} navigation={props.navigation} root={props.route.params.root} />
                 </View>
                 <View style={styles.bottomCont}>
                     <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Their Posts </Text>
@@ -38,40 +37,40 @@ export default OtherProfileScreen = (props) => {
             >
                 <Ionicons name='create' size={30} color={colors.primary} />
             </TouchableOpacity>
-        </View>
-    )
+        </View >
+    );
 }
 
 const styles = StyleSheet.create({
     topCont: {
-      flex: 1,
-      flexWrap: 'wrap',
+        flex: 1,
+        flexWrap: 'wrap',
     },
-  
+
     bottomCont: {
-      flex: 1,
+        flex: 1,
     },
-  
+
     itemContainer: {
-      flexWrap: 'wrap',
-      flex: 1,
-      flexDirection: 'column',
-      padding: 10,
-      borderColor: 'gray',
-      borderBottomWidth: 0.5
+        flexWrap: 'wrap',
+        flex: 1,
+        flexDirection: 'column',
+        padding: 10,
+        borderColor: 'gray',
+        borderBottomWidth: 0.5,
     },
     floatingButton: {
-      borderWidth: 1,
-      borderColor: 'rgba(0,0,0,0.2)',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      bottom: 13,
-      right: 13,
-      width: 55,
-      height: 55,
-      backgroundColor: "#3996FF",
-      borderRadius: 100,
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.2)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 13,
+        right: 13,
+        width: 55,
+        height: 55,
+        backgroundColor: "#3996FF",
+        borderRadius: 100,
     },
-  
-  });
+
+});
