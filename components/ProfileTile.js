@@ -9,8 +9,6 @@ export default ProfileTile = (props) => {
     const [profileData] = useContext(Context);
     const [userData] = profileData.profiles.filter(item => item.id === props.data[0].id);
     const { colors } = useTheme();
-    //const id = 'm1'
-    //const profile = profileData.profiles.filter(item => item.id === userData.id);
     
     const onFollows = (pickedUserId) => {
         console.log("Go to your Follows of " + pickedUserId);
