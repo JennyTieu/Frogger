@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     mainContainer: {
-        width: '85%',
+        width: '90%',
+        height:'80%',
         paddingLeft: 10
     },
     userCont: {

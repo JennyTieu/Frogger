@@ -2,55 +2,53 @@ import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AuthContext } from '../data/AuthContext';
 import { Context } from '../data/Context';
-import PostTileList from '../components/PostTileList';
 import ProfileTile from '../components/ProfileTile';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import ProfilePostScreen from './ProfilePostScreen';
+import BookmarkScreen from './BookmarkScreen';
 
-export default ProfileScreen = ({navigation}) => {
+const Tab = createMaterialTopTabNavigator();
+export default ProfileScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const [id, setId] = useState("")
 
   useEffect(async () => {
     try {
       const value = await AsyncStorage.getItem('storedId')
-      if(value !== null) {
+      if (value !== null) {
         // value previously stored
       }
       setId(value);
       setId(value);
-    } catch(e) {
+    } catch (e) {
       // error reading value
     }
   }, [])
-
-  const Moment = require('moment');
+  
   const [profileData] = useContext(Context);
   const [personData] = useContext(Context);
   const posts = profileData.posts.filter(item => item.userId == id);
   const profile = personData.profiles.filter(item => item.id.includes(id));
 
-  const sortedPosts = posts.sort(function (a, b) {
-    var dateA = new Moment(a.date),
-      dateB = new Moment(b.date)
-    return dateB - dateA
-  });
   return (
-    <View style={{ flex: 1, height: '100%' }}>
-      <View style={[styles.itemContainer, {backgroundColor: colors.background}]}>
+    <View style={{ flex: 1 }}>
+      <View style={[styles.itemContainer, { backgroundColor: colors.background }]}>
         <View style={styles.topCont}>
-          <ProfileTile data={profile} navigation={navigation} root="Profile"/>
+          <ProfileTile data={profile} navigation={navigation} root="Profile" />
         </View>
-
         <View style={styles.bottomCont}>
-          <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}> Your Posts </Text>
-          <PostTileList listData={sortedPosts} navigation={navigation} root="Profile" />
+          <Tab.Navigator>
+            <Tab.Screen name = "Posts" component={ProfilePostScreen} />
+            <Tab.Screen name = "Bookmarks" component={BookmarkScreen}/>
+          </Tab.Navigator>
         </View>
       </View>
 
       <TouchableOpacity
-        style={[styles.floatingButton, {backgroundColor: colors.card, borderColor: colors.primary}]}
+        style={[styles.floatingButton, { backgroundColor: colors.card, borderColor: colors.primary }]}
         onPress={() => { }}
       >
         <Ionicons name='create' size={30} color={colors.primary} />
@@ -67,6 +65,7 @@ const styles = StyleSheet.create({
 
   bottomCont: {
     flex: 1.5,
+    width: '99%',
   },
 
   itemContainer: {

@@ -5,6 +5,7 @@ import PostTileList from '../components/PostTileList';
 import ProfileTile from '../components/ProfileTile';
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 export default OtherProfileScreen = (props) => {
     const { colors } = useTheme();
@@ -19,16 +20,16 @@ export default OtherProfileScreen = (props) => {
             dateB = new Moment(b.date)
         return dateB - dateA
     });
-
+    const Tab = createMaterialTopTabNavigator();
     return (
-        < View style={{ height: '100%', color: colors.background } }>
+        < View style={{ height: '100%', color: colors.background }}>
             <View style={styles.itemContainer}>
                 <View style={styles.topCont}>
                     <ProfileTile data={profile} navigation={props.navigation} root={props.route.params.root} />
                 </View>
                 <View style={styles.bottomCont}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}> Their Posts </Text>
                     <PostTileList listData={sortedPosts} navigation={props.navigation} root={props.route.params.root} />
+
                 </View>
             </View>
             <TouchableOpacity
@@ -48,7 +49,8 @@ const styles = StyleSheet.create({
     },
 
     bottomCont: {
-        flex: 1,
+        flex: 1.5,
+        width: '99%'
     },
 
     itemContainer: {
