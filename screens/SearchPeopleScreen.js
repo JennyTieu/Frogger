@@ -5,12 +5,13 @@ import {AuthContext} from '../data/AuthContext';
 import {Button} from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import PostTileList from '../components/PostTileList';
+import MiniProfileTileList from '../components/MiniProfileTileList'
 
 export default SearchPeopleScreen =({route,navigation})=>{
     return(
         <View style={{height:'100%'}}>
           <View  style={styles.container}>
-            <PostTileList listData ={route.params.data} navigation={navigation} root="Search"/>
+            <MiniProfileTileList listData ={route.params.data} navigation={navigation} root="Search"/>
           </View>
           
           

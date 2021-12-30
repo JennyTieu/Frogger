@@ -74,6 +74,7 @@ export default SearchScreen = ({navigation}) => {
       }
     }
       setAllPosts(postSearchBar);
+      setAllProfiles(profileSearchBar);
       setSearchValue(false);
     
   };
@@ -148,7 +149,7 @@ export default SearchScreen = ({navigation}) => {
           <Tab.Navigator>
             <Tab.Screen name= "Top" component={SearchTopScreen} initialParams={{data: allPosts}}/>
             <Tab.Screen name= "Latest" component={SearchLatestScreen} initialParams={{data: allPosts}}/>
-            <Tab.Screen name= "People" component={SearchPeopleScreen} initialParams={{data: allPosts}}/>
+            <Tab.Screen name= "People" component={SearchPeopleScreen} initialParams={{data: allProfiles}}/>
           </Tab.Navigator>
         </View>
         
