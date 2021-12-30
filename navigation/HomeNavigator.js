@@ -6,7 +6,8 @@ import InspectPostScreen from '../screens/InspectPostScreen';
 import FollowsScreen from '../screens/FollowsScreen';
 import FollowerScreen from '../screens/FollowerScreen';
 import { useTheme } from '@react-navigation/native';
-import AddPostScreen from '../AddPostScreen';
+import AddPostScreen from '../screens/AddPostScreen';
+
 
 const HomeStack = createStackNavigator();
 
