@@ -6,6 +6,7 @@ import InspectPostScreen from '../screens/InspectPostScreen';
 import FollowsScreen from '../screens/FollowsScreen';
 import FollowerScreen from '../screens/FollowerScreen';
 import { useTheme } from '@react-navigation/native';
+import AddPostScreen from '../AddPostScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -26,6 +27,7 @@ export default HomeNavigator = () => {
       <HomeStack.Screen name="Followers" component ={FollowerScreen} options={{headerTitle:"Followers"}}/>
       <HomeStack.Screen name="PickedProfile" component ={OtherProfileScreen} options={{headerTitle:"Profile"}}/>
       <HomeStack.Screen name="InspectPost" component={InspectPostScreen} options={{headerTitle:"InspectPost"}}/>
+      <HomeStack.Screen name="AddPost" component={AddPostScreen} options={{headerTitle:"AddPost"}}/>
       
     </HomeStack.Navigator>
   );

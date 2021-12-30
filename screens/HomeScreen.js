@@ -51,6 +51,10 @@ export default HomeScreen = ({navigation}) => {
     return dateB-dateA
   });
 
+  const addPost=()=>{
+    navigation.navigate("AddPost");
+  };
+
   return(
     <View style={{height:'100%'}}>
       <View  style={styles.container}>
@@ -59,7 +63,7 @@ export default HomeScreen = ({navigation}) => {
       
       <TouchableOpacity
           style={[styles.floatingButton, {backgroundColor: colors.card, borderColor: colors.primary}]}
-          onPress={()=>{console.log(id)}}
+          onPress={addPost}
       >
         <Ionicons name='create' size={30} color={colors.primary}/>
       </TouchableOpacity>

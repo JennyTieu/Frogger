@@ -27,7 +27,9 @@ export default ProfileScreen = ({ navigation }) => {
       // error reading value
     }
   }, [])
-  
+  const addPost=()=>{
+    navigation.navigate("AddPost");
+  };
   const [profileData] = useContext(Context);
   const [personData] = useContext(Context);
   const posts = profileData.posts.filter(item => item.userId == id);
@@ -49,7 +51,7 @@ export default ProfileScreen = ({ navigation }) => {
 
       <TouchableOpacity
         style={[styles.floatingButton, { backgroundColor: colors.card, borderColor: colors.primary }]}
-        onPress={() => { }}
+        onPress={addPost}
       >
         <Ionicons name='create' size={30} color={colors.primary} />
       </TouchableOpacity>

@@ -32,12 +32,7 @@ export default OtherProfileScreen = (props) => {
 
                 </View>
             </View>
-            <TouchableOpacity
-                style={styles.floatingButton}
-                onPress={() => { }}
-            >
-                <Ionicons name='create' size={30} color={colors.primary} />
-            </TouchableOpacity>
+            
         </View >
     );
 }
