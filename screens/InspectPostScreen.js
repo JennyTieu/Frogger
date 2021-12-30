@@ -11,6 +11,7 @@ import { render } from 'react-dom';
 import { useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { color } from 'react-native-elements/dist/helpers';
+import Comment from '../models/comment';
 
 export default InspectPostScreen =(props) => {
     const [id, setId] = useState("")
@@ -55,6 +56,7 @@ export default InspectPostScreen =(props) => {
             idCounterPosts: profileData.idCounterPosts
         }))
     };
+    
 
     const onFollow =(userId)=>{
         let itemToChange = profileData.profiles.find(profileItem => profileItem.id === id);
@@ -91,9 +93,25 @@ export default InspectPostScreen =(props) => {
         
     };
 
-    const onComment = (pickedPostId) =>{
-        // props.navigation.navigate(props.root,{screen:"InspectPost", params:{postId:pickedPostId},})
-        
+    const addComment = (postId,userId,date,comment) =>{
+        if(comment!==null){
+            let newCommentCounter = profileData.idCounterComments+=1;
+            let newComments = profileData.comments;
+            let itemToChange = profileData.posts.find(postItem => postItem.postId===postId);
+
+            itemToChange.commentIds.push('c'+newCommentCounter);
+            newComments.push(new Comment('c'+newCommentCounter, userId, date, comment));
+            setProfileData(profileData =>({
+                profiles: profileData.profiles,
+                posts: profileData.posts.map(post => post.postId === postId? itemToChange: post ),
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: newComments,
+                idCounterComments: newCommentCounter,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+            
+        }
+        setCommentText("");
     };
 
     const onLike =(pickedPostId) =>{
@@ -309,12 +327,13 @@ export default InspectPostScreen =(props) => {
                     onChangeText={(val)=> setCommentText(val)}
                     placeholderTextColor={colors.primary}
                     placeholder='Write a comment...'
+                    value={commentText}
                     borderColor={colors.primary}
                 />
                 <Button
                     type='clear'
                     icon={<Ionicons name='send' size={25} color={colors.primary}/>}
-                    onPress={()=>{}}
+                    onPress={()=>{addComment(postId,id,moment(), commentText)}}
                 />
                 
             </View>

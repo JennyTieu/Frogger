@@ -30,9 +30,12 @@ export default CommentTile =(props) =>{
     const { colors } = useTheme();
 
     const onDelete =(commentId)=>{
+        let itemToChange = profileData.posts.find(postItems => postItems.commentIds.includes(commentId));
+
+        itemToChange.commentIds.splice(itemToChange.commentIds.indexOf(commentId),1);
         setProfileData(profileData => ({
             profiles: profileData.profiles,
-            posts: profileData.posts,
+            posts: profileData.posts.map(post => post.commentIds.includes(commentId)? itemToChange:post),
             idCounterProfiles: profileData.idCounterProfiles,
             comments: profileData.comments.filter(commentItem =>commentItem.commentId !== commentId),
             idCounterComments: profileData.idCounterComments,
