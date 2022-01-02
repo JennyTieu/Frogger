@@ -44,7 +44,7 @@ export default HomeScreen = ({navigation}) => {
   const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
   const [accountData] = profileData.profiles.filter(item => item.id.includes(id));
-  const posts = profileData.posts.filter(item => accountData.follows.includes(item.userId));
+  const posts = profileData.posts.filter(item => accountData.follows.includes(item.userId)|| item.userId === id);
   const sortedPosts = posts.sort(function(a,b){
     var dateA = new Moment(a.date),
       dateB = new Moment(b.date)

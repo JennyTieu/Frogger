@@ -1,13 +1,13 @@
-import React, { useState,useContext , useEffect} from "react";
+import React, { useState,useContext , useEffect,useLayoutEffect} from "react";
 import { StyleSheet, View, TextInput ,Text, TouchableOpacity, Image, ScrollView} from "react-native";
 import { Button } from "react-native-elements";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons ,FontAwesome} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { Context } from "../data/Context";
 import moment from "moment";
 import { useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SafeAreaView } from "react-native-web";
+import Post from "../models/post";
 
 export default AddPostTile =(props) =>{
     const [id, setId] = useState("")
@@ -31,6 +31,10 @@ export default AddPostTile =(props) =>{
     const [valueMS, setValueMS] = useState([]);
     const [textInput, setTextInput] = useState("");
     let numOfLines =0;
+
+    
+
+    
 
     const onChangeMS = (value) => {
         setValueMS(value);
@@ -64,7 +68,7 @@ export default AddPostTile =(props) =>{
         const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
     
         if (permissionResult.granted === false) {
-          alert("You've refused to allow this appp to access your camera!");
+          alert("You've refused to allow this app to access your camera!");
           return;
         }
     
@@ -76,6 +80,38 @@ export default AddPostTile =(props) =>{
         if (!result.cancelled) {
           setSelectedImage({ localUri: result.uri });
         }
+      }
+      const addPost = ()=>{
+        let newIdCounter = profileData.idCounterPosts +=1;
+        let newPosts = profileData.posts;
+  
+        if(textInput!==null || selectedImage!==null){
+          if(selectedImage!==null){
+          
+            newPosts.push(new Post('p'+newIdCounter,id,moment(),{ uri: selectedImage.localUri },textInput,null,null,[],[]));
+            setProfileData(profileData=>({
+              profiles: profileData.profiles,
+              posts: newPosts,
+              idCounterProfiles: profileData.idCounterProfiles,
+              comments: profileData.comments,
+              idCounterComments: profileData.idCounterComments,
+              idCounterPosts: newIdCounter
+            }))
+          }else{
+            newPosts.push(new Post('p'+newIdCounter,id,moment(),null,textInput,null,null,[],[]));
+            setProfileData(profileData=>({
+              profiles: profileData.profiles,
+              posts: newPosts,
+              idCounterProfiles: profileData.idCounterProfiles,
+              comments: profileData.comments,
+              idCounterComments: profileData.idCounterComments,
+              idCounterPosts: newIdCounter
+            }))
+          }
+          
+        }
+        props.navigation.goBack();
+        
       }
 
     return(
@@ -138,6 +174,15 @@ export default AddPostTile =(props) =>{
                                 color="gray"
                             />} 
                         onPress={openCamera} />
+                    <Button 
+          type="clear" 
+          icon={<FontAwesome 
+            name="send" 
+            size={30} 
+            padding={3}
+            color={colors.primary}/>} 
+          onPress={addPost}
+        />
                 </View>
             </View>
         </View>
@@ -170,12 +215,12 @@ const styles = StyleSheet.create({
       alignItems: "center",
     },
     cameraPreview: {
-      width: 200,
-      height: 200,
+      width: 300,
+      height: 300,
       alignItems:'center',
       justifyContent: 'center',
       resizeMode: "contain",
-      backgroundColor:"white"
+      backgroundColor:"#f1f2f6"
     },
     cameraPreviewBlank: {
       width: 300,

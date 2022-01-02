@@ -9,27 +9,10 @@ export default addPostScreen=({navigation}) => {
 
     const { colors } = useTheme();
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-          headerRight: () => (
-          <Button 
-            type="clear" 
-            icon={<FontAwesome 
-              name="send" 
-              size={30} 
-              padding={3}
-              color={colors.primary}/>} 
-            onPress={() => {}}
-          />)
-        });
-      }, [navigation]);
-
-
-
     return(
         <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
             <View>
-                <AddPostTile/>
+                <AddPostTile navigation={navigation}/>
             </View>
         </TouchableWithoutFeedback>
         
