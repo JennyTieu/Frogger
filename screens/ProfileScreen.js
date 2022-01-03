@@ -30,9 +30,8 @@ export default ProfileScreen = ({ navigation }) => {
   const addPost=()=>{
     navigation.navigate("AddPost");
   };
-  const [profileData] = useContext(Context);
+  
   const [personData] = useContext(Context);
-  const posts = profileData.posts.filter(item => item.userId == id);
   const profile = personData.profiles.filter(item => item.id.includes(id));
 
   return (

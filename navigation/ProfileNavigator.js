@@ -7,6 +7,7 @@ import FollowsScreen from '../screens/FollowsScreen';
 import OtherProfileScreen from '../screens/OtherProfileScreen';
 import { useTheme } from '@react-navigation/native';
 import AddPostScreen from '../screens/AddPostScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
 
 const ProfileStack = createStackNavigator();
 
@@ -28,6 +29,7 @@ export default ProfileNavigator = () => {
       <ProfileStack.Screen name ="Follows" component ={FollowsScreen} options={{headerTitle:"Follows"}}/>
       <ProfileStack.Screen name ="InspectPost" component={InspectPostScreen} />
       <ProfileStack.Screen name ="AddPost" component={AddPostScreen} options={{headerTitle:"AddPost"}}/>
+      <ProfileStack.Screen name="EditProfile" component={EditProfileScreen} options={{headerTitle:"Edit Profile"}}/>
     </ProfileStack.Navigator>
   );
 };
