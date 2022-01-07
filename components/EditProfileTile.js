@@ -4,7 +4,7 @@ import { Button } from "react-native-elements";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { Context } from "../data/Context";
 import { useTheme } from '@react-navigation/native';
-
+import * as ImagePicker from "expo-image-picker";
 
 export default EditProfileTile = (props) => {
   const { colors } = useTheme();
@@ -76,28 +76,39 @@ export default EditProfileTile = (props) => {
     }
   }
   const editProfile = () => {
-    let profileToChange = profileData.profiles.find(profileItem => profileItem.id === props.data.id);
-    setProfileData(profileToChange => ({
-      birthday: profileToChange.birthday,
-      bookmarks: profileToChange.bookmarks,
-      city: profileToChange.city,
-      email: profileToChange.email,
-      follows: profileToChange.follows,
-      id: profileToChange.id,
-      image: profileToChange.image,
-      password: profileToChange.password,
-      username: profileToChange.userName,
-      gender: genderInput,
-      firstName: firstNameInput,
-      lastName: lastNameInput,
-      bio: bioInput,
-      job: jobInput,
-      country: countryInput
+    var profileToChange = profileData.profiles.find(profileItem => profileItem.id === props.data.id);
+    if(selectedImage!==null){
+          
+    profileToChange.firstName = firstNameInput
+    profileToChange.lastName = lastNameInput
+    profileToChange.gender = genderInput
+    profileToChange.bio = bioInput
+    profileToChange.job = jobInput
+    profileToChange.country = countryInput
+    profileToChange.image = selectedImage.localUri
+    console.log(profileToChange.image)
+    } 
+    else{
+      profileToChange.firstName = firstNameInput
+    profileToChange.lastName = lastNameInput
+    profileToChange.gender = genderInput
+    profileToChange.bio = bioInput
+    profileToChange.job = jobInput
+    profileToChange.country = countryInput
+    }
+
+    setProfileData(profileData => ({
+      profiles: profileData.profiles,
+      posts: profileData.posts,
+      idCounterProfiles: profileData.idCounterProfiles,
+      comments: profileData.comments,
+      idCounterComments: profileData.idCounterComments,
+      idCounterPosts: profileData.idCounterPosts
     }))
-    console.log(profileToChange.firstName)
+    console.log(profileToChange)
     props.navigation.goBack();
   }
-  
+
   const [loggedUser] = profileData.profiles.filter(item => item.id.includes(props.data.id));
   const [firstNameInput, setFirstNameInput] = useState(loggedUser.firstName);
   const [lastNameInput, setLastNameInput] = useState(loggedUser.lastName);
@@ -111,9 +122,10 @@ export default EditProfileTile = (props) => {
     <View style={styles.full}>
       <ScrollView style={{ width: '100%', backgroundColor: "#f1f2f6", flexWrap: 'wrap' }}>
         <View style={{ width: '100%', flexDirection: 'row' }}>
-          <View style={styles.ppView}>
+
+          <TouchableOpacity onPress={showImagePicker} >
             <Image source={loggedUser.image} style={styles.profileImage} />
-          </View>
+          </TouchableOpacity>
           <View style={styles.screen}>
             <View style={styles.topContainer}>
               <View style={styles.topElements}>
@@ -210,30 +222,14 @@ export default EditProfileTile = (props) => {
                   </TouchableOpacity>
                 )}
               </View>
-
             </View>
           </View>
         </View>
 
+
       </ScrollView >
       <View style={styles.lowerBox}>
         <View style={styles.buttonContainer}>
-          <Button type="clear"
-            icon={
-              <Ionicons
-                name="md-images"
-                size={40}
-                color="gray"
-              />}
-            onPress={showImagePicker} />
-          <Button type="clear"
-            icon={
-              <Ionicons
-                name="md-camera"
-                size={40}
-                color="gray"
-              />}
-            onPress={openCamera} />
           <Button
             type="clear"
             icon={<FontAwesome
@@ -344,8 +340,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   profileImage: {
-    height: 40,
-    width: 40,
+    height: 60,
+    width: 60,
     backgroundColor: "black",
     borderRadius: 100,
   },

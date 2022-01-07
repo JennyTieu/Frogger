@@ -24,7 +24,6 @@ export default EditProfileScreen=({navigation}) => {
 
     const [profileData] = useContext(Context);
     const [loggedUser] = profileData.profiles.filter(item => item.id.includes(id));
-    console.log(loggedUser)
     const { colors } = useTheme();
 
     return(
