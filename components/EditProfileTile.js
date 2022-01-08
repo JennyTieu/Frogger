@@ -9,7 +9,6 @@ import * as ImagePicker from "expo-image-picker";
 export default EditProfileTile = (props) => {
   const { colors } = useTheme();
   const [profileData, setProfileData] = useContext(Context);
-  const [selectedImage, setSelectedImage] = useState(null);
   const [valueMS, setValueMS] = useState([]);
 
   let numOfLines = 0;
@@ -77,24 +76,24 @@ export default EditProfileTile = (props) => {
   }
   const editProfile = () => {
     var profileToChange = profileData.profiles.find(profileItem => profileItem.id === props.data.id);
-    if(selectedImage!==null){
-          
-    profileToChange.firstName = firstNameInput
-    profileToChange.lastName = lastNameInput
-    profileToChange.gender = genderInput
-    profileToChange.bio = bioInput
-    profileToChange.job = jobInput
-    profileToChange.country = countryInput
-    profileToChange.image = selectedImage.localUri
-    console.log(profileToChange.image)
-    } 
-    else{
+    if (selectedImage !== null) {
+      console.log(profileToChange.image)
       profileToChange.firstName = firstNameInput
-    profileToChange.lastName = lastNameInput
-    profileToChange.gender = genderInput
-    profileToChange.bio = bioInput
-    profileToChange.job = jobInput
-    profileToChange.country = countryInput
+      profileToChange.lastName = lastNameInput
+      profileToChange.gender = genderInput
+      profileToChange.bio = bioInput
+      profileToChange.job = jobInput
+      profileToChange.country = countryInput
+      profileToChange.image = { uri: selectedImage.localUri }
+      console.log(profileToChange.image)
+    }
+    else {
+      profileToChange.firstName = firstNameInput
+      profileToChange.lastName = lastNameInput
+      profileToChange.gender = genderInput
+      profileToChange.bio = bioInput
+      profileToChange.job = jobInput
+      profileToChange.country = countryInput
     }
 
     setProfileData(profileData => ({
@@ -116,135 +115,234 @@ export default EditProfileTile = (props) => {
   const [jobInput, setJobInput] = useState(loggedUser.job);
   const [countryInput, setCountryInput] = useState(loggedUser.country);
   const [genderInput, setGenderInput] = useState(loggedUser.gender);
+  const [selectedImage, setSelectedImage] = useState(null);
 
+  if (selectedImage != null) {
+    return (
+      <View style={styles.full}>
+        <ScrollView style={{ width: '100%', backgroundColor: "#f1f2f6", flexWrap: 'wrap' }}>
+          <View style={{ width: '100%', flexDirection: 'row' }}>
+            <TouchableOpacity onPress={showImagePicker} >
+              <Image source={{uri : selectedImage.localUri}} style={styles.profileImage} />
+            </TouchableOpacity>
 
-  return (
-    <View style={styles.full}>
-      <ScrollView style={{ width: '100%', backgroundColor: "#f1f2f6", flexWrap: 'wrap' }}>
-        <View style={{ width: '100%', flexDirection: 'row' }}>
-
-          <TouchableOpacity onPress={showImagePicker} >
-            <Image source={loggedUser.image} style={styles.profileImage} />
-          </TouchableOpacity>
-          <View style={styles.screen}>
-            <View style={styles.topContainer}>
-              <View style={styles.topElements}>
-                <Text fontStyle='bold'>First Name</Text>
-                <TextInput
-                  multiline={true}
-                  numberOfLines={numOfLines}
-                  value={firstNameInput}
-                  style={styles.inputBox}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  onChangeText={changeFirstNameHandler}
-                  onContentSizeChange={(e) => {
-                    numOfLines = e.nativeEvent.contentSize.height / 18;
-                  }}
-                />
-                <Text fontStyle='bold'>Last Name</Text>
-                <TextInput
-                  multiline={true}
-                  numberOfLines={numOfLines}
-                  value={lastNameInput}
-                  style={styles.inputBox}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  onChangeText={changeLastNameHandler}
-                  onContentSizeChange={(e) => {
-                    numOfLines = e.nativeEvent.contentSize.height / 18;
-                  }}
-                />
-                <Text fontStyle='bold'>Gender</Text>
-                <TextInput
-                  multiline={true}
-                  numberOfLines={numOfLines}
-                  value={genderInput}
-                  style={styles.inputBox}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  onChangeText={changeGenderHandler}
-                  onContentSizeChange={(e) => {
-                    numOfLines = e.nativeEvent.contentSize.height / 18;
-                  }}
-                />
-                <Text fontStyle='bold'>Biography</Text>
-                <TextInput
-                  multiline={true}
-                  numberOfLines={numOfLines}
-                  value={bioInput}
-                  style={styles.inputBox}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  onChangeText={changeBioHandler}
-                  onContentSizeChange={(e) => {
-                    numOfLines = e.nativeEvent.contentSize.height / 18;
-                  }}
-                />
-                <Text fontStyle='bold'>Job</Text>
-                <TextInput
-                  multiline={true}
-                  numberOfLines={numOfLines}
-                  value={jobInput}
-                  style={styles.inputBox}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  onChangeText={changeJobHandler}
-                  onContentSizeChange={(e) => {
-                    numOfLines = e.nativeEvent.contentSize.height / 18;
-                  }}
-                />
-                <Text fontStyle='bold'>Location</Text>
-                <TextInput
-                  multiline={true}
-                  numberOfLines={numOfLines}
-                  value={countryInput}
-                  style={styles.inputBox}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  onChangeText={changeCountryHandler}
-                  onContentSizeChange={(e) => {
-                    numOfLines = e.nativeEvent.contentSize.height / 18;
-                  }}
-                />
-              </View>
-            </View>
-            <View style={styles.bottomContainer}>
-              <View style={[styles.cameraPreviewBlank]}>
-                {selectedImage === null ? (
-                  <View />
-                ) : (
-                  <TouchableOpacity onPress={() => setSelectedImage(null)}>
-                    <Image
-                      source={{ uri: selectedImage.localUri }}
-                      style={styles.cameraPreview}
-                    />
-                  </TouchableOpacity>
-                )}
+            <View style={styles.screen}>
+              <View style={styles.topContainer}>
+                <View style={styles.topElements}>
+                  <Text fontStyle='bold'>First Name</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={firstNameInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeFirstNameHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Last Name</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={lastNameInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeLastNameHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Gender</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={genderInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeGenderHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Biography</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={bioInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeBioHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Job</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={jobInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeJobHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Location</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={countryInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeCountryHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                </View>
               </View>
             </View>
           </View>
-        </View>
 
 
-      </ScrollView >
-      <View style={styles.lowerBox}>
-        <View style={styles.buttonContainer}>
-          <Button
-            type="clear"
-            icon={<FontAwesome
-              name="send"
-              size={30}
-              padding={3}
-              color={colors.primary} />}
-            onPress={editProfile}
-          />
+        </ScrollView >
+        <View style={styles.lowerBox}>
+          <View style={styles.buttonContainer}>
+            <Button
+              type="clear"
+              icon={<FontAwesome
+                name="send"
+                size={30}
+                padding={3}
+                color={colors.primary} />}
+              onPress={editProfile}
+            />
+          </View>
         </View>
-      </View>
-    </View >
-  );
+      </View >
+    );
+  } else {
+    return (
+      <View style={styles.full}>
+        <ScrollView style={{ width: '100%', backgroundColor: "#f1f2f6", flexWrap: 'wrap' }}>
+          <View style={{ width: '100%', flexDirection: 'row' }}>
+            <TouchableOpacity onPress={showImagePicker} >
+              <Image source={loggedUser.image} style={styles.profileImage} />
+            </TouchableOpacity>
+          
+            <View style={styles.screen}>
+              <View style={styles.topContainer}>
+                <View style={styles.topElements}>
+                  <Text fontStyle='bold'>First Name</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={firstNameInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeFirstNameHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Last Name</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={lastNameInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeLastNameHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Gender</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={genderInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeGenderHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Biography</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={bioInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeBioHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Job</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={jobInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeJobHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                  <Text fontStyle='bold'>Location</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={numOfLines}
+                    value={countryInput}
+                    style={styles.inputBox}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                    onChangeText={changeCountryHandler}
+                    onContentSizeChange={(e) => {
+                      numOfLines = e.nativeEvent.contentSize.height / 18;
+                    }}
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+
+
+        </ScrollView >
+        <View style={styles.lowerBox}>
+          <View style={styles.buttonContainer}>
+            <Button
+              type="clear"
+              icon={<FontAwesome
+                name="send"
+                size={30}
+                padding={3}
+                color={colors.primary} />}
+              onPress={editProfile}
+            />
+          </View>
+        </View>
+      </View >
+    );
+  }
 };
-
 
 const styles = StyleSheet.create({
   ppView: {
@@ -276,18 +374,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cameraPreview: {
-    width: 300,
-    height: 300,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 100,
+    height: 100,
     resizeMode: "contain",
     backgroundColor: "#f1f2f6"
   },
   cameraPreviewBlank: {
-    width: 300,
-    height: 300,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 100,
+    height: 100,
     resizeMode: "contain",
   },
   full: {
