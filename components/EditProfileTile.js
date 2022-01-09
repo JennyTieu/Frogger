@@ -7,6 +7,7 @@ import { useTheme } from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
 
 export default EditProfileTile = (props) => {
+  
   const { colors } = useTheme();
   const [profileData, setProfileData] = useContext(Context);
   const [valueMS, setValueMS] = useState([]);
@@ -77,22 +78,28 @@ export default EditProfileTile = (props) => {
   const editProfile = () => {
     var profileToChange = profileData.profiles.find(profileItem => profileItem.id === props.data.id);
     if (selectedImage !== null) {
-      console.log(profileToChange.image)
-      profileToChange.firstName = firstNameInput
-      profileToChange.lastName = lastNameInput
-      profileToChange.gender = genderInput
-      profileToChange.bio = bioInput
-      profileToChange.job = jobInput
-      profileToChange.country = countryInput
       profileToChange.image = { uri: selectedImage.localUri }
-      console.log(profileToChange.image)
     }
-    else {
+    if(firstNameInput!==""){
       profileToChange.firstName = firstNameInput
+    }
+    if(lastNameInput!==""){
       profileToChange.lastName = lastNameInput
+      
+    }
+    if(genderInput!==""){
       profileToChange.gender = genderInput
+      
+    }
+    if(bioInput!==""){
       profileToChange.bio = bioInput
+      
+    }
+    if(jobInput!==""){
       profileToChange.job = jobInput
+      
+    }
+    if(countryInput!==""){
       profileToChange.country = countryInput
     }
 
@@ -108,13 +115,21 @@ export default EditProfileTile = (props) => {
     props.navigation.goBack();
   }
 
-  const [loggedUser] = profileData.profiles.filter(item => item.id.includes(props.data.id));
-  const [firstNameInput, setFirstNameInput] = useState(loggedUser.firstName);
-  const [lastNameInput, setLastNameInput] = useState(loggedUser.lastName);
-  const [bioInput, setBioInput] = useState(loggedUser.bio);
-  const [jobInput, setJobInput] = useState(loggedUser.job);
-  const [countryInput, setCountryInput] = useState(loggedUser.country);
-  const [genderInput, setGenderInput] = useState(loggedUser.gender);
+  const [loggedUser] = profileData.profiles.filter(item => item.id === props.data.id);
+
+  const userFirstName = props.data.firstName;
+  const userLastName = props.data.lastName;
+  const userBio= props.data.bio;
+  const userJob = props.data.job;
+  const userCountry = props.data.country;
+  const userGender= props.data.gender;
+
+  const [firstNameInput, setFirstNameInput] = useState("");
+  const [lastNameInput, setLastNameInput] = useState("");
+  const [bioInput, setBioInput] = useState("");
+  const [jobInput, setJobInput] = useState("");
+  const [countryInput, setCountryInput] = useState("");
+  const [genderInput, setGenderInput] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
 
   if (selectedImage != null) {
@@ -132,6 +147,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>First Name</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userFirstName}
                     numberOfLines={numOfLines}
                     value={firstNameInput}
                     style={styles.inputBox}
@@ -145,6 +161,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Last Name</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userLastName}
                     numberOfLines={numOfLines}
                     value={lastNameInput}
                     style={styles.inputBox}
@@ -158,6 +175,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Gender</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userGender}
                     numberOfLines={numOfLines}
                     value={genderInput}
                     style={styles.inputBox}
@@ -171,6 +189,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Biography</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userBio}
                     numberOfLines={numOfLines}
                     value={bioInput}
                     style={styles.inputBox}
@@ -184,6 +203,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Job</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userJob}
                     numberOfLines={numOfLines}
                     value={jobInput}
                     style={styles.inputBox}
@@ -197,6 +217,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Location</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userCountry}
                     numberOfLines={numOfLines}
                     value={countryInput}
                     style={styles.inputBox}
@@ -244,6 +265,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>First Name</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userFirstName}
                     numberOfLines={numOfLines}
                     value={firstNameInput}
                     style={styles.inputBox}
@@ -257,6 +279,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Last Name</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userLastName}
                     numberOfLines={numOfLines}
                     value={lastNameInput}
                     style={styles.inputBox}
@@ -270,6 +293,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Gender</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userGender}
                     numberOfLines={numOfLines}
                     value={genderInput}
                     style={styles.inputBox}
@@ -283,6 +307,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Biography</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userBio}
                     numberOfLines={numOfLines}
                     value={bioInput}
                     style={styles.inputBox}
@@ -296,6 +321,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Job</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userJob}
                     numberOfLines={numOfLines}
                     value={jobInput}
                     style={styles.inputBox}
@@ -309,6 +335,7 @@ export default EditProfileTile = (props) => {
                   <Text fontStyle='bold'>Location</Text>
                   <TextInput
                     multiline={true}
+                    placeholder ={userCountry}
                     numberOfLines={numOfLines}
                     value={countryInput}
                     style={styles.inputBox}
