@@ -163,7 +163,7 @@ export default AddPostTile =(props) =>{
                             <Ionicons
                                 name="md-images"
                                 size={40}
-                                color="gray"
+                                color={colors.primary}
                             />}
                         onPress={showImagePicker} />
                     <Button type= "clear" 
@@ -171,7 +171,7 @@ export default AddPostTile =(props) =>{
                             <Ionicons
                                 name="md-camera"
                                 size={40}
-                                color="gray"
+                                color={colors.primary}
                             />} 
                         onPress={openCamera} />
                     <Button 

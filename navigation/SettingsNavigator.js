@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SettingsScreen from '../screens/SettingsScreen';
 import InfoScreen from '../screens/InfoScreen';
 import HelpScreen from '../screens/HelpScreen';
+import DeleteAccountScreen from '../screens/DeleteAccountScreen';
 import { useTheme } from '@react-navigation/native';
 
 const ProfileStack = createStackNavigator();
@@ -22,6 +23,7 @@ export default SettingsNavigator = () => {
       <ProfileStack.Screen name="Settings" component={SettingsScreen} options={{headerTitle:"SettingsScreen"}}/>
       <ProfileStack.Screen name="Info" component={InfoScreen} options={{headerTitle:"InfoScreen"}}/>
       <ProfileStack.Screen name="Help" component={HelpScreen} options={{headerTitle:"HelpScreen"}}/>
+      <ProfileStack.Screen name="Account" component={DeleteAccountScreen} options={{headerTitle:"DeleteAccountScreen"}}/>
     </ProfileStack.Navigator>
   );
 };

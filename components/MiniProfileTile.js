@@ -1,15 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from "@expo/vector-icons";
 import { Context } from "../data/Context";
 import { useTheme } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default MiniProfileTile = (props) => {
     const { colors } = useTheme();
     const [profileData, setProfileData] = useContext(Context);
-    const id = 'm1';
-    const [loggedUser] = profileData.profiles.filter(item => item.id === id);
+    const [id, setId] = useState("")
+
+  useEffect(async () => {
+    try {
+      const value = await AsyncStorage.getItem('storedId')
+      if(value !== null) {
+        // value previously stored
+      }
+      setId(value);
+      setId(value);
+    } catch(e) {
+      // error reading value
+    }
+  }, [])
+    const [loggedUser] = profileData.profiles.filter(item => item.id.includes(id));
     //You follow them
     const youFollow = loggedUser.follows.includes(props.id);
 
@@ -88,9 +102,9 @@ export default MiniProfileTile = (props) => {
                             type='clear'
                             icon={
                                 <Ionicons
-                                    name="checkmark-circle-outline"
+                                    name="checkmark-circle"
                                     size={20}
-                                    color='green'
+                                    color={colors.primary}
                                 />
                             }
                         />
@@ -129,7 +143,7 @@ export default MiniProfileTile = (props) => {
                                 <Ionicons
                                     name="add-circle-outline"
                                     size={20}
-                                    color='gray'
+                                    color={colors.primary}
                                 />
 
                             }
@@ -163,7 +177,7 @@ export default MiniProfileTile = (props) => {
                                 <Ionicons
                                     name="checkmark-circle-outline"
                                     size={20}
-                                    color='gray'
+                                    color={colors.primary}
                                 />
 
                             }
@@ -195,9 +209,9 @@ export default MiniProfileTile = (props) => {
                             type='clear'
                             icon={
                                 <Ionicons
-                                    name="add-circle-outline"
+                                    name="add-circle"
                                     size={20}
-                                    color='gray'
+                                    color={colors.primary}
                                 />
     
                             }
