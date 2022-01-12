@@ -4,11 +4,11 @@
     "slug": "Frogger",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/froggerIcon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#A6CF98"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
