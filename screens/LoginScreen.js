@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import {View, StyleSheet, Text} from "react-native";
+import {View, StyleSheet, Text, Alert} from "react-native";
 import {Context} from '../data/Context';
 import {AuthContext} from '../data/AuthContext';
 import {Button, Input} from "react-native-elements";
@@ -21,6 +21,8 @@ export default LoginScreen = ({navigation}) => {
   const userNames = profileData.profiles.filter(item => item.userName);
   const profiles = profileData.profiles;
 
+  var login = false;
+
   const changeTextHandlerUserName = (enteredText) => {
     setCurrentUserName(enteredText);
   };
@@ -31,16 +33,34 @@ export default LoginScreen = ({navigation}) => {
 
   const loginHandler = () => {
     for (let i = 0; i < profiles.length; i++) {
-     
-      if (profiles[i].email == currentUserName && profiles[i].password == currentPassword ||
-        profiles[i].userName == currentUserName && profiles[i].password == currentPassword
-      ) { 
-        setUsername(currentUserName)
-        setPassword(currentPassword)
-        const id = profiles[i].id
-        console.log(id)
-        signIn({ id })
-      } 
+      if (currentPassword !== "" && currentUserName !== "")
+        if (profiles[i].email == currentUserName && profiles[i].password == currentPassword ||
+          profiles[i].userName == currentUserName && profiles[i].password == currentPassword
+        ) { 
+          login = true
+          setUsername(currentUserName)
+          setPassword(currentPassword)
+          const id = profiles[i].id
+          console.log(id)
+          signIn({ id })
+        } 
+    }
+
+    if (login == false) {
+      Alert.alert(
+        "Error",
+        "Ivalid Input",
+        [
+          {
+            text: "Cancel",
+          },
+        ],
+        {
+          cancelable: true,          
+        }
+      );
+      setCurrentUserName("")
+      setCurrentPassword("")
     }
   };
 
