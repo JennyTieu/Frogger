@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/froggerIcon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/FroggerSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#A6CF98"
     },
