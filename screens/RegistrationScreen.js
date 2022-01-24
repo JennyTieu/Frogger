@@ -179,7 +179,7 @@ export default RegistrationScreen = ({navigation}) => {
           {selectedImage === null ? (
             <Image
               source={require("../data/images/dummyImage.jpg")}
-              style={[styles.cameraPreviewBlank, {backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border}]}
+              style={[styles.cameraPreviewBlank, {backgroundColor: colors.background, borderWidth: 1}]}
             />
           ) : (
             <TouchableOpacity onPress={() => setSelectedImage(null)}>
@@ -326,8 +326,8 @@ export default RegistrationScreen = ({navigation}) => {
         </ScrollView>
       </View>
       <View style={styles.bottomContainer}>
-        <Button titleStyle={{color: colors.text, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, marginBottom: 5, borderRadius: 10, marginRight: 20, marginLeft: 20 }} title="Continue" type="solid" onPress={addProfile}/>
-        <Button titleStyle={{color: colors.text, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, borderRadius: 10, marginRight: 20, marginLeft: 20 }} title="Cancel" type="solid" onPress={signOut}/>
+        <Button titleStyle={{color: colors.text, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, marginBottom: 5, borderRadius: 10, marginRight: 20, marginLeft: 20, borderRadius:30  }} title="Continue" type="solid" onPress={addProfile}/>
+        <Button titleStyle={{color: colors.text, fontSize: 18}} buttonStyle={{ backgroundColor: colors.card, borderRadius: 10, marginRight: 20, marginLeft: 20, borderRadius:30  }} title="Cancel" type="solid" onPress={signOut}/>
       </View>
     </View>
   );

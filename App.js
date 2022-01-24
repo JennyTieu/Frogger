@@ -1,3 +1,4 @@
+import AppLoading from 'expo-app-loading';
 import React, { useState, useContext } from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer, DefaultTheme} from '@react-navigation/native';
@@ -10,18 +11,23 @@ import{ PROFILES, IDCOUNTERPROFILES, COMMENTS, IDCOUNTERCOMMENTS, POSTS, IDCOUNT
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RegistrationScreen from './screens/RegistrationScreen';
 import {ThemeContext} from './data/ThemeContext';
+import { useFonts } from '@use-expo/font';
+import { useTheme } from '@react-navigation/native';
 
 function SplashScreen() {
   return (
-    <View>
-      <Text>Loading...</Text>
-    </View>
+    <AppLoading />
   );
 }
 
 const Stack = createStackNavigator();
 
 export default function App({ navigation }) {
+  let [fontsLoaded] = useFonts({
+    "dancing-script": require("./assets/fonts/DancingScript-SemiBold.ttf"),
+  });
+  const { colors } = useTheme();
+
   const [profileData, setProfileData] = useState({
     profiles: PROFILES,
     idCounterProfiles: IDCOUNTERPROFILES,
@@ -106,6 +112,13 @@ export default function App({ navigation }) {
             userToken: null,
             isSignedUp: false
           };
+          case 'DELETE_ACCOUNT':
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+            isSignedUp: false
+          };
       }
     },
     {
@@ -148,51 +161,73 @@ export default function App({ navigation }) {
 
         dispatch({ type: 'SIGN_UP', token: 'dummy-auth-token' });
       },
+      deleteAccount: async (data) => {
+        await AsyncStorage.clear();
+        dispatch({ type: 'DELETE_ACCOUNT' });
+      },
     }),
     []
   );
 
-  return (
-    <Context.Provider value ={[profileData, setProfileData]}>
-      <AuthContext.Provider value={authContext}>
-        <ThemeContext.Provider value={themes}>
-          <NavigationContainer theme={theme}>
-            <Stack.Navigator>
-              {state.isLoading ? (
-                // We haven't finished checking for the token yet
-                <Stack.Screen name="Splash" component={SplashScreen} />
+  if (!fontsLoaded) {
+    return (
+      <AppLoading />
+    )
+  } else {
+    return (
+      <Context.Provider value ={[profileData, setProfileData]}>
+        <AuthContext.Provider value={authContext}>
+          <ThemeContext.Provider value={themes}>
+            <NavigationContainer theme={theme}>
+              <Stack.Navigator>
+                {state.isLoading ? (
+                  // We haven't finished checking for the token yet
+                  <Stack.Screen name="Splash" component={SplashScreen} />
 
-              ) : state.userToken == null ? (
+                ) : state.userToken == null ? (
 
-                state.isSignedUp == true ? (
-                  // No token found, user isn't signed in
-                  <Stack.Screen
-                    name="SignIn"
-                    component={LoginScreen}
-                    options={{
-                      title: 'Sign in',
-                      // When logging out, a pop animation feels intuitive
-                      animationTypeForReplace: state.isSignout ? 'pop' : 'push',
-                    }}
-                  />
-                  ) : (
+                  state.isSignedUp == true ? (
+                    // No token found, user isn't signed in
                     <Stack.Screen
-                    name="SignUp"
-                    component={RegistrationScreen}
-                    options={{
-                      title: 'Sign up',
-                      // When logging out, a pop animation feels intuitive
-                      animationTypeForReplace: state.isSignout ? 'pop' : 'push',
-                    }}
-                  />
-              )) : (
-                // User is signed in
-                <Stack.Screen name="MainNavigator" component={MainNavigator} options={{headerShown: false}}/>
-              )}
-            </Stack.Navigator>
-          </NavigationContainer>
-        </ThemeContext.Provider>
-      </AuthContext.Provider>
-    </Context.Provider>
-  );
+                      name="SignIn"
+                      component={LoginScreen}
+                      options={{
+                        title: 'Frogger',
+                        headerTitleStyle: {
+                          fontSize: 40,
+                          color: colors.text,
+                          fontFamily: "dancing-script",
+                        },
+                        headerTitleAlign: 'center',
+                        // When logging out, a pop animation feels intuitive
+                        animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+                      }}
+                    />
+                    ) : (
+                      <Stack.Screen
+                      name="SignUp"
+                      component={RegistrationScreen}
+                      options={{
+                        title: 'Sign up',
+                        headerTitleStyle: {
+                          fontSize: 40,
+                          color: colors.text,
+                          fontFamily: "dancing-script",
+                        },
+                        headerTitleAlign: 'center',
+                        // When logging out, a pop animation feels intuitive
+                        animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+                      }}
+                    />
+                )) : (
+                  // User is signed in
+                  <Stack.Screen name="MainNavigator" component={MainNavigator} options={{headerShown: false}}/>
+                )}
+              </Stack.Navigator>
+            </NavigationContainer>
+          </ThemeContext.Provider>
+        </AuthContext.Provider>
+      </Context.Provider>
+    );
+  }
 }

@@ -12,11 +12,13 @@ export default SearchNavigator = () => {
   return (
     <SearchStack.Navigator initialRouteName="Search" screenOptions={{
       headerStyle: {height: 90},
+      title:'Search',
       headerTitleStyle: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: colors.text
-      }
+        fontSize: 40,
+        color: colors.text,
+        fontFamily: "dancing-script",
+      },
+      headerTitleAlign: 'center',
     }}>
       <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
       <SearchStack.Screen name="PickedProfile" component ={OtherProfileScreen}/>

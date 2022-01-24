@@ -42,6 +42,7 @@ export default LoginScreen = ({navigation}) => {
           setPassword(currentPassword)
           const id = profiles[i].id
           console.log(id)
+          console.log(profileData.profiles.length)
           signIn({ id })
         } 
     }
@@ -88,8 +89,8 @@ export default LoginScreen = ({navigation}) => {
         />
       </View>
       <View style={styles.middleContainer}>
-        <Button titleStyle={{color: colors.text}} buttonStyle={{ backgroundColor: colors.card }} title="Sign In" type="solid" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>} onPress={loginHandler}/>
-        <Button titleStyle={{color: colors.text}} buttonStyle={{ backgroundColor: colors.card }} title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>} onPress={signUpHandler}/>
+        <Button titleStyle={{color: colors.text}} buttonStyle={{ backgroundColor: colors.card, borderRadius:30 }} title="Sign In" type="solid" icon={<Ionicons name="md-person-circle-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>} onPress={loginHandler}/>
+        <Button titleStyle={{color: colors.text}} buttonStyle={{ backgroundColor: colors.card, borderRadius:30 }} title="Registration" type="solid" icon={<Ionicons name="md-person-add-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>} onPress={signUpHandler}/>
       </View>
       <View style={styles.bottomContainer}>
       </View>

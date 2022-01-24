@@ -18,10 +18,11 @@ export default ProfileNavigator = () => {
       headerStyle: {height: 90},
       title:'Profile',
       headerTitleStyle: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: colors.text
-      }
+        fontSize: 40,
+        color: colors.text,
+        fontFamily: "dancing-script",
+      },
+      headerTitleAlign: 'center',
     }}>
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} options={{headerTitle:"Profile"}}/>
       <ProfileStack.Screen name="Followers" component ={FollowerScreen} options={{headerTitle:"Followers"}}/>

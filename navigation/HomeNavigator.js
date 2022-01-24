@@ -8,7 +8,6 @@ import FollowerScreen from '../screens/FollowerScreen';
 import { useTheme } from '@react-navigation/native';
 import AddPostScreen from '../screens/AddPostScreen';
 
-
 const HomeStack = createStackNavigator();
 
 export default HomeNavigator = () => {
@@ -16,12 +15,13 @@ export default HomeNavigator = () => {
   return (
     <HomeStack.Navigator initialRouteName="Home" screenOptions={{
       headerStyle: {height: 90},
-      title:'Home',
+      title:'Frogger',
       headerTitleStyle: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: colors.text
-      }
+        fontSize: 40,
+        color: colors.text,
+        fontFamily: "dancing-script",
+      },
+      headerTitleAlign: 'center',
     }}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       <HomeStack.Screen name ="Follows" component ={FollowsScreen} options={{headerTitle:"Follows"}}/>

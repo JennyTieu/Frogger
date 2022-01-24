@@ -15,15 +15,16 @@ export default SettingsNavigator = () => {
       headerStyle: {height: 90},
       title:'Settings',
       headerTitleStyle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: colors.text
-      }
+        fontSize: 40,
+        color: colors.text,
+        fontFamily: "dancing-script",
+      },
+      headerTitleAlign: 'center',
     }}>
-      <ProfileStack.Screen name="Settings" component={SettingsScreen} options={{headerTitle:"SettingsScreen"}}/>
+      <ProfileStack.Screen name="Settings" component={SettingsScreen} options={{headerTitle:"Settings"}}/>
       <ProfileStack.Screen name="Info" component={InfoScreen} options={{headerTitle:"InfoScreen"}}/>
       <ProfileStack.Screen name="Help" component={HelpScreen} options={{headerTitle:"HelpScreen"}}/>
-      <ProfileStack.Screen name="Account" component={DeleteAccountScreen} options={{headerTitle:"DeleteAccountScreen"}}/>
+      <ProfileStack.Screen name="Account" component={DeleteAccountScreen} options={{headerTitle:"Account"}}/>
     </ProfileStack.Navigator>
   );
 };
