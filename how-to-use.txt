@@ -8,7 +8,9 @@ How-To:
 -------------------------------------------------------------------------------------------------------------------------------------
 
 Description:
-...tbc
+Frogger ist eine Social-Media App inspiriert durch Facebook, Instagram, Twitter und Tumblr.
+Aufgrund der aktuellen Pandemie fällt es vielen schwer sich mit Freunden und Familie zu verbinden oder sozial unterwegs zu sein. 
+Jedoch durch Soziale Medien kann man mit Freunden oder Familie teilen, was zurzeit im Leben passiert, sowie eventuel neue Freunde mit den selben Interessen finden!
 
 
 
@@ -16,4 +18,35 @@ Description:
 -------------------------------------------------------------------------------------------------------------------------------------
 
 App-Manual:
-...tbc
+Beim Starten der App muss der User sich erstmal anmelden oder Registrieren! 
+Falls ohne Registrierung auf die App zugegriffen werden soll, bitte folgende User Daten benutzten:
+
+Username: user
+Passwort: 123
+
+Mit der Unteren Leiste kann man durch den HomeScreen, Search Screen, ProfileScreen und Settings navigieren!
+
+*HomeScreen:
+Beim HomeScreen kann man alle Postsvon einem selbst und von Leuten denen man folgt sehen. Durch's klicken auf die Profilbilder (mit der Ausnahme vom eingeloggten User) gelangt man
+auf die Profil Seite des Users. Hierbei werden Informationen über dem User auf der Profilseite dargestellt, wie der Name oder der Standort. Zudem können alle User in der Bio allesmögliche wie
+Hobbies oder andere Socialmedia Accounts angeben. Natürlich gibt es auch eine Follow und Unfollow Funktion. Zudem werden alle Posts von dem User unten dargestellt. 
+
+Die einzelnen Posts können Bilder sowie Text beinhalten. Die Möglichkeit ein Post zu kommentieren gibt es auch, indem man das Sprechblasenicon anklickt. Dadurch kommt man zum InspectPostScreen,
+wobei alle Kommentare zu dem Post angezeigt werden und der User ebenfalls Kommentare hinterlassen kann. Außerdem gibt es bei den Posts die Möglichkeit zu 'liken' mit dem Herzicon oder sogar zu 'bookmarken'
+mit dem Bookmark Icon. Mit den Dropdown ganz rechts kann den Verfasser vom Post folgen/entfolgen bzw. wenn es der eigene Post ist, diesen löschen.
+
+Zurück zum HomeScreen! Unten rechts über der Navigationsleiste ist ein Floating Button. Mit einem Klick gelangt man auf dem AddPostScreen. Hier können User einen Post verfassen und posten. Der User
+kann entweder nur einen Text, einen Text und Bild oder nur ein Bild posten. für die Bilder gibt es die Möglichkeit entweder auf die eigene Galerie oder auf die Kamera zu zugreifen.
+
+*SearchScreen:
+Beim SearchScreen werden unter der Suchleiste die 10 beliebtesten Posts angezeigt, d.h. die Posts mit den meisten Likes. Man kann bei der Suchleiste nach Namen, Wortern usw. suchen und hat dann die 
+Auswahl mit einer Navigationsleiste die Posts zu sehen die diese Worter beinhalten, zu einem nach Likes sortiert und zum anderen nach Datum sortiert. Die dritte Auswahl ist die Anzeige aller User die auf den
+Suchbegriff zustimmen.
+
+*ProfileScreen:
+Hier kann man auf die Profilseite des eingeloggten Users zugreifen. Der User hat die Möglichkeit seine eigenen Daten zu überarbeiten, auf seine eigenen Post oder seine Bookmarks zu zugreifen. Wie Beim
+HomeScreen kann der User mit dem Floating Button einen neuen Post verfassen.
+
+*Settings:
+Hier hat der User die Möglichkeit das Design zu ändern z.B. die Farbe oder das Wechseln zum Darkmode.
+Es besteht auch die Möglichkeit den Account zu löschen oder sich abzumelden.

@@ -7,7 +7,11 @@ import { Ionicons } from '@expo/vector-icons';
 import PostTileList from '../components/PostTileList';
 import MiniProfileTileList from '../components/MiniProfileTileList'
 
+import { useTheme } from '@react-navigation/native';
+
 export default SearchPeopleScreen =({route,navigation})=>{
+  const { colors } = useTheme();
+  if(route.params.data.length!==0){
     return(
         <View style={{height:'100%'}}>
           <View  style={styles.container}>
@@ -17,6 +21,15 @@ export default SearchPeopleScreen =({route,navigation})=>{
           
         </View>
       );
+  }else{
+    return(
+      <View style={{flex:1, paddingVertical:'20%',paddingHorizontal: 25}}>
+          <Text style={{fontSize:25, fontWeight: "bold", color: colors.text}}>No results for '{route.params.search}'</Text>
+          <Text style={{fontSize:20, color: colors.text}}>The term you entered did not bring up any results. You may have mistyped your term!</Text>
+        </View>
+    );
+    
+  }
     }
     
     const styles = StyleSheet.create({

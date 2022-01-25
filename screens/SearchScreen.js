@@ -68,6 +68,7 @@ export default SearchScreen = ({navigation}) => {
       for(let j = 0; j <profiles.length; j++){
         if(profiles[j].firstName.toLowerCase().includes(searchText.toLowerCase())||
         profiles[j].lastName.toLowerCase().includes(searchText.toLowerCase())||
+        profiles[j].bio.toLowerCase().includes(searchText.toLowerCase())||
         profiles[j].userName.toLowerCase().includes(searchText.toLowerCase())){
           profileSearchBar.push(profiles[j]);
         }
@@ -147,9 +148,9 @@ export default SearchScreen = ({navigation}) => {
         </View>
         <View  style={styles.container}>
           <Tab.Navigator>
-            <Tab.Screen name= "Top" component={SearchTopScreen} initialParams={{data: allPosts}}/>
-            <Tab.Screen name= "Latest" component={SearchLatestScreen} initialParams={{data: allPosts}}/>
-            <Tab.Screen name= "People" component={SearchPeopleScreen} initialParams={{data: allProfiles}}/>
+            <Tab.Screen name= "Top" component={SearchTopScreen} initialParams={{data: allPosts, search: searchText}}/>
+            <Tab.Screen name= "Latest" component={SearchLatestScreen} initialParams={{data: allPosts, search: searchText}}/>
+            <Tab.Screen name= "People" component={SearchPeopleScreen} initialParams={{data: allProfiles, search: searchText}}/>
           </Tab.Navigator>
         </View>
         

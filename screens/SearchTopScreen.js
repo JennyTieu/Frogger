@@ -5,9 +5,10 @@ import {AuthContext} from '../data/AuthContext';
 import {Button} from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 import PostTileList from '../components/PostTileList';
+import { useTheme } from '@react-navigation/native';
 
 export default SearchTopScreen =({route,navigation})=>{
-
+  const { colors } = useTheme();
   const { signOut } = useContext(AuthContext);
   const [profileData] = useContext(Context);
   const sortedPosts = route.params.data.sort(function(a,b){
@@ -15,7 +16,7 @@ export default SearchTopScreen =({route,navigation})=>{
       B = b.upvotes.length
     return B-A
   });
-
+  if(route.params.data.length!==0){
     return(
         <View style={{height:'100%'}}>
           <View  style={styles.container}>
@@ -25,6 +26,14 @@ export default SearchTopScreen =({route,navigation})=>{
           
         </View>
       );
+    }else{
+      return(
+        <View style={{flex:1, paddingVertical:'20%',paddingHorizontal: 25}}>
+          <Text style={{fontSize:25, fontWeight: "bold", color: colors.text}}>No results for '{route.params.search}'</Text>
+          <Text style={{fontSize:20, color: colors.text}}>The term you entered did not bring up any results. You may have mistyped your term!</Text>
+        </View>
+      );
+    }
     }
     
     const styles = StyleSheet.create({
