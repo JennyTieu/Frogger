@@ -106,6 +106,7 @@ export default SearchScreen = ({navigation}) => {
             autoCorrect={false}
             value={searchText}
             inputContainerStyle={{backgroundColor: colors.card}}
+            inputStyle={{color: colors.text}}
             placeholderTextColor={colors.text}
             containerStyle= {styles.searchBar}
             lightTheme="true"
@@ -138,6 +139,8 @@ export default SearchScreen = ({navigation}) => {
           <SearchBar 
             placeholder="search ..."
             autoCorrect={false}
+            inputContainerStyle={{backgroundColor: colors.card}}
+            inputStyle={{color: colors.text}}
             value={searchText}
             containerStyle= {styles.searchBar}
             lightTheme="true"
