@@ -26,7 +26,7 @@ export default MainNavigator = () => {
           iconName = focused ? 'md-person-circle' : 'md-person-circle-outline';
         } else if (route.name === 'Search') {
           iconName = focused ? 'md-search' : 'md-search-outline';
-        } else if (route.name === 'SettingsScreen') {
+        } else if (route.name === 'Settings') {
           iconName = focused ? 'md-settings' : 'md-settings-outline';
         }
           
@@ -39,7 +39,7 @@ export default MainNavigator = () => {
       <Tab.Screen name ="Home" component={HomeNavigator} options={{headerShown: false}}/>
       <Tab.Screen name ="Search" component={SearchNavigator}  options={{headerShown: false}}/>
       <Tab.Screen name ="Profile" component={ProfileNavigator} options={{headerShown: false}}/>
-      <Tab.Screen name ="SettingsScreen" component={SettingsNavigator} options={{headerShown: false}}/>
+      <Tab.Screen name ="Settings" component={SettingsNavigator} options={{headerShown: false}}/>
     </Tab.Navigator>
   );
 };
