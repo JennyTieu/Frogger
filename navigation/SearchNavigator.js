@@ -20,11 +20,11 @@ export default SearchNavigator = () => {
       },
       headerTitleAlign: 'center',
     }}>
-      <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
-      <SearchStack.Screen name="PickedProfile" component ={OtherProfileScreen}/>
-      <SearchStack.Screen name="InspectPost" component={InspectPostScreen} />
-      <SearchStack.Screen name="Followers" component ={FollowerScreen} />
-      <SearchStack.Screen name="Follows" component ={FollowsScreen} />
+      <SearchStack.Screen name="SearchScreen" component={SearchScreen} options={{headerTitle:"Search"}}/>
+      <SearchStack.Screen name="PickedProfile" component ={OtherProfileScreen} options={{headerTitle:"Profile"}}/>
+      <SearchStack.Screen name="InspectPost" component={InspectPostScreen} options={{headerTitle:"Comments"}}/>
+      <SearchStack.Screen name="Followers" component ={FollowerScreen} options={{headerTitle:"Followers"}}/>
+      <SearchStack.Screen name="Follows" component ={FollowsScreen} options={{headerTitle:"Follows"}}/>
      
     </SearchStack.Navigator>
   );
