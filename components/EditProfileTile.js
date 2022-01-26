@@ -135,22 +135,24 @@ export default EditProfileTile = (props) => {
   if (selectedImage != null) {
     return (
       <View style={styles.full}>
-        <ScrollView style={{ width: '100%', backgroundColor: "#f1f2f6", flexWrap: 'wrap' }}>
+        <ScrollView style={{ width: '100%', backgroundColor: colors.background, flexWrap: 'wrap' }}>
           <View style={{ width: '100%', flexDirection: 'row' }}>
             <TouchableOpacity onPress={showImagePicker} >
               <Image source={{uri : selectedImage.localUri}} style={styles.profileImage} />
             </TouchableOpacity>
 
-            <View style={styles.screen}>
+            <View style={[styles.screen, {backgroundColor: colors.background}]}>
               <View style={styles.topContainer}>
                 <View style={styles.topElements}>
-                  <Text fontStyle='bold'>First Name</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>First Name</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userFirstName}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={firstNameInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeFirstNameHandler}
@@ -158,13 +160,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Last Name</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Last Name</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userLastName}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={lastNameInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeLastNameHandler}
@@ -172,13 +176,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Gender</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userGender}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={genderInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeGenderHandler}
@@ -186,13 +192,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Biography</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Biography</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userBio}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={bioInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeBioHandler}
@@ -200,13 +208,14 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Job</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Job</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userJob}
+                    placeholderTextColor = {colors.text}
                     numberOfLines={numOfLines}
                     value={jobInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeJobHandler}
@@ -214,13 +223,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Location</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userCountry}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={countryInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeCountryHandler}
@@ -253,7 +264,7 @@ export default EditProfileTile = (props) => {
   } else {
     return (
       <View style={styles.full}>
-        <ScrollView style={{ width: '100%', backgroundColor: "#f1f2f6", flexWrap: 'wrap' }}>
+        <ScrollView style={{ width: '100%', backgroundColor: colors.background, flexWrap: 'wrap' }}>
           <View style={{ width: '100%', flexDirection: 'row' }}>
             <TouchableOpacity onPress={showImagePicker} >
               <Image source={loggedUser.image} style={styles.profileImage} />
@@ -262,13 +273,15 @@ export default EditProfileTile = (props) => {
             <View style={styles.screen}>
               <View style={styles.topContainer}>
                 <View style={styles.topElements}>
-                  <Text fontStyle='bold'>First Name</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>First Name</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userFirstName}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={firstNameInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeFirstNameHandler}
@@ -276,13 +289,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Last Name</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Last Name</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userLastName}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={lastNameInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeLastNameHandler}
@@ -290,13 +305,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Gender</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userGender}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={genderInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeGenderHandler}
@@ -304,13 +321,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Biography</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Biography</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userBio}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={bioInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeBioHandler}
@@ -318,13 +337,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Job</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Job</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userJob}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={jobInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeJobHandler}
@@ -332,13 +353,15 @@ export default EditProfileTile = (props) => {
                       numOfLines = e.nativeEvent.contentSize.height / 18;
                     }}
                   />
-                  <Text fontStyle='bold'>Location</Text>
+                  <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
                   <TextInput
                     multiline={true}
                     placeholder ={userCountry}
+                    placeholderTextColor = {colors.text}
+                    inputStyle= {{color: colors.text}}
                     numberOfLines={numOfLines}
                     value={countryInput}
-                    style={styles.inputBox}
+                    style={[styles.inputBox, {color: colors.text}]}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     onChangeText={changeCountryHandler}
@@ -384,7 +407,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     width: '87%',
-    backgroundColor: "#f1f2f6",
     alignItems: "center",
   },
   topContainer: {

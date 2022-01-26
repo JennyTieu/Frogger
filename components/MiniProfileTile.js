@@ -90,10 +90,10 @@ export default MiniProfileTile = (props) => {
                             size={20}
                             color='gray'
                         />
-                        <Text style={{ fontSize: 16, color: 'gray', paddingLeft: 5, paddingRight: 60 }}>Follows you</Text>
-                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
-                        <Text style={{ fontSize: 15, color: 'gray', paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
-                        <Text style={{ fontSize: 16, color: 'black', paddingRight: 5 }}>{props.bio}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingLeft: 5, paddingRight: 60 }}>Follows you</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
+                        <Text style={{ fontSize: 15, color: colors.text, paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.bio}</Text>
 
                     </View >
                     <View style={styles.singleButton}>
@@ -129,10 +129,10 @@ export default MiniProfileTile = (props) => {
                             size={20}
                             color='gray'
                         />
-                        <Text style={{ fontSize: 16, color: 'gray', paddingLeft: 5, paddingRight: 60 }}>Follows you</Text>
-                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
-                        <Text style={{ fontSize: 15, color: 'gray', paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
-                        <Text style={{ fontSize: 16, color: 'black', paddingRight: 5 }}>{props.bio}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingLeft: 5, paddingRight: 60 }}>Follows you</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
+                        <Text style={{ fontSize: 15, color: colors.text, paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.bio}</Text>
 
                     </View >
                     <View style={styles.singleButton}>
@@ -164,9 +164,9 @@ export default MiniProfileTile = (props) => {
                     </TouchableOpacity>
 
                     <View style={styles.userCont}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
-                        <Text style={{ fontSize: 15, color: 'gray', paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
-                        <Text style={{ fontSize: 16, color: 'black', paddingRight: 5 }}>{props.bio}</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
+                        <Text style={{ fontSize: 15, color: colors.text, paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.bio}</Text>
 
                     </View >
                     <View style={styles.singleButton}>
@@ -198,9 +198,9 @@ export default MiniProfileTile = (props) => {
                     </TouchableOpacity>
     
                     <View style={styles.userCont}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: 'black', paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
-                        <Text style={{ fontSize: 15, color: 'gray', paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
-                        <Text style={{ fontSize: 16, color: 'black', paddingRight: 5 }}>{props.bio}</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
+                        <Text style={{ fontSize: 15, color: colors.text, paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.bio}</Text>
     
                     </View >
                     <View style={styles.singleButton}>

@@ -72,13 +72,14 @@ export default DeleteAccountScreen = () => {
   return (
     <View style={styles.screenContainer}>
       <View style={styles.topContainer}>
-        <Text style={styles.titletext}>Delete Account</Text>
+        <Text style={[styles.titletext, {color: colors.text}]}>Delete Account</Text>
       </View>
       <View style={styles.middleContainer}>
-        <Text style={styles.text}>Deleting your Account will remove all of your information from our database. This cannot be undone. If your are sure, type in your password below:</Text>
+        <Text style={[styles.text, {color: colors.text}]}>Deleting your Account will remove all of your information from our database. This cannot be undone. If your are sure, type in your password below:</Text>
         <Input 
           placeholder="password"
           placeholderTextColor = {colors.text}
+          inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword}
           value={currentPassword}

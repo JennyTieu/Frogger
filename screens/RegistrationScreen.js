@@ -211,6 +211,7 @@ export default RegistrationScreen = ({navigation}) => {
           inputStyle={styles.textInputStyle}
           placeholderTextColor = {colors.text}
           placeholder="E-Mail"
+          inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerEmail}
           value={currentEmail}
@@ -219,6 +220,7 @@ export default RegistrationScreen = ({navigation}) => {
           inputStyle={styles.textInputStyle}
           placeholderTextColor = {colors.text}
           placeholder="Password"
+          inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword}
           value={currentPassword}
@@ -228,6 +230,7 @@ export default RegistrationScreen = ({navigation}) => {
           inputStyle={styles.textInputStyle}
           placeholderTextColor = {colors.text}
           placeholder="Repeat Password"
+          inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword2}
           value={currentPassword2}
@@ -239,6 +242,7 @@ export default RegistrationScreen = ({navigation}) => {
               inputStyle={styles.textInputStyle} 
               placeholderTextColor = {colors.text}
               placeholder="Username"
+              inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerUserName}
               value={currentUserName}
@@ -247,6 +251,7 @@ export default RegistrationScreen = ({navigation}) => {
               inputStyle={styles.textInputStyle}
               placeholderTextColor = {colors.text}
               placeholder="First Name"
+              inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerFirstName}
               value={currentFirstName}
@@ -255,6 +260,7 @@ export default RegistrationScreen = ({navigation}) => {
               inputStyle={styles.textInputStyle}
               placeholderTextColor = {colors.text}
               placeholder="Last Name"
+              inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerLastName}
               value={currentLastName}
@@ -272,6 +278,7 @@ export default RegistrationScreen = ({navigation}) => {
               inputStyle={styles.textInputStyle}
               placeholderTextColor = {colors.text}
               placeholder="Job"
+              inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerJob}
               value={currentJob}
@@ -318,6 +325,7 @@ export default RegistrationScreen = ({navigation}) => {
               inputStyle={styles.textInputStyle}
               placeholderTextColor = {colors.text}
               placeholder="City"
+              inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
               onChangeText={changeTextHandlerCity}
               value={currentCity}
