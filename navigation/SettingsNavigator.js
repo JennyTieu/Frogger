@@ -21,9 +21,9 @@ export default SettingsNavigator = () => {
       },
       headerTitleAlign: 'center',
     }}>
-      <ProfileStack.Screen name="Settings" component={SettingsScreen} options={{headerTitle:"Settings"}}/>
-      <ProfileStack.Screen name="Info" component={InfoScreen} options={{headerTitle:"InfoScreen"}}/>
-      <ProfileStack.Screen name="Help" component={HelpScreen} options={{headerTitle:"HelpScreen"}}/>
+      <ProfileStack.Screen name="SettingsScreen" component={SettingsScreen} options={{headerTitle:"Settings"}}/>
+      <ProfileStack.Screen name="Info" component={InfoScreen} options={{headerTitle:"Info"}}/>
+      <ProfileStack.Screen name="Help" component={HelpScreen} options={{headerTitle:"Help"}}/>
       <ProfileStack.Screen name="Account" component={DeleteAccountScreen} options={{headerTitle:"Account"}}/>
     </ProfileStack.Navigator>
   );
