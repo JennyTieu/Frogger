@@ -1,13 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {View, StyleSheet, Text, Alert} from "react-native";
 import {Context} from '../data/Context';
 import {AuthContext} from '../data/AuthContext';
 import {Button, Input} from "react-native-elements";
 import {Ionicons} from "@expo/vector-icons";
 import { useTheme } from '@react-navigation/native';
+import {ThemeContext} from '../data/ThemeContext';
 
 export default LoginScreen = ({navigation}) => {
   const { colors } = useTheme();
+  const { togglePinkTheme, toggleGreenTheme, toggleBlueTheme, toggleDarkTheme, togglePurpleTheme, toggleTurquoiseTheme, toggleRedTheme } = useContext(ThemeContext);
 
   const [profileData] = useContext(Context);
   const { signIn, signUp } = useContext(AuthContext);
@@ -42,7 +44,23 @@ export default LoginScreen = ({navigation}) => {
           setPassword(currentPassword)
           const id = profiles[i].id
           console.log(id)
-          console.log(profileData.profiles.length)
+
+          if (profiles[i].theme == "PinkTheme") {
+            togglePinkTheme()
+          } else if (profiles[i].theme == "GreenTheme") {
+            toggleGreenTheme()
+          } else if (profiles[i].theme == "BlueTheme") {
+            toggleBlueTheme()
+          } else if (profiles[i].theme == "DarkTheme") {
+            toggleDarkTheme()
+          } else if (profiles[i].theme == "PurpleTheme") {
+            togglePurpleTheme()
+          } else if (profiles[i].theme == "TurquoiseTheme") {
+            toggleTurquoiseTheme()
+          } else if (profiles[i].theme == "RedTheme") {
+            toggleRedTheme()
+          }
+        
           signIn({ id })
         } 
     }
