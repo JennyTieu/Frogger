@@ -16,7 +16,7 @@ export default HelpScreen = () => {
       <View style={styles.middleContainer}>
         <Button title="Report problem" titleStyle={{color: colors.text}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card }} type="clear" icon={<Ionicons name="md-enter-outline" size={28} style={{ marginRight: 10, color: colors.primary}}/>} onPress={() => (console.log("Report problem"))}/>
         <Button title="FAQ" titleStyle={{color: colors.text}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card }} type="clear" icon={<Ionicons name="md-enter-outline" size={28} style={{ marginRight: 10, color: colors.primary}}/>} onPress={() => (console.log("FAQ"))}/>
-        <Button title="privacy and security help" titleStyle={{color: colors.text}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card }} type="clear" icon={<Ionicons name="md-enter-outline" size={28} style={{ marginRight: 10, color: colors.primary}}/>} onPress={() => (console.log("privacy and security help"))}/>
+        <Button title="Privacy" titleStyle={{color: colors.text}} buttonStyle={{ justifyContent: 'flex-start', borderBottomWidth:1, borderBottomColor: colors.card }} type="clear" icon={<Ionicons name="md-enter-outline" size={28} style={{ marginRight: 10, color: colors.primary}}/>} onPress={() => (console.log("Privacy"))}/>
       </View>
       <View style={styles.bottomContainer}>
 
