@@ -116,13 +116,13 @@ export default AddPostTile =(props) =>{
 
     return(
         <View style={styles.full}>
-            <ScrollView style={{width:'100%', backgroundColor:"#f1f2f6" ,  flexWrap:'wrap'}}>
+            <ScrollView style={{width:'100%', backgroundColor:colors.background ,  flexWrap:'wrap'}}>
                 <View style={{width:'100%',flexDirection:'row'}}>
                     <View style={styles.ppView}>
                         <Image source={loggedUser.image} style={styles.profileImage}/>
                     </View>
-                    <View style={styles.screen}>
-                        <View style={styles.topContainer}>
+                    <View style={[styles.screen, {backgroundColor: colors.background}]}>
+                        <View style={[styles.topContainer, {backgroundColor: colors.background}]}>
                             <TextInput
                                 multiline={true}
                                 numberOfLines={numOfLines}
