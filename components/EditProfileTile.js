@@ -152,6 +152,7 @@ export default EditProfileTile = (props) => {
     return (
       <View style={styles.screenContainer}>
         <View style={[styles.topContainer, {borderBottomColor: colors.primary}]}>
+          <Text style={{fontSize: 16, fontWeight: "bold", color: colors.text, marginBottom: 10}}>Profile picture</Text>
           <TouchableOpacity onPress={showImagePicker} >
             <Image source={{uri : selectedImage.localUri}} style={styles.profileImage} />
           </TouchableOpacity>
@@ -249,6 +250,7 @@ export default EditProfileTile = (props) => {
     return (
       <View style={styles.screenContainer}>
         <View style={[styles.topContainer, {borderBottomColor: colors.primary}]}>
+          <Text style={{fontSize: 16, fontWeight: "bold", color: colors.text, marginBottom: 10}}>Profile picture</Text>
           <TouchableOpacity onPress={showImagePicker} >
             <Image source={loggedUser.image} style={styles.profileImage} />
           </TouchableOpacity>
@@ -356,7 +358,8 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     flex: 2,
-    margin: 5,
+    marginTop: 20,
+    marginBottom: 10,
     borderBottomWidth: 1,
     justifyContent: "center",
     alignItems: "center"
@@ -376,6 +379,7 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: "black",
     borderRadius: 100,
+    marginBottom: 10
   },
   dropdown: {
     marginTop: 10,
