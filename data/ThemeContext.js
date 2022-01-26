@@ -7,7 +7,7 @@ export const ThemeContext = React.createContext({
     colors: {
     ...DefaultTheme.colors,
       primary: '#146356',
-      background: 'white',
+      background: '#CEE5D0',
       card: '#A6CF98',
       border: '#146356',
       text: "black"
@@ -17,9 +17,9 @@ export const ThemeContext = React.createContext({
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: '#F2789F',
-      background: 'white',
-      card: '#F9C5D5',
+      primary: 'black',
+      background: '#FFC4E1',
+      card: '#FF87CA',
       border: '#F2789F',
       text: "black"
     }
@@ -29,7 +29,7 @@ export const ThemeContext = React.createContext({
     colors: {
       ...DefaultTheme.colors,
       primary: '#1A374D',
-      background: 'white',
+      background: '#F9F9F9',
       card: '#B1D0E0',
       border: '#1A374D',
       text: "black"
@@ -51,7 +51,7 @@ export const ThemeContext = React.createContext({
     colors: {
       ...DefaultTheme.colors,
       primary: '#7027A0',
-      background: 'white',
+      background: '#F0D9FF',
       card: '#BAABDA',
       border: '#D77FA1',
       text: 'black'
@@ -62,7 +62,7 @@ export const ThemeContext = React.createContext({
     colors: {
       ...DefaultTheme.colors,
       primary: '#BD1616',
-      background: 'white',
+      background: '#FDD2BF',
       card: '#FE8F8F',
       border: '#3D0000',
       text: 'black'
@@ -72,8 +72,8 @@ export const ThemeContext = React.createContext({
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: '#3FA796',
-      background: 'white',
+      primary: '#056676',
+      background: '#EDFFEC',
       card: '#7CD1B8',
       border: '#3E8E7E',
       text: 'black'
