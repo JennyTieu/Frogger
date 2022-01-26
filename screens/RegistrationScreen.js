@@ -24,6 +24,12 @@ export default RegistrationScreen = ({navigation}) => {
   const [currentUserName, setCurrentUserName] = useState("");
   const [currentJob, setCurrentJob] = useState("");
   const [currentCity, setCurrentCity] = useState("");
+  const [gender, setGender] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+  const [birthday, setBirthday] = useState(null);
+  const [ready, setReady] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const countryData = [
     { label: 'Germany', value: 'Germany' },
@@ -81,13 +87,6 @@ export default RegistrationScreen = ({navigation}) => {
   const changeTextHandlerCity = (enteredText) => {
     setCurrentCity(enteredText);
   };
-
-  const [gender, setGender] = useState(null);
-  const [country, setCountry] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-  const [birthday, setBirthday] = useState(null);
-  const [ready, setReady] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
 
   const showImagePicker = async () => {
     // Ask the user for the permission to access the media library 
@@ -155,7 +154,7 @@ export default RegistrationScreen = ({navigation}) => {
       let newProfiles = profileData.profiles;
       let newId = 'm'+ newIdCounter;
   
-      newProfiles.push(new Profile(newId, currentEmail, currentPassword, currentFirstName, currentLastName, currentUserName, birthday, gender, currentCity, country, { uri: selectedImage.localUri }, currentJob, [], [], []));
+      newProfiles.push(new Profile(newId, currentEmail, currentPassword, currentFirstName, currentLastName, currentUserName, birthday, gender, currentCity, country, { uri: selectedImage.localUri }, currentJob, [], [], [], "GreenTheme"));
       setProfileData(profileData => ({
           profiles: newProfiles,
           idCounterProfiles: newIdCounter,
@@ -286,7 +285,7 @@ export default RegistrationScreen = ({navigation}) => {
             <Dropdown
               style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
               placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
-              selectedTextStyle={styles.selectedTextStyle}
+              selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
               data={genderData}
               maxHeight={100}
               labelField="label"
@@ -303,7 +302,7 @@ export default RegistrationScreen = ({navigation}) => {
             <Dropdown
               style={[styles.dropdown,, {borderColor: colors.primary}, isFocus && { borderColor: 'blue' }]}
               placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
-              selectedTextStyle={styles.selectedTextStyle}
+              selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
               data={countryData}

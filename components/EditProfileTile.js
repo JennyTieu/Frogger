@@ -1,10 +1,11 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from "react";
-import { StyleSheet, View, TextInput, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { Context } from "../data/Context";
 import { useTheme } from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
+import {Button, Input} from "react-native-elements";
+import { Dropdown } from 'react-native-element-dropdown';
 
 export default EditProfileTile = (props) => {
   
@@ -14,9 +15,48 @@ export default EditProfileTile = (props) => {
 
   let numOfLines = 0;
 
-  const onChangeMS = (value) => {
-    setValueMS(value);
-  };
+  const countryData = [
+    { label: 'Germany', value: 'Germany' },
+    { label: 'Italy', value: 'Italy' },
+    { label: 'France', value: 'France' },
+    { label: 'United Kingdom', value: 'United Kingdom' },
+    { label: 'Russia', value: 'Russia' },
+    { label: 'Belgium', value: 'Belgium' },
+    { label: 'Netherlands', value: 'Netherlands' },
+    { label: 'Spain', value: 'Spain' },
+    { label: 'Poland', value: 'Poland' },
+    { label: 'Portugal', value: 'Portugal' },
+    { label: 'Austria', value: 'Austria' },
+    { label: 'Switzerland', value: 'Switzerland' },
+    { label: 'Sweden', value: 'Sweden' },
+    { label: 'Norway', value: 'Norway' },
+    { label: 'Denmark', value: 'Denmark' },
+    { label: 'Ireland', value: 'Ireland' },
+    { label: 'Greece', value: 'Greece' },
+  ];
+
+  const genderData = [
+    { label: 'M', value: 'M' },
+    { label: 'F', value: 'F' },
+  ];
+
+  const [loggedUser] = profileData.profiles.filter(item => item.id === props.data.id);
+
+  const userFirstName = props.data.firstName;
+  const userLastName = props.data.lastName;
+  const userBio= props.data.bio;
+  const userJob = props.data.job;
+  const userCountry = props.data.country;
+  const userGender= props.data.gender;
+
+  const [firstNameInput, setFirstNameInput] = useState("");
+  const [lastNameInput, setLastNameInput] = useState("");
+  const [bioInput, setBioInput] = useState("");
+  const [jobInput, setJobInput] = useState("");
+  const [countryInput, setCountryInput] = useState(null);
+  const [genderInput, setGenderInput] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const changeFirstNameHandler = (enteredText) => {
     setFirstNameInput(enteredText);
@@ -30,13 +70,6 @@ export default EditProfileTile = (props) => {
   const changeJobHandler = (enteredText) => {
     setJobInput(enteredText);
   };
-  const changeCountryHandler = (enteredText) => {
-    setCountryInput(enteredText);
-  };
-  const changeGenderHandler = (enteredText) => {
-    setGenderInput(enteredText);
-  };
-
 
   const showImagePicker = async () => {
     // Ask the user for the permission to access the media library 
@@ -87,7 +120,7 @@ export default EditProfileTile = (props) => {
       profileToChange.lastName = lastNameInput
       
     }
-    if(genderInput!==""){
+    if(genderInput!==null){
       profileToChange.gender = genderInput
       
     }
@@ -99,7 +132,7 @@ export default EditProfileTile = (props) => {
       profileToChange.job = jobInput
       
     }
-    if(countryInput!==""){
+    if(countryInput!==null){
       profileToChange.country = countryInput
     }
 
@@ -115,377 +148,251 @@ export default EditProfileTile = (props) => {
     props.navigation.goBack();
   }
 
-  const [loggedUser] = profileData.profiles.filter(item => item.id === props.data.id);
-
-  const userFirstName = props.data.firstName;
-  const userLastName = props.data.lastName;
-  const userBio= props.data.bio;
-  const userJob = props.data.job;
-  const userCountry = props.data.country;
-  const userGender= props.data.gender;
-
-  const [firstNameInput, setFirstNameInput] = useState("");
-  const [lastNameInput, setLastNameInput] = useState("");
-  const [bioInput, setBioInput] = useState("");
-  const [jobInput, setJobInput] = useState("");
-  const [countryInput, setCountryInput] = useState("");
-  const [genderInput, setGenderInput] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
-
   if (selectedImage != null) {
     return (
-      <View style={styles.full}>
-        <ScrollView style={{ width: '100%', backgroundColor: colors.background, flexWrap: 'wrap' }}>
-          <View style={{ width: '100%', flexDirection: 'row' }}>
-            <TouchableOpacity onPress={showImagePicker} >
-              <Image source={{uri : selectedImage.localUri}} style={styles.profileImage} />
-            </TouchableOpacity>
-
-            <View style={[styles.screen, {backgroundColor: colors.background}]}>
-              <View style={styles.topContainer}>
-                <View style={styles.topElements}>
-                  <Text style={{fontWeight: "bold", color: colors.text}}>First Name</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userFirstName}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={firstNameInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeFirstNameHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Last Name</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userLastName}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={lastNameInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeLastNameHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userGender}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={genderInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeGenderHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Biography</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userBio}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={bioInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeBioHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Job</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userJob}
-                    placeholderTextColor = {colors.text}
-                    numberOfLines={numOfLines}
-                    value={jobInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeJobHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userCountry}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={countryInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeCountryHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-          </View>
-
-
-        </ScrollView >
-        <View style={styles.lowerBox}>
-          <View style={styles.buttonContainer}>
-            <Button
-              type="clear"
-              icon={<FontAwesome
-                name="send"
-                size={30}
-                padding={3}
-                color={colors.primary} />}
-              onPress={editProfile}
-            />
-          </View>
+      <View style={styles.screenContainer}>
+        <View style={[styles.topContainer, {borderBottomColor: colors.primary}]}>
+          <TouchableOpacity onPress={showImagePicker} >
+            <Image source={{uri : selectedImage.localUri}} style={styles.profileImage} />
+          </TouchableOpacity>
         </View>
-      </View >
-    );
+        <View style={styles.middleContainer}>
+          <ScrollView>
+          <Text style={{fontWeight: "bold", color: colors.text}}>First Name</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userFirstName}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeFirstNameHandler}
+              value={firstNameInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Last Name</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userLastName}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeLastNameHandler}
+              value={lastNameInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
+            <Dropdown
+              style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
+              data={genderData}
+              maxHeight={100}
+              labelField="label"
+              valueField="value"
+              placeholder={!isFocus ? userGender : '...'}
+              value={genderInput}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                setGenderInput(item.value);
+                setIsFocus(false);
+              }}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Biography</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userBio}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeBioHandler}
+              value={bioInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Job</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userJob}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeJobHandler}
+              value={jobInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
+            <Dropdown
+              style={[styles.dropdown,, {borderColor: colors.primary}, isFocus && { borderColor: 'blue' }]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={countryData}
+              search
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={!isFocus ? userCountry : '...'}
+              searchPlaceholder="Search..."
+              value={countryInput}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                setCountryInput(item.value);
+                setIsFocus(false);
+              }}
+            />
+          </ScrollView>
+        </View>
+        <View style={[styles.bottomContainer, {borderTopColor: colors.primary}]}>
+          <Button
+            type="clear"
+            icon={<Ionicons name="md-send" size={30} style={{ marginRight: 10,color: colors.primary}}/>}
+            onPress={editProfile}
+          />
+        </View>
+      </View>
+    )
   } else {
     return (
-      <View style={styles.full}>
-        <ScrollView style={{ width: '100%', backgroundColor: colors.background, flexWrap: 'wrap' }}>
-          <View style={{ width: '100%', flexDirection: 'row' }}>
-            <TouchableOpacity onPress={showImagePicker} >
-              <Image source={loggedUser.image} style={styles.profileImage} />
-            </TouchableOpacity>
-          
-            <View style={styles.screen}>
-              <View style={styles.topContainer}>
-                <View style={styles.topElements}>
-                  <Text style={{fontWeight: "bold", color: colors.text}}>First Name</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userFirstName}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={firstNameInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeFirstNameHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Last Name</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userLastName}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={lastNameInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeLastNameHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userGender}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={genderInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeGenderHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Biography</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userBio}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={bioInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeBioHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Job</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userJob}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={jobInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeJobHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                  <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
-                  <TextInput
-                    multiline={true}
-                    placeholder ={userCountry}
-                    placeholderTextColor = {colors.text}
-                    inputStyle= {{color: colors.text}}
-                    numberOfLines={numOfLines}
-                    value={countryInput}
-                    style={[styles.inputBox, {color: colors.text}]}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                    onChangeText={changeCountryHandler}
-                    onContentSizeChange={(e) => {
-                      numOfLines = e.nativeEvent.contentSize.height / 18;
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-          </View>
-
-
-        </ScrollView >
-        <View style={styles.lowerBox}>
-          <View style={styles.buttonContainer}>
-            <Button
-              type="clear"
-              icon={<FontAwesome
-                name="send"
-                size={30}
-                padding={3}
-                color={colors.primary} />}
-              onPress={editProfile}
-            />
-          </View>
+      <View style={styles.screenContainer}>
+        <View style={[styles.topContainer, {borderBottomColor: colors.primary}]}>
+          <TouchableOpacity onPress={showImagePicker} >
+            <Image source={loggedUser.image} style={styles.profileImage} />
+          </TouchableOpacity>
         </View>
-      </View >
-    );
+        <View style={styles.middleContainer}>
+          <ScrollView>
+            <Text style={{fontWeight: "bold", color: colors.text}}>First Name</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userFirstName}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeFirstNameHandler}
+              value={firstNameInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Last Name</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userLastName}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeLastNameHandler}
+              value={lastNameInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
+            <Dropdown
+              style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
+              data={genderData}
+              maxHeight={100}
+              labelField="label"
+              valueField="value"
+              placeholder={!isFocus ? userGender : '...'}
+              value={genderInput}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                setGenderInput(item.value);
+                setIsFocus(false);
+              }}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Biography</Text>
+            <Input 
+              multiline={true}
+              numberOfLines={numOfLines}
+              onContentSizeChange={(e) => {
+                numOfLines = e.nativeEvent.contentSize.height / 18;
+              }}
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userBio}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeBioHandler}
+              value={bioInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Job</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userJob}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeJobHandler}
+              value={jobInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
+            <Dropdown
+              style={[styles.dropdown,, {borderColor: colors.primary}, isFocus && { borderColor: 'blue' }]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={countryData}
+              search
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={!isFocus ? userCountry : '...'}
+              searchPlaceholder="Search..."
+              value={countryInput}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                setCountryInput(item.value);
+                setIsFocus(false);
+              }}
+            />
+          </ScrollView>
+        </View>
+        <View style={[styles.bottomContainer, {borderTopColor: colors.primary}]}>
+          <Button
+            type="clear"
+            icon={<Ionicons name="md-send" size={30} style={{ marginRight: 10,color: colors.primary}}/>}
+            onPress={editProfile}
+            />
+        </View>
+      </View>
+    )
   }
-};
+}
 
 const styles = StyleSheet.create({
-  ppView: {
-    alignSelf: 'flex-start',
-    width: '20%',
-    alignItems: 'center',
-    padding: 10
-  },
-  screen: {
-    alignSelf: 'flex-start',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    padding: 10,
-    width: '87%',
-    alignItems: "center",
+  screenContainer: {
+    height: "100%"
   },
   topContainer: {
-    width: '100%',
-
-  },
-  topElements: {
-    height: '100%',
-    alignItems: 'flex-start'
-  },
-
-  bottomContainer: {
+    flex: 2,
+    margin: 5,
+    borderBottomWidth: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
-  cameraPreview: {
-    width: 100,
-    height: 100,
-    resizeMode: "contain",
-    backgroundColor: "#f1f2f6"
-  },
-  cameraPreviewBlank: {
-    width: 100,
-    height: 100,
-    resizeMode: "contain",
-  },
-  full: {
-    width: '100%',
-    height: '100%'
-
-  },
-  inputBox: {
-    fontWeight: "bold",
-    width: "100%",
-    fontSize: 15,
-    padding: 10,
-    alignItems: "center",
-  },
-  lowerBox: {
-    width: '100%',
-    height: '10%',
-    position: 'absolute',
-    justifyContent: 'flex-start',
-    bottom: 0,
-    borderTopWidth: 0.5,
-    borderTopColor: 'gray'
-  },
-  verticalContainer: {
-    alignItems: "center",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+  middleContainer: {
+    flex: 5,
     justifyContent: "space-evenly",
-  },
-  container: {
-    paddingTop: 20,
-    paddingBottom: 30,
-    marginLeft: 20,
-    marginRight: 20,
+    margin: 30,
+  }, 
+  bottomContainer: {
     flex: 1,
-    width: "100%"
-  },
-  button: {
-    backgroundColor: "white",
-  },
-  buttonText: {
-    fontSize: 20,
-  },
-  buttonView: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    marginTop: 10,
+    justifyContent: "center",
+    borderTopWidth: 1,
   },
   profileImage: {
-    height: 60,
-    width: 60,
+    height: 100,
+    width: 100,
     backgroundColor: "black",
     borderRadius: 100,
+  },
+  dropdown: {
+    marginTop: 10,
+    marginBottom: 10,
+    height: 50,
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
   },
 });
