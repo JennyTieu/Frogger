@@ -74,6 +74,32 @@ export default MiniProfileTile = (props) => {
         }
 
     };
+
+    if (props.id == id) {
+        return (
+            <View style={{ flex: 1 }}>
+                <View style={styles.mainContainer}>
+                    <TouchableOpacity
+                        onPress={() => onClick(props.id)} >
+                        <Image style={styles.profileImage} source={props.image} />
+                    </TouchableOpacity>
+
+                    <View style={styles.userCont}>
+                        <Ionicons
+                            name="happy"
+                            size={20}
+                            color={colors.primary}
+                        />
+                        <Text style={{ fontSize: 16, color: colors.text, paddingLeft: 5, paddingRight: 60 }}>It's you!</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.firstName} {props.lastName}</Text>
+                        <Text style={{ fontSize: 15, color: colors.text, paddingHorizontal: 2, paddingRight: 5 }}>@{props.userName}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingRight: 5 }}>{props.bio}</Text>
+
+                    </View >
+                </View>
+            </View>
+        );
+    } 
     //follower + that you follow 
     if (checkFollower() && youFollow) {
         return (
@@ -175,7 +201,7 @@ export default MiniProfileTile = (props) => {
                             type='clear'
                             icon={
                                 <Ionicons
-                                    name="checkmark-circle-outline"
+                                    name="checkmark-circle"
                                     size={20}
                                     color={colors.primary}
                                 />
@@ -209,7 +235,7 @@ export default MiniProfileTile = (props) => {
                             type='clear'
                             icon={
                                 <Ionicons
-                                    name="add-circle"
+                                    name="add-circle-outline"
                                     size={20}
                                     color={colors.primary}
                                 />

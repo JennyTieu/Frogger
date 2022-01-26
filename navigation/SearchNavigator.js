@@ -23,7 +23,9 @@ export default SearchNavigator = () => {
       <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
       <SearchStack.Screen name="PickedProfile" component ={OtherProfileScreen}/>
       <SearchStack.Screen name="InspectPost" component={InspectPostScreen} />
-      
+      <SearchStack.Screen name="Followers" component ={FollowerScreen} />
+      <SearchStack.Screen name="Follows" component ={FollowsScreen} />
+     
     </SearchStack.Navigator>
   );
 };

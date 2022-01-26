@@ -20,7 +20,8 @@ export default ProfileTile = (props) => {
             // error reading value
         }
     }, [])
-    const [profileData] = useContext(Context);
+    const [profileData, setProfileData] = useContext(Context);
+    const [loggedUser] = profileData.profiles.filter(item => item.id.includes(id));
     const [userData] = profileData.profiles.filter(item => item.id == props.data[0].id);
     const { colors } = useTheme();
 
@@ -47,6 +48,34 @@ export default ProfileTile = (props) => {
 
     const editProfile = () => {
         props.navigation.navigate("EditProfile");
+    };
+
+    const onFollow = (userId) => {
+        let itemToChange = profileData.profiles.find(profileItem => profileItem.id === id);
+        if (loggedUser.follows.includes(userId)) {
+            itemToChange.follows.splice(itemToChange.follows.indexOf(userId), 1);
+
+            setProfileData(profileData => ({
+                profiles: profileData.profiles.map(profile => profile.id === id ? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        } else {
+            itemToChange.follows.push(userId);
+
+            setProfileData(profileData => ({
+                profiles: profileData.profiles.map(profile => profile.id === id ? itemToChange : profile),
+                posts: profileData.posts,
+                idCounterProfiles: profileData.idCounterProfiles,
+                comments: profileData.comments,
+                idCounterComments: profileData.idCounterComments,
+                idCounterPosts: profileData.idCounterPosts
+            }));
+        }
+
     };
 
     if (userData.id == id) {
@@ -97,12 +126,75 @@ export default ProfileTile = (props) => {
                 </View>
             </View>
         );
-    } else {
+    } else if (loggedUser.follows.includes(userData.id)) {
         return (
             <View style={{ flex: 1 }}>
                 <View style={styles.mainContainer}>
                     <View style={[styles.topCont, { backgroundColor: colors.background }]}>
                         <Image style={styles.profileImage} source={userData.image} />
+                        <View style={styles.singleButton}>
+                            <Button
+                                onPress={() => { onFollow(userData.id) }}
+                                type='clear'
+                                icon={
+                                    <Ionicons
+                                        name='checkmark-circle'
+                                        size={20}
+                                        color={colors.primary}
+                                    />
+
+                                }
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.userCont}>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}>{userData.firstName} {userData.lastName}</Text>
+                        <Text style={{ fontSize: 15, color: colors.text, paddingHorizontal: 2, paddingRight: 5 }}>@{userData.userName}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingLeft: 5, paddingRight: 5 }}>({userData.gender})</Text>
+                        <Text style={{ fontSize: 16, color: colors.text }}>{userData.job} in</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingLeft: 5, paddingRight: 5 }}>{userData.country}</Text>
+                        <Text style={{ fontSize: 16, color: colors.text, paddingRight: 5 }}>{userData.bio}</Text>
+                        <TouchableOpacity
+
+                            onPress={() => onFollows(userData.id)}
+                        >
+                            <Text style={{ fontWeight: 'bold', fontSize: 15, color: colors.text, paddingRight: 5 }}>{userData.follows.length} Follows </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => onFollowers(userData.id)}
+                        >
+                            <Text style={{ fontWeight: 'bold', fontSize: 15, color: colors.text, paddingRight: 5 }}>{followerCount(profileData)} Follower</Text>
+                        </TouchableOpacity>
+
+                    </View >
+
+
+
+                </View>
+            </View>
+        );
+    }
+    else {
+        return (
+            <View style={{ flex: 1 }}>
+                <View style={styles.mainContainer}>
+                    <View style={[styles.topCont, { backgroundColor: colors.background }]}>
+                        <Image style={styles.profileImage} source={userData.image} />
+                        <View style={styles.singleButton}>
+                            <Button
+                                onPress={() => { onFollow(userData.id) }}
+                                type='clear'
+                                icon={
+                                    <Ionicons
+                                        name='add-circle'
+                                        size={20}
+                                        color={colors.primary}
+                                    />
+
+                                }
+                            />
+                        </View>
                     </View>
                     <View style={styles.userCont}>
                         <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.text, paddingRight: 5 }}>{userData.firstName} {userData.lastName}</Text>
