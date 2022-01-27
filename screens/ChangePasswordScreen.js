@@ -87,7 +87,7 @@ export default ChangePasswordScreen = (navigation) => {
         <Text style={[styles.text, {color: colors.text}]}>To change your password, please insert your previous and new password below:</Text>
         <Input 
           placeholder="previous password"
-          placeholderTextColor = {colors.text}
+          placeholderTextColor = {colors.placeholderTextColor}
           inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerOldPassword}
@@ -97,7 +97,7 @@ export default ChangePasswordScreen = (navigation) => {
         />
         <Input 
           placeholder="new password"
-          placeholderTextColor = {colors.text}
+          placeholderTextColor = {colors.placeholderTextColor}
           inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword}
@@ -107,7 +107,7 @@ export default ChangePasswordScreen = (navigation) => {
         />
         <Input 
           placeholder="reapeat new password"
-          placeholderTextColor = {colors.text}
+          placeholderTextColor = {colors.placeholderTextColor}
           inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword2}
