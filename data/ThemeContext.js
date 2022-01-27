@@ -10,7 +10,8 @@ export const ThemeContext = React.createContext({
       background: '#dcf5de',
       card: '#A6CF98',
       border: '#146356',
-      text: "black"
+      text: "black",
+      placeholderTextColor: "#7C9473"
     }
   },
   PinkTheme: {
@@ -21,7 +22,8 @@ export const ThemeContext = React.createContext({
       background: '#ffe0ef',
       card: '#ffa6d2',
       border: '#F2789F',
-      text: "black"
+      text: "black",
+      placeholderTextColor: "#D291BC"
     }
   },
   BlueTheme: {
@@ -32,7 +34,8 @@ export const ThemeContext = React.createContext({
       background: '#F9F9F9',
       card: '#B1D0E0',
       border: '#1A374D',
-      text: "black"
+      text: "black",
+      placeholderTextColor: "#87A7B3"
     },
   },
   DarkTheme: {
@@ -43,7 +46,8 @@ export const ThemeContext = React.createContext({
       background: '#4d4d4d',
       card: '#323232',
       border: '#292929',
-      text: 'white'
+      text: 'white',
+      placeholderTextColor: "#9D9D9D"
     },
   },
   PurpleTheme: {
@@ -65,7 +69,8 @@ export const ThemeContext = React.createContext({
       background: '#ffe1d4',
       card: '#ff8f8f',
       border: '#3D0000',
-      text: 'black'
+      text: 'black',
+      placeholderTextColor: "#BAABDA"
     },
   }, 
   TurquoiseTheme: {
@@ -76,7 +81,8 @@ export const ThemeContext = React.createContext({
       background: '#EDFFEC',
       card: '#a6dece',
       border: '#3E8E7E',
-      text: 'black'
+      text: 'black',
+      placeholderTextColor: "#87A8A4"
     },
   },
 });

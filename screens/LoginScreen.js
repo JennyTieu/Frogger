@@ -92,7 +92,7 @@ export default LoginScreen = ({navigation}) => {
       <View style={styles.topContainer}>
         <Input 
           placeholder="mail/username"
-          placeholderTextColor = {colors.text}
+          placeholderTextColor = {colors.placeholderTextColor}
           inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerUserName}
@@ -100,7 +100,7 @@ export default LoginScreen = ({navigation}) => {
         />
         <Input 
           placeholder="password"
-          placeholderTextColor = {colors.text}
+          placeholderTextColor = {colors.placeholderTextColor}
           inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
           onChangeText={changeTextHandlerPassword}

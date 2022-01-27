@@ -132,8 +132,42 @@ export default RegistrationScreen = ({navigation}) => {
             }
           );
         } else {
-          setReady(true);
-          setReady(true);
+          for (let i = 0; i < profileData.profiles.length; i++) {
+            if (profileData.profiles[i].userName == currentUserName) {
+              Alert.alert(
+                "Error",
+                "username already exists",
+                [
+                  {
+                    text: "Cancel",
+                  },
+                ],
+                {
+                  cancelable: true,          
+                }
+              );
+              setCurrentUserName("")
+              break;
+            } else if (profileData.profiles[i].email == currentEmail) {
+              Alert.alert(
+                "Error",
+                "e-mail already exists",
+                [
+                  {
+                    text: "Cancel",
+                  },
+                ],
+                {
+                  cancelable: true,          
+                }
+              );
+              setCurrentEmail("")
+              break;
+            } else {
+              setReady(true);
+              setReady(true);
+            }
+          }
         }
       } else {
         Alert.alert(
@@ -208,7 +242,7 @@ export default RegistrationScreen = ({navigation}) => {
           />
         <Input 
           inputStyle={styles.textInputStyle}
-          placeholderTextColor = {colors.text}
+          placeholderTextColor = {colors.placeholderTextColor}
           placeholder="E-Mail"
           inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
@@ -217,7 +251,7 @@ export default RegistrationScreen = ({navigation}) => {
         />
         <Input 
           inputStyle={styles.textInputStyle}
-          placeholderTextColor = {colors.text}
+          placeholderTextColor = {colors.placeholderTextColor}
           placeholder="Password"
           inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
@@ -227,7 +261,7 @@ export default RegistrationScreen = ({navigation}) => {
         />
         <Input 
           inputStyle={styles.textInputStyle}
-          placeholderTextColor = {colors.text}
+          placeholderTextColor = {colors.placeholderTextColor}
           placeholder="Repeat Password"
           inputStyle= {{color: colors.text}}
           leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
@@ -239,7 +273,7 @@ export default RegistrationScreen = ({navigation}) => {
           <View style={styles.lowerScrollContainer}>
             <Input
               inputStyle={styles.textInputStyle} 
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder="Username"
               inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
@@ -248,7 +282,7 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder="First Name"
               inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
@@ -257,7 +291,7 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder="Last Name"
               inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
@@ -278,7 +312,7 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder="Job"
               inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}
@@ -287,7 +321,7 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Dropdown
               style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
-              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.placeholderTextColor}]}
               selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
               data={genderData}
               maxHeight={100}
@@ -304,7 +338,7 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Dropdown
               style={[styles.dropdown,, {borderColor: colors.primary}, isFocus && { borderColor: 'blue' }]}
-              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.placeholderTextColor}]}
               selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
@@ -325,7 +359,7 @@ export default RegistrationScreen = ({navigation}) => {
             />
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder="City"
               inputStyle= {{color: colors.text}}
               //leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10 }}/>}

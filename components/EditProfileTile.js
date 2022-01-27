@@ -173,7 +173,7 @@ export default EditProfileTile = (props) => {
           <Text style={{fontWeight: "bold", color: colors.text}}>First Name</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userFirstName}
               inputStyle= {{color: colors.text}}
               onChangeText={changeFirstNameHandler}
@@ -182,7 +182,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Last Name</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userLastName}
               inputStyle= {{color: colors.text}}
               onChangeText={changeLastNameHandler}
@@ -200,7 +200,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
             <Dropdown
               style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
-              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.placeholderTextColor}]}
               selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
               data={genderData}
               maxHeight={100}
@@ -218,7 +218,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Biography</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userBio}
               inputStyle= {{color: colors.text}}
               onChangeText={changeBioHandler}
@@ -227,7 +227,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Job</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userJob}
               inputStyle= {{color: colors.text}}
               onChangeText={changeJobHandler}
@@ -236,7 +236,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>City</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userCity}
               inputStyle= {{color: colors.text}}
               onChangeText={changeCityHandler}
@@ -245,7 +245,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
             <Dropdown
               style={[styles.dropdown,, {borderColor: colors.primary}, isFocus && { borderColor: 'blue' }]}
-              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.placeholderTextColor}]}
               selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
@@ -289,7 +289,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>First Name</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userFirstName}
               inputStyle= {{color: colors.text}}
               onChangeText={changeFirstNameHandler}
@@ -298,7 +298,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Last Name</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userLastName}
               inputStyle= {{color: colors.text}}
               onChangeText={changeLastNameHandler}
@@ -316,7 +316,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
             <Dropdown
               style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
-              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.placeholderTextColor}]}
               selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
               data={genderData}
               maxHeight={100}
@@ -339,7 +339,7 @@ export default EditProfileTile = (props) => {
                 numOfLines = e.nativeEvent.contentSize.height / 18;
               }}
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userBio}
               inputStyle= {{color: colors.text}}
               onChangeText={changeBioHandler}
@@ -348,7 +348,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Job</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userJob}
               inputStyle= {{color: colors.text}}
               onChangeText={changeJobHandler}
@@ -357,7 +357,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>City</Text>
             <Input 
               inputStyle={styles.textInputStyle}
-              placeholderTextColor = {colors.text}
+              placeholderTextColor = {colors.placeholderTextColor}
               placeholder={userCity}
               inputStyle= {{color: colors.text}}
               onChangeText={changeCityHandler}
@@ -366,7 +366,7 @@ export default EditProfileTile = (props) => {
             <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
             <Dropdown
               style={[styles.dropdown,, {borderColor: colors.primary}, isFocus && { borderColor: 'blue' }]}
-              placeholderStyle={[styles.placeholderStyle, {color: colors.text}]}
+              placeholderStyle={[styles.placeholderStyle, {color: colors.placeholderTextColor}]}
               selectedTextStyle={[styles.selectedTextStyle, {color: colors.text}]}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
