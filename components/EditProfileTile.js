@@ -6,6 +6,8 @@ import { useTheme } from '@react-navigation/native';
 import * as ImagePicker from "expo-image-picker";
 import {Button, Input} from "react-native-elements";
 import { Dropdown } from 'react-native-element-dropdown';
+import DateField from 'react-native-datefield';
+import moment from 'moment';
 
 export default EditProfileTile = (props) => {
   
@@ -48,15 +50,19 @@ export default EditProfileTile = (props) => {
   const userJob = props.data.job;
   const userCountry = props.data.country;
   const userGender= props.data.gender;
+  const userCity= props.data.city;
+  const userBirthday= props.data.birthday;
 
   const [firstNameInput, setFirstNameInput] = useState("");
   const [lastNameInput, setLastNameInput] = useState("");
   const [bioInput, setBioInput] = useState("");
   const [jobInput, setJobInput] = useState("");
+  const [cityInput, setCityInput] = useState("");
   const [countryInput, setCountryInput] = useState(null);
   const [genderInput, setGenderInput] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [birthdayInput, setBirthdayInput] = useState(null);
 
   const changeFirstNameHandler = (enteredText) => {
     setFirstNameInput(enteredText);
@@ -69,6 +75,9 @@ export default EditProfileTile = (props) => {
   };
   const changeJobHandler = (enteredText) => {
     setJobInput(enteredText);
+  };
+  const changeCityHandler = (enteredText) => {
+    setCityInput(enteredText);
   };
 
   const showImagePicker = async () => {
@@ -118,22 +127,24 @@ export default EditProfileTile = (props) => {
     }
     if(lastNameInput!==""){
       profileToChange.lastName = lastNameInput
-      
     }
     if(genderInput!==null){
-      profileToChange.gender = genderInput
-      
+      profileToChange.gender = genderInput  
     }
     if(bioInput!==""){
       profileToChange.bio = bioInput
-      
     }
     if(jobInput!==""){
       profileToChange.job = jobInput
-      
+    }
+    if(cityInput!==""){
+      profileToChange.city = cityInput
     }
     if(countryInput!==null){
       profileToChange.country = countryInput
+    }
+    if(birthdayInput!==""){
+      profileToChange.birthday = birthdayInput
     }
 
     setProfileData(profileData => ({
@@ -177,6 +188,15 @@ export default EditProfileTile = (props) => {
               onChangeText={changeLastNameHandler}
               value={lastNameInput}
             />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Birthday</Text>
+            <DateField
+              labelDate="Input date"
+              labelMonth="Input month"
+              labelYear="Input year"
+              defaultValue={new Date(userBirthday)}
+              styleInput={[styles.inputBorder, {borderColor: colors.primary, color: colors.text}]}
+              onSubmit={(value) => setBirthdayInput(moment(value).format("MM/DD/YYYY"))}
+            />
             <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
             <Dropdown
               style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
@@ -212,6 +232,15 @@ export default EditProfileTile = (props) => {
               inputStyle= {{color: colors.text}}
               onChangeText={changeJobHandler}
               value={jobInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>City</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userCity}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeCityHandler}
+              value={cityInput}
             />
             <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
             <Dropdown
@@ -275,6 +304,15 @@ export default EditProfileTile = (props) => {
               onChangeText={changeLastNameHandler}
               value={lastNameInput}
             />
+            <Text style={{fontWeight: "bold", color: colors.text}}>Birthday</Text>
+            <DateField
+              labelDate="Input date"
+              labelMonth="Input month"
+              labelYear="Input year"
+              defaultValue={new Date(userBirthday)}
+              styleInput={[styles.inputBorder, {borderColor: colors.primary, color: colors.text}]}
+              onSubmit={(value) => setBirthdayInput(moment(value).format("MM/DD/YYYY"))}
+            />
             <Text style={{fontWeight: "bold", color: colors.text}}>Gender</Text>
             <Dropdown
               style={[styles.dropdown, {borderColor: colors.primary}, isFocus && { borderColor: colors.borde }]}
@@ -315,6 +353,15 @@ export default EditProfileTile = (props) => {
               inputStyle= {{color: colors.text}}
               onChangeText={changeJobHandler}
               value={jobInput}
+            />
+            <Text style={{fontWeight: "bold", color: colors.text}}>City</Text>
+            <Input 
+              inputStyle={styles.textInputStyle}
+              placeholderTextColor = {colors.text}
+              placeholder={userCity}
+              inputStyle= {{color: colors.text}}
+              onChangeText={changeCityHandler}
+              value={cityInput}
             />
             <Text style={{fontWeight: "bold", color: colors.text}}>Location</Text>
             <Dropdown
@@ -388,6 +435,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
+  },
+  inputBorder: {
+    width: '30%',
+    borderRadius: 8,
+    borderWidth: 1,
+    marginBottom: 20,
   },
   inputSearchStyle: {
     height: 40,
