@@ -273,8 +273,8 @@ export default RegistrationScreen = ({navigation}) => {
               maximumDate={new Date("2008-01-01")}
               minimumDate={new Date("1950-01-01")}
               styleInput={[styles.inputBorder, {borderColor: colors.primary, color: colors.text}]}
-              //onSubmit={(value) => setBirthday(moment(value).format("MM/DD/YYYY"))}
-              onSubmit={(value) => console.log(value)}
+              onSubmit={(value) => setBirthday(moment(value).format("MM/DD/YYYY"))}
+              //onSubmit={(value) => console.log(value)}
             />
             <Input 
               inputStyle={styles.textInputStyle}
