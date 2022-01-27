@@ -18,6 +18,7 @@ export default DeleteAccountScreen = () => {
   const [profileData, setProfileData] = useContext(Context);
   const [accountData] = profileData.profiles.filter(item => item.id.includes(id));
   const [valid, setValid] = useState(false)
+  const [validEmail, setValidEmail] = useState(false)
 
   useEffect(async () => {
     try {
@@ -84,7 +85,36 @@ export default DeleteAccountScreen = () => {
   const changeEmailHandler = () => {
     var profileToChange = profileData.profiles.find(profileItem => profileItem.id === id);
 
-    if (currentOldEmail == profileToChange.email && currentEmail == currentEmail2) {
+    if (currentOldEmail == profileToChange.email && currentEmail == currentEmail2) { 
+      for (let i = 0; i < profileData.profiles.length; i++) { 
+        if (profileData.profiles[i].email == currentEmail) {
+          Alert.alert(
+            "Error",
+            "new e-mail already exists",
+            [{  text: "Cancel"}],
+            {cancelable: true}
+          );
+          setCurrentEmail("")
+          setCurrentEmail2("")
+          break;
+        } else {
+          setValidEmail(true)
+          setValidEmail(true)
+        }
+      }
+    } else {
+      Alert.alert(
+        "Error",
+        "Invalid Input",
+        [{text: "Cancel"}],
+        {cancelable: true}
+      );
+      setCurrentEmail("")
+      setCurrentEmail2("")
+      setCurrentOldEmail("")
+    }
+
+    if (validEmail) {
       profileToChange.email = currentEmail;
 
       setProfileData(profileData => ({
@@ -99,23 +129,8 @@ export default DeleteAccountScreen = () => {
       Alert.alert(
         "Successful",
         "Your email has successfully been changed. You will be logged out now",
-        [
-          {
-            text: "OK",
-            onPress: (signOut),
-          },
-        ]
+        [{text: "OK", onPress: (signOut)}]
       );
-    } else {
-      Alert.alert(
-        "Error",
-        "Invalid Input",
-        [{text: "Cancel"}],
-        {cancelable: true}
-      );
-      setCurrentEmail("")
-      setCurrentEmail2("")
-      setCurrentOldEmail("")
     }
   };
 
@@ -125,7 +140,7 @@ export default DeleteAccountScreen = () => {
         <Text style={[styles.titletext, {color: colors.text}]}>Account</Text>
       </View>
       <View style={styles.middleContainer}>
-        <ScrollView><Text style={[styles.text, {color: colors.text}]}>To change your email-address, type in your previous email and then your new below:</Text>
+        <ScrollView><Text style={[styles.text, {color: colors.text}]}>To change your e-mail-address, insert your previous e-mail-address and then your new below:</Text>
           <Input 
             placeholder="previous email"
             placeholderTextColor = {colors.placeholderTextColor}
@@ -154,7 +169,7 @@ export default DeleteAccountScreen = () => {
             inputContainerStyle={{marginTop: 20}}
           />
           <Button titleStyle={{color: colors.text}} buttonStyle={{ backgroundColor: colors.card, borderRadius:30, marginBottom: 30 }} title="Change Mail" type="solid" icon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>} onPress={changeEmailHandler}/>
-          <Text style={[styles.text, {color: colors.text}]}>Deleting your Account will remove all of your information from our database. This cannot be undone. If your are sure, type in your password below:</Text>
+          <Text style={[styles.text, {color: colors.text}]}>Deleting your Account will remove all of your information from our database. This cannot be undone. If your are sure, insert your password below:</Text>
           <Input 
             placeholder="password"
             placeholderTextColor = {colors.placeholderTextColor}
