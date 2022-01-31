@@ -145,7 +145,7 @@ export default DeleteAccountScreen = () => {
             placeholder="previous email"
             placeholderTextColor = {colors.placeholderTextColor}
             inputStyle= {{color: colors.text}}
-            leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
+            leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
             onChangeText={changeTextHandlerOldEmail}
             value={currentOldEmail}
             inputContainerStyle={{marginTop: 20}}
@@ -154,7 +154,7 @@ export default DeleteAccountScreen = () => {
             placeholder="new email"
             placeholderTextColor = {colors.placeholderTextColor}
             inputStyle= {{color: colors.text}}
-            leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
+            leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
             onChangeText={changeTextHandlerEmail}
             value={currentEmail}
             inputContainerStyle={{marginTop: 20}}
@@ -163,7 +163,7 @@ export default DeleteAccountScreen = () => {
             placeholder="repeat new email"
             placeholderTextColor = {colors.placeholderTextColor}
             inputStyle= {{color: colors.text}}
-            leftIcon={<Ionicons name="md-key-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
+            leftIcon={<Ionicons name="md-mail-outline" size={28} style={{ marginRight: 10, color: colors.primary }}/>}
             onChangeText={changeTextHandlerEmail2}
             value={currentEmail2}
             inputContainerStyle={{marginTop: 20}}

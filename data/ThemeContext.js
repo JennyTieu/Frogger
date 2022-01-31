@@ -55,7 +55,7 @@ export const ThemeContext = React.createContext({
     colors: {
       ...DefaultTheme.colors,
       primary: '#7027A0',
-      background: '#F0D9FF',
+      background: '#f3e8fa',
       card: '#BAABDA',
       border: '#D77FA1',
       text: 'black'
